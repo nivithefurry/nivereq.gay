@@ -16,7 +16,6 @@ async function loadTrack() {
   try {
     const res = await fetch("/api/lastfm");
     const data = await res.json();
-    console.log("Last.fm data:", data);
 
     if (!data.name || !data.artist) return;
 
