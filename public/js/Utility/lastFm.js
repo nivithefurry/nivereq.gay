@@ -41,9 +41,9 @@ async function loadTrack() {
       const liveDot = document.getElementById("live-dot");
       const linkEl = document.getElementById("lastfm-link");
 
-if (data.url) {
-  linkEl.href = data.url;
-}
+      if (data.url) {
+        linkEl.href = data.url;
+      }
       statusTextEl.textContent = statusText;
 
       if (isNowPlaying) {
@@ -87,12 +87,10 @@ function timeAgo(timestamp) {
     if (diff < 60) return `${diff} second${diff !== 1 ? "s" : ""} ago`;
 
     const minutes = Math.floor(diff / 60);
-    if (minutes < 60)
-      return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+    if (minutes < 60) return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
 
     const hours = Math.floor(minutes / 60);
-    if (hours < 24)
-      return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+    if (hours < 24) return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
 
     const days = Math.floor(hours / 24);
     return `${days} day${days !== 1 ? "s" : ""} ago`;
@@ -115,7 +113,7 @@ function pluralPL(value, unit) {
   const forms = {
     minuta: ["minuta", "minuty", "minut"],
     godzina: ["godzina", "godziny", "godzin"],
-    dzień: ["dzień", "dni", "dni"]
+    dzień: ["dzień", "dni", "dni"],
   };
 
   const [one, few, many] = forms[unit];

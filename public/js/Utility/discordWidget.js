@@ -1,8 +1,6 @@
 const jsonAPI =
   "https://discord.com/api/guilds/1325743148432887818/widget.json";
 
-
-
 class DiscordWidget {
   constructor(containerId, jsonURL, refreshInterval = 30000) {
     this.container = document.getElementById(containerId);
