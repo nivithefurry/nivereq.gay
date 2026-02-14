@@ -1,0 +1,15 @@
+[data-theme="dark"] {
+  --bg: #0f1419;
+  --surface: #161b22;
+  --card-bg: #1c2128;
+
+  --text: #e6edf3;
+  --muted: #8b949e;
+
+  --accent: #3fb68b;
+  --accent-strong: #2ea17a;
+  --accent-soft: #1f3a33;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --divider: rgba(255, 255, 255, 0.25);
+}
