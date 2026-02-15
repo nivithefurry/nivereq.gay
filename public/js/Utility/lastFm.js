@@ -4,11 +4,11 @@ let currentStatus = "";
 const texts = {
   pl: {
     now: "Aktualnie słucha",
-    last: "Ostatnio słuchał",
+    last: "🎶 Ostatnio słuchał",
   },
   en: {
     now: "Currently listening",
-    last: "Last listened",
+    last: "🎶 Last listened",
   },
 };
 

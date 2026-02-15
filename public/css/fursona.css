@@ -1,0 +1,155 @@
+.fursona-img {
+  width: clamp(350px, 40vw, 620px);
+  border-radius: 20px;
+
+  /* miękki arktyczny glow */
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25),
+    0 0 25px rgba(142, 197, 255, 0.25);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.fursona-image-wrapper {
+  padding: 8px;
+  border-radius: 22px;
+  display: flex;
+  justify-content: center;
+}
+@keyframes softFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.fursona-img {
+  animation: softFloat 6s ease-in-out infinite;
+}
+
+.tag {
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: rgba(142, 197, 255, 0.15);
+  border: 1px solid rgba(142, 197, 255, 0.3);
+
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  display: inline-flex;
+  transition: all 0.2s ease;
+}
+
+.tags {
+  justify-content: center;
+  align-items: center;
+}
+
+.tag span.emoji {
+  margin-right: 6px;
+  font-size: 1.1rem;
+}
+.color-box {
+  height: 48px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+
+  /* subtelny shadow dla czytelności */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.color-box:hover {
+  transform: translateY(-3px);
+  opacity: 0.95;
+}
+
+/* Pulse animation */
+@keyframes pulsePop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.color-box.pulse {
+  animation: pulsePop 0.35s ease;
+}
+
+
+/* Modal container */
+.image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ukryty stan */
+.image-modal.hidden {
+  display: none;
+}
+
+/* Tło */
+.image-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.2s ease;
+}
+
+/* Powiększony obraz */
+#modal-img {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  animation: zoomIn 0.25s ease;
+}
+
+/* Animacje */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+
+#age::after {
+  content: "⠀";

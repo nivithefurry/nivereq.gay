@@ -118,6 +118,14 @@
       ></iframe
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
+     <header class="navbar">
+      <div class="nav-left"></div>
+
+      <nav class="nav-center">
+        <a class="nav-link active">Homepage</a>
+        <a href="/en/fursona" class="nav-link">Fursona</a>
+      </nav>
+    </header>
     <!-- Background layer -->
     <div class="fixed inset-0 -z-10 bg-[var(--bg-gradient)]"></div>
 
@@ -287,5 +295,35 @@
     <script src="/js/Utility/discordWidget.js"></script>
     <script src="/js/Utility/lastFm.js"></script>
     <script src="/js/Utility/Age.js"></script>
+    <script>
+  // Fade in when page loads
+  window.addEventListener("load", () => {
+    document.body.classList.add("page-loaded");
+  });
+
+  // Fade out on navigation
+  document.querySelectorAll("a[href]").forEach(link => {
+    const url = link.getAttribute("href");
+
+    // Ignoruj anchor, zewnętrzne linki i nowe karty
+    if (
+      url.startsWith("#") ||
+      link.target === "_blank" ||
+      link.hasAttribute("download") ||
+      url.startsWith("http") && !url.includes(window.location.hostname)
+    ) return;
+
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      document.body.classList.remove("page-loaded");
+      document.body.classList.add("page-exit");
+
+      setTimeout(() => {
+        window.location.href = url;
+      }, 125);
+    });
+  });
+</script>
+
   </body>
 </html>

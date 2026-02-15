@@ -12,4 +12,8 @@
 
   --border: rgba(255, 255, 255, 0.08);
   --divider: rgba(255, 255, 255, 0.25);
+  --nav-text: rgba(255, 255, 255, 0.7);
+  --nav-text-active: #ffffff;
+  --nav-accent: #8ec5ff; 
+  --nav-bg: transparent;
 }
