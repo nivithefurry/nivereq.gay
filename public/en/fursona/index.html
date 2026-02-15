@@ -82,10 +82,7 @@
     <link rel="alternate" hreflang="x-default" href="https://nivereq.gay/" />
 
     <!-- Open Graph -->
-    <meta
-      property="og:title"
-      content="nivereq – Twitch streamer & developer 🦊"
-    />
+    <meta property="og:title" content="🦊 nivereq • fursona ❄️" />
     <meta
       property="og:description"
       content="Polish YouTuber and Twitch streamer. Arctic fox, photography & programming enthusiast."
@@ -118,27 +115,41 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "nivereq",
-        "url": "https://nivereq.gay/en/",
-        "alternateName": ["nivithefurry", "nivi"],
-        "nationality": "Polish",
-        "sameAs": [
-          "https://youtube.com/@nivithefurry",
-          "https://twitch.tv/nivithefurry",
-          "https://instagram.com/nivithefurry",
-          "https://tiktok.com/@nivithefurry",
-          "https://github.com/nivithefurry"
-        ],
-        "description": "Polish YouTuber, Twitch streamer, photographer and developer. Furry with arctic fox fursona.",
-        "image": "https://nivereq.gay/assets/img/avatar.png",
-        "jobTitle": [
-          "YouTuber",
-          "Twitch Streamer",
-          "Photographer",
-          "Developer"
-        ],
-        "knowsLanguage": ["Polish", "English"]
+        "@type": "ProfilePage",
+        "inLanguage": "en",
+        "url": "https://nivereq.gay/en/fursona/",
+        "name": "Fursona – Nivereq",
+        "description": "nivereq's fursona – an arctic fox. Ref sheet, color palette, and basic information.",
+        "mainEntity": {
+          "@type": "Person",
+          "name": "Nivereq",
+          "alternateName": ["nivi", "nivithefurry"],
+          "description": "An arctic fox – the fursona of the creator known as nivereq.",
+          "nationality": "Polish",
+          "knowsLanguage": ["Polish", "English"],
+          "image": {
+            "@type": "ImageObject",
+            "url": "https://nivereq.gay/assets/img/nivereq_current_ref.jpg",
+            "contentUrl": "https://nivereq.gay/assets/img/nivereq_current_ref.jpg"
+          },
+          "url": "https://nivereq.gay/en/fursona/"
+        },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://nivereq.gay/assets/img/nivereq_current_ref.jpg"
+        },
+        "hasPart": {
+          "@type": "CreativeWork",
+          "name": "Ref Sheet - Nivereq",
+          "description": "Official fursona design of Nivereq in the form of a reference illustration.",
+          "image": "https://nivereq.gay/assets/img/nivereq_current_ref.jpg",
+          "creator": {
+            "@type": "Person",
+            "name": "Pandza",
+            "url": "https://discord.com/users/996397191570673734",
+            "gender": "Female"
+          }
+        }
       }
     </script>
   </head>
@@ -368,34 +379,34 @@
       });
     </script>
     <script>
-  // Fade in when page loads
-  window.addEventListener("load", () => {
-    document.body.classList.add("page-loaded");
-  });
+      // Fade in when page loads
+      window.addEventListener("load", () => {
+        document.body.classList.add("page-loaded");
+      });
 
-  // Fade out on navigation
-  document.querySelectorAll("a[href]").forEach(link => {
-    const url = link.getAttribute("href");
+      // Fade out on navigation
+      document.querySelectorAll("a[href]").forEach((link) => {
+        const url = link.getAttribute("href");
 
-    // Ignoruj anchor, zewnętrzne linki i nowe karty
-    if (
-      url.startsWith("#") ||
-      link.target === "_blank" ||
-      link.hasAttribute("download") ||
-      url.startsWith("http") && !url.includes(window.location.hostname)
-    ) return;
+        // Ignoruj anchor, zewnętrzne linki i nowe karty
+        if (
+          url.startsWith("#") ||
+          link.target === "_blank" ||
+          link.hasAttribute("download") ||
+          (url.startsWith("http") && !url.includes(window.location.hostname))
+        )
+          return;
 
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.body.classList.remove("page-loaded");
-      document.body.classList.add("page-exit");
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.body.classList.remove("page-loaded");
+          document.body.classList.add("page-exit");
 
-      setTimeout(() => {
-        window.location.href = url;
-      }, 125);
-    });
-  });
-</script>
-
+          setTimeout(() => {
+            window.location.href = url;
+          }, 125);
+        });
+      });
+    </script>
   </body>
 </html>

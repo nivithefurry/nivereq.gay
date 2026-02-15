@@ -377,34 +377,34 @@
       });
     </script>
     <script>
-  // Fade in when page loads
-  window.addEventListener("load", () => {
-    document.body.classList.add("page-loaded");
-  });
+      // Fade in when page loads
+      window.addEventListener("load", () => {
+        document.body.classList.add("page-loaded");
+      });
 
-  // Fade out on navigation
-  document.querySelectorAll("a[href]").forEach(link => {
-    const url = link.getAttribute("href");
+      // Fade out on navigation
+      document.querySelectorAll("a[href]").forEach((link) => {
+        const url = link.getAttribute("href");
 
-    // Ignoruj anchor, zewnętrzne linki i nowe karty
-    if (
-      url.startsWith("#") ||
-      link.target === "_blank" ||
-      link.hasAttribute("download") ||
-      url.startsWith("http") && !url.includes(window.location.hostname)
-    ) return;
+        // Ignoruj anchor, zewnętrzne linki i nowe karty
+        if (
+          url.startsWith("#") ||
+          link.target === "_blank" ||
+          link.hasAttribute("download") ||
+          (url.startsWith("http") && !url.includes(window.location.hostname))
+        )
+          return;
 
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.body.classList.remove("page-loaded");
-      document.body.classList.add("page-exit");
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.body.classList.remove("page-loaded");
+          document.body.classList.add("page-exit");
 
-      setTimeout(() => {
-        window.location.href = url;
-      }, 125);
-    });
-  });
-</script>
-
+          setTimeout(() => {
+            window.location.href = url;
+          }, 125);
+        });
+      });
+    </script>
   </body>
 </html>
