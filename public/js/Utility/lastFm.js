@@ -14,7 +14,9 @@ const texts = {
 
 async function loadTrack() {
   try {
-    const res = await fetch("/api/lastfm");
+    const res = await fetch("/api/lastfm", {
+      headers: { "x-internal-request": "yes" },
+    });
     const data = await res.json();
 
     if (!data.name || !data.artist) return;

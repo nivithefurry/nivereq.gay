@@ -87,6 +87,17 @@ button:hover {
   transition: color 0.2s ease;
 }
 
+
+@media (min-width: 640px) {
+  .fox-links a {
+    padding: 0 12px;
+  }
+
+  .fox-links a i {
+    font-size: 1.8rem;
+  }
+  
+}
 .fox-links a i {
   display: inline-block;
   transition: transform 0.2s ease;
