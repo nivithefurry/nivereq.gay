@@ -40,3 +40,22 @@ if (savedTheme) {
   html.setAttribute("data-theme", systemTheme);
   updateEmoji(systemTheme);
 }
+
+let ___themeSwitcherClicks = 0;
+let ___easterEggVisible = false;
+
+toggle.addEventListener("click", () => {
+  ___themeSwitcherClicks++;
+  if (___themeSwitcherClicks === 10 && !___easterEggVisible) {
+    ___easterEggVisible = true;
+    let video = document.createElement("video");
+    video.src = "assets/boykisser.mp4";
+    video.autoplay = "true";
+    document.body.appendChild(video);
+    setTimeout(() => {
+      video.remove();
+      ___easterEggVisible = false;
+      ___themeSwitcherClicks = 0;
+    }, 4800);
+  }
+});
