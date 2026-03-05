@@ -1,0 +1,130 @@
+.art-section {
+  margin-top: 80px;
+}
+
+.art-carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 16px;
+  transition: transform 0.35s ease;
+}
+
+.carousel-track img {
+  width: 260px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+
+  border: none;
+  border-radius: 10px;
+
+  color: white;
+  cursor: pointer;
+
+  z-index: 5;
+}
+
+.prev {
+  left: 12px;
+}
+
+.next {
+  right: 12px;
+}
+
+.art-carousel::after,
+.art-carousel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2; /* DODANO: żeby cienie były zawsze nad obrazkami, ale pod przyciskami */
+}
+
+.art-carousel::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent);
+}
+
+.art-carousel::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.5), transparent);
+}
+
+/* --- VIEWER (bez zmian) --- */
+#art-viewer {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  background: rgba(0, 0, 0, 0.35);
+
+  z-index: 9999;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+#art-viewer.active {
+  opacity: 1;
+  pointer-events: all;
+  cursor: zoom-out;
+}
+
+.viewer-content {
+  text-align: center;
+  max-width: 95vw;
+}
+
+#viewer-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 12px;
+  cursor: auto;
+}
+
+#viewer-author {
+  margin-top: 14px;
+  color: white;
+  font-size: 14px;
+}
+
+.carousel-track img {
+  cursor: zoom-in;
+}
