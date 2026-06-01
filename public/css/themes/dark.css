@@ -1,19 +1,26 @@
 [data-theme="dark"] {
-  --bg: #0f1419;
-  --surface: #161b22;
-  --card-bg: #1c2128;
+  /* Tła - głębokie, bardzo ciemne odcienie morsko-szare */
+  --bg: #0d1413;
+  --surface: #141f1d;
+  --card-bg: #1a2926;
 
-  --text: #e6edf3;
-  --muted: #8b949e;
+  /* Tekst - łagodna biel i zgaszony, chłodny szary */
+  --text: #e8f5f3;
+  --muted: #829e9a;
 
-  --accent: #3fb68b;
-  --accent-strong: #2ea17a;
-  --accent-soft: #1f3a33;
+  /* Akcenty - jasna miętowa zieleń/cyjan z łapek i włosów */
+  --accent: #5ce6d6; 
+  --accent-strong: #3bcfbf;
+  --accent-soft: #163d38;
 
+  /* Granice i linie - delikatnie prześwitująca biel */
   --border: rgba(255, 255, 255, 0.08);
-  --divider: rgba(255, 255, 255, 0.25);
-  --nav-text: rgba(255, 255, 255, 0.7);
+  --divider: rgba(255, 255, 255, 0.15);
+
+  /* Nawigacja */
+  --nav-text: rgba(232, 245, 243, 0.7);
   --nav-text-active: #ffffff;
-  --nav-accent: #8ec5ff; 
+  /* Kontrastujący akcent w nawigacji - różowy z kości/języka */
+  --nav-accent: #f25c7e; 
   --nav-bg: transparent;
 }

@@ -5,3 +5,4 @@ package-lock.json
 package.json
 server.js
 .DS_Store
+_*_old*
