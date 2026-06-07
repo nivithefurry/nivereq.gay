@@ -1,51 +1,70 @@
 // ==========================================
 // 🐾 Pat Counter
-// Handles the interactive avatar clicking and syncing with the server.
+// Handles interactive avatar clicking and optimized syncing with Supabase.
 // ==========================================
 
 const avatar = document.querySelector(".avatar-wrap img");
 const counter = document.getElementById("pat-count");
 
+// Keep track of the exact, accurate count in JavaScript memory
+let accurateCount = 0;
+let pendingPats = 0; // Tracks how many clicks happened during a rapid spam session
+let debounceTimer = null;
+
 if (avatar && counter) {
-  // 1. Fetch the initial count when the page loads
+  // 1. Fetch initial count from Supabase database when page loads
   fetch("/api/pat")
     .then(r => r.json())
-    .then(d => { counter.textContent = formatCount(d.count); })
+    .then(d => { 
+      accurateCount = d.count; 
+      counter.textContent = formatCount(accurateCount); 
+    })
     .catch(() => console.warn("Failed to load pat count"));
 
   // 2. Handle the user clicking the avatar
   avatar.addEventListener("click", () => {
-    // Retrigger the CSS animation by removing and quickly re-adding the class
+    // Retrigger the CSS jump/pat animation
     avatar.classList.remove("pat-anim");
-    void avatar.offsetWidth; // This forces the browser to redraw the element
+    void avatar.offsetWidth; // Force a browser repaint
     avatar.classList.add("pat-anim");
 
-    // Optimistic Update: Immediately increment the number on the user's screen 
-    // before the server responds so the site feels incredibly fast.
-    const current = parseCount(counter.textContent);
-    counter.textContent = formatCount(current + 1);
+    // Optimistic Update: Immediately bump numbers locally so it feels fast
+    accurateCount += 1; 
+    pendingPats += 1; 
+    counter.textContent = formatCount(accurateCount);
 
-    // 3. Send the actual click to the server in the background
-    fetch("/api/pat", { method: "POST" })
-      .then(r => r.json())
-      .then(d => { 
-        // Sync the final confirmed count from the server just in case
-        counter.textContent = formatCount(d.count); 
-      })
-      .catch(() => console.warn("Failed to sync pat count"));
+    // Rate-limit/Debounce protection: Clear the countdown timer on every click
+    clearTimeout(debounceTimer);
+
+    // Only fire the network request when the user STOPS clicking for 1 entire second
+    debounceTimer = setTimeout(() => {
+      syncPatsToServer(pendingPats);
+      pendingPats = 0; // Reset our local bundle queue
+    }, 1000);
   });
 }
 
-// Converts large numbers into readable formats (e.g., 1500 -> 1.5k)
+// 3. Send bundled clicks together to the backend API
+function syncPatsToServer(amountToSend) {
+  if (amountToSend <= 0) return;
+
+  fetch("/api/pat", { 
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ amount: amountToSend }) 
+  })
+    .then(r => r.json())
+    .then(d => { 
+      // Sync the final confirmed count from the database just in case
+      accurateCount = d.count;
+      counter.textContent = formatCount(accurateCount); 
+    })
+    .catch(() => console.warn("Failed to sync pat count"));
+}
+
+// Converts large numbers into readable shortened string formats (e.g., 2080 -> 2.1k)
 function formatCount(n) {
   if (n >= 1000000) return (n / 1000000).toFixed(1) + "M";
   if (n >= 1000)    return (n / 1000).toFixed(1)    + "k";
   return String(n);
-}
-
-// Converts readable formats back into standard integers for math
-function parseCount(str) {
-  if (str.endsWith("M")) return Math.round(parseFloat(str) * 1000000);
-  if (str.endsWith("k")) return Math.round(parseFloat(str) * 1000);
-  return parseInt(str, 10) || 0;
 }
