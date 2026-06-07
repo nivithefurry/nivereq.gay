@@ -1,35 +1,55 @@
 // ==========================================
-// 🐾 Pat Counter API (Cloudflare Pages Function)
-// Uses Cloudflare KV (Key-Value) storage to persist the count globally.
+// 🐾 Pat Counter API (External Supabase Postgres)
+// Handles direct atomic increments via REST API
 // ==========================================
 
-// Handle GET requests (Retrieve the current pat count)
 export async function onRequestGet(context) {
   const { env } = context;
+  const supabaseUrl = env.SUPABASE_URL;
+  const supabaseKey = env.SUPABASE_KEY;
 
-  // Fetch the current count from the Cloudflare KV namespace named 'PAT_COUNTER'.
-  // If no one has patted yet, this might return null.
-  const count = await env.PAT_COUNTER.get("count");
+  // Fetch the global_count row from Supabase
+  const response = await fetch(`${supabaseUrl}/rest/v1/pat_store?id=eq.global_count&select=count`, {
+    headers: {
+      "apikey": supabaseKey,
+      "Authorization": `Bearer ${supabaseKey}`
+    }
+  });
 
-  // Parse the count as an integer (base 10), defaulting to "0" if it's null.
-  // Response.json() automatically sets the correct headers for you.
-  return Response.json({ count: parseInt(count || "0", 10) });
+  const data = await response.json();
+  const count = data[0]?.count || 0;
+
+  return Response.json({ count });
 }
 
-// Handle POST requests (Increment the pat count)
 export async function onRequestPost(context) {
-  const { env } = context;
+  const { env, request } = context;
+  const supabaseUrl = env.SUPABASE_URL;
+  const supabaseKey = env.SUPABASE_KEY;
 
-  // 1. Get the current count from KV storage
-  const current = await env.PAT_COUNTER.get("count");
+  // Read bundled amount from frontend (defaults to 1 if not provided)
+  const body = await request.json().catch(() => ({}));
+  const amountToAdd = parseInt(body.amount || "1", 10);
   
-  // 2. Increment it by 1 (again, making sure to parse it correctly)
-  const next = parseInt(current || "0", 10) + 1;
+  // 1. Get current count
+  const getRes = await fetch(`${supabaseUrl}/rest/v1/pat_store?id=eq.global_count&select=count`, {
+    headers: { "apikey": supabaseKey, "Authorization": `Bearer ${supabaseKey}` }
+  });
+  const getData = await getRes.json();
+  const currentCount = getData[0]?.count || 0;
+  const nextCount = currentCount + amountToAdd;
 
-  // 3. Save the new count back to KV storage. 
-  // Cloudflare KV requires values to be stored as strings or ArrayBuffers.
-  await env.PAT_COUNTER.put("count", String(next));
+  // 2. Update database
+  await fetch(`${supabaseUrl}/rest/v1/pat_store?id=eq.global_count`, {
+    method: "PATCH",
+    headers: {
+      "apikey": supabaseKey,
+      "Authorization": `Bearer ${supabaseKey}`,
+      "Content-Type": "application/json",
+      "Prefer": "return=minimal"
+    },
+    body: JSON.stringify({ count: nextCount })
+  });
 
-  // 4. Return the updated count to the frontend
-  return Response.json({ count: next });
+  return Response.json({ count: nextCount });
 }
