@@ -1,26 +1,51 @@
+/* ============================================
+   nivereq.gay — css/themes/dark.css
+   Dark theme variable overrides.
+   These colors activate when the <html> tag has data-theme="dark".
+   ============================================ */
+
 [data-theme="dark"] {
-  /* Tła - głębokie, bardzo ciemne odcienie morsko-szare */
-  --bg: #0d1413;
-  --surface: #141f1d;
-  --card-bg: #1a2926;
+  /* --- Backgrounds - deep, dark sea-gray --- */
+  --bg:           #0f1614;
+  --bg-gradient:  #0f1614;
+  --surface:      #1a2522;
+  --card-bg:      #1e2b28;
 
-  /* Tekst - łagodna biel i zgaszony, chłodny szary */
-  --text: #e8f5f3;
-  --muted: #829e9a;
+  /* --- Text - soft white and muted cool gray --- */
+  --text:         #e8f4f1;
+  --muted:        #88a8a3;
 
-  /* Akcenty - jasna miętowa zieleń/cyjan z łapek i włosów */
-  --accent: #5ce6d6; 
-  --accent-strong: #3bcfbf;
-  --accent-soft: #163d38;
+  /* --- Accents - mint green/cyan --- */
+  --accent:       #5ce6d6;
+  --accent-strong:#3bcfbf;
+  --accent-soft:  #0e2e2a;
 
-  /* Granice i linie - delikatnie prześwitująca biel */
-  --border: rgba(255, 255, 255, 0.08);
-  --divider: rgba(255, 255, 255, 0.15);
+  /* --- Rose/Pink Accents --- */
+  --rose:         #f47a94;
+  --rose-strong:  #f04e72;
+  --rose-soft:    #2e1019;
 
-  /* Nawigacja */
-  --nav-text: rgba(232, 245, 243, 0.7);
+  /* --- Borders & Dividers - slightly transparent white --- */
+  --border:       rgba(255, 255, 255, 0.1);
+  --divider:      rgba(255, 255, 255, 0.07);
+
+  /* --- Navigation --- */
+  --nav-text:        rgba(232, 244, 241, 0.5);
   --nav-text-active: #ffffff;
-  /* Kontrastujący akcent w nawigacji - różowy z kości/języka */
-  --nav-accent: #f25c7e; 
-  --nav-bg: transparent;
+  --nav-accent:      #f47a94;
+  --nav-bg:          transparent;
+
+  /* --- Special Elements --- */
+  --radial-overlay: rgba(124, 58, 237, 0.07); /* Faint purple background glow */
+  --heading-color:  #e8f4f1;
+
+  /* --- Tinted Cards --- 
+     Same darkness as the surface, just with a hint of color in the borders */
+  --rose-card-bg:    #221a1d;
+  --rose-card-border:rgba(244, 122, 148, 0.25);
+  --rose-card-title: #f47a94;
+
+  --teal-card-bg:    #182422;
+  --teal-card-border:rgba(92, 230, 214, 0.22);
+  --teal-card-title: #5ce6d6;
 }

@@ -1,453 +1,178 @@
+/* ============================================
+   nivereq.gay — main.css
+   Core styles, layout, and light mode variables
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+
 :root {
-/* Tła - śnieżna biel futra Nivereqa i bardzo jasne szaro-miętowe odcienie */
-  --bg: #f4f9f8;
-  --surface: #ffffff;
-  --card-bg: #ffffff;
+  /* --- Base Light Theme Colors --- */
+  --bg:           #f0f7f6;
+  --bg-gradient:  #f0f7f6;
+  --surface:      #ffffff;
+  --card-bg:      #ffffff;
 
-  /* Tekst - bardzo ciemny, chłodny szary dla wysokiego kontrastu */
-  --text: #172624;
-  --muted: #64827d;
+  --text:         #141e1c;
+  --muted:        #607a76;
 
-  /* Akcenty - lekko przyciemniona mięta, aby była czytelna na jasnym tle */
-  --accent: #2e9e90;
-  --accent-strong: #1e7a6f;
-  --accent-soft: #d8f5f0;
+  /* --- Accents --- */
+  --accent:       #1fa899;
+  --accent-strong:#157a6e;
+  --accent-soft:  #d6f5f1;
 
-  /* Granice i linie - ciemne z dużą przezroczystością */
-  --border: rgba(23, 38, 36, 0.12);
-  --divider: rgba(23, 38, 36, 0.08);
+  /* Rose/pink from the fursona palette */
+  --rose:         #e8395f;
+  --rose-strong:  #c02048;
+  --rose-soft:    #fdedf1;
 
-  /* Nawigacja */
-  --nav-text: rgba(23, 38, 36, 0.7);
-  --nav-text-active: #000000;
-  /* Kontrastujący akcent w nawigacji - mocniejszy różowy */
-  --nav-accent: #e63e64; 
-  --nav-bg: transparent;
+  /* --- UI Elements --- */
+  --border:       rgba(20, 30, 28, 0.09);
+  --divider:      rgba(20, 30, 28, 0.06);
+
+  /* --- Navigation --- */
+  --nav-text:        rgba(20, 30, 28, 0.55);
+  --nav-text-active: #141e1c;
+  --nav-accent:      #e8395f;
+  --nav-bg:          transparent;
+
+  /* --- Tinted Cards --- */
+  --rose-card-bg:    #fff8fa;
+  --rose-card-border:rgba(232, 57, 95, 0.15);
+  --rose-card-title: #c02048;
+
+  --teal-card-bg:    #f2fbf9;
+  --teal-card-border:rgba(31, 168, 153, 0.18);
+  --teal-card-title: #157a6e;
+
+  /* Explicit heading color to allow easy dark mode overrides */
+  --heading-color:   #141e1c;
+
+  /* Theme-aware purple radial background overlay */
+  --radial-overlay: rgba(124, 58, 237, 0.12);
 }
+
+/* ============================================
+   🌈 Animated Pride Bar
+   Sits fixed at the very top of the screen
+   ============================================ */
 body::before {
   content: "";
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 3.5px; /* Grubość paska */
-  margin-bottom: 4.5px;
-  background: linear-gradient(90deg, #ff0019da, #ffa52cda, #ffff41da, #008018da, #0000f9da, #86007dda);
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    #ff3d5a, #ff7b2e, #ffd000, #00c97a, #3d8eff, #9b4dff, #ff3d5a
+  );
+  /* 200% width allows the gradient to pan left seamlessly */
+  background-size: 200% 100%;
+  animation: pride-shimmer 4s linear infinite;
   z-index: 9999;
-  box-shadow: 0px 0px 15px 2px rgba(255, 105, 180, 0.3); /* Różowa poświata paska */
+  box-shadow:
+    0 0 0 0 transparent,
+    0 1px 12px rgba(180, 60, 200, 0.25),
+    0 1px 6px  rgba(255, 80, 100, 0.2);
 }
+
+@keyframes pride-shimmer {
+  0%   { background-position: 0% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ============================================
+   🏗️ Base HTML & Body Settings
+   ============================================ */
+html {
+  scroll-behavior: smooth; /* Enables smooth scrolling when clicking anchor links */
+}
+
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
-  transition: 0.3s ease;
-}
-
-.container {
-  max-width: 900px;
-  margin: 50px auto;
-  padding: 20px;
-}
-
-.card {
-  background: var(--card-bg);
-  border: 2px solid var(--border);
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 0 25px rgba(96, 192, 160, 0.2);
-  transition: 0.3s ease;
-}
-
-h1 {
-  color: var(--accent-strong);
-  margin-top: 0;
-}
-
-button {
-  background: var(--accent);
-  color: #003333;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s ease;
-}
-
-button:hover {
-  background: var(--accent-strong);
-  color: white;
-  transform: scale(1.05);
-}
-
-.link {
-  color: var(--accent-strong);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.link:hover {
-  color: var(--accent);
-}
-
-.fox-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.6rem;
-}
-
-.fox-links a {
-  position: relative;
-  padding: 0 16px;
-  color: var(--accent);
-  transition: color 0.2s ease;
-}
-
-
-@media (min-width: 640px) {
-  .fox-links a {
-    padding: 0 12px;
-  }
-
-  .fox-links a i {
-    font-size: 1.8rem;
-  }
+  -webkit-font-smoothing: antialiased;
   
-}
-.fox-links a i {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-
-.fox-links a:hover {
-  color: var(--accent-strong);
-}
-
-/* 🔥 skalujemy TYLKO ikonę */
-.fox-links a:hover i {
-  transform: scale(1.25);
-}
-
-/* separator */
-.fox-links a:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 18px;
-  background: var(--divider);
-  opacity: 0.6;
-}
-
-#discord-widget {
-  background: var(--card-bg);
-  border: 2px solid var(--border);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 0 25px rgba(96, 192, 160, 0.2);
-  transition: 0.3s ease;
-
-  display: grid;
-  grid-template-columns: auto 1fr;
-  column-gap: 12px;
-  row-gap: 6px;
-  align-items: center;
-
-  cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-#discord-widget:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-#discord-widget:active {
-  transform: scale(0.98);
-}
-
-.emoji {
-  font-size: 1.8rem;
-  line-height: 1;
-  grid-row: 1;
-}
-
-/* Nazwa serwera */
-.server-name {
-  margin: 0;
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  grid-column: 2;
-  grid-row: 2;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-}
-
-.about-grid {
-  display: grid;
-  gap: 16px;
-}
-
-@media (min-width: 640px) {
-  .about-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.about-card {
-  display: block;
-  padding: 18px;
-  border-radius: 14px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-/* tylko linki mają pointer */
-a.about-card {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-}
-
-a.about-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-a.about-card:active {
-  transform: scale(0.98);
-}
-
-.site-footer {
-  padding: 40px 20px;
-  border-top: 1px solid var(--border);
-  background: var(--bg);
-}
-
-.footer-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 🔥 centrowanie w poziomie */
-  text-align: center;
-  gap: 6px;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.footer-copy {
-  margin: 0;
-}
-
-.footer-note {
-  margin: 8px 0 0 0;
-  opacity: 0.7;
-}
-
-.lang-switch {
-  margin-top: 6px;
-  font-size: 0.85rem;
-  opacity: 0.7;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* 🔥 centrowanie */
-  gap: 6px;
-}
-
-.lang-switch a {
-  text-decoration: none;
-  color: var(--text);
-  transition: opacity 0.2s ease;
-}
-
-.lang-switch a:hover {
-  opacity: 1;
-}
-
-.lang-switch .divider {
-  margin: 0 6px;
-  opacity: 0.4;
-}
-
-/* 🔥 aktywny język */
-.lang-switch a.active {
-  font-weight: 600;
-  opacity: 1;
-}
-
-.lastfm-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 20px;
-  border-radius: 16px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
-  backdrop-filter: blur(12px);
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.25),
-    0 1px 0 rgba(255, 255, 255, 0.03) inset;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-}
-.lastfm-card:hover {
-  transform: translateY(-2px);
-}
-
-.lastfm-card:active {
-  transform: scale(0.98);
-}
-.lastfm-card.fade-out {
+  /* Fade-in effect on load */
   opacity: 0;
-  transform: translateY(6px);
+  transition: opacity 0.125s linear, background 0.3s ease, color 0.3s ease;
 }
 
-#album-art {
-  width: 80px;
-  height: 80px;
-  border-radius: 12px;
-  object-fit: cover;
-  transition: opacity 0.3s ease;
+body.page-loaded { opacity: 1; }
+body.page-exit   { opacity: 0; }
+
+/* Force custom background to override any inline framework styles (like UnoCSS) */
+body, body.bg-\[var\(--bg\)\] {
+  background-color: var(--bg) !important;
 }
 
-#album-art.fade-img {
-  opacity: 0;
-}
-
-.lastfm-label {
-  display: flex; /* 🔥 DODAJ */
-  align-items: center; /* 🔥 DODAJ */
-  gap: 6px; /* 🔥 opcjonalnie */
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--muted);
-}
-
-.lastfm-track {
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.lastfm-label.live {
-  color: #4ade80; /* zielony */
-}
-
-.lastfm-label.recent {
-  color: var(--muted);
-}
-.live-dot {
-  display: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #4ade80;
-  position: relative;
-  transform: scale(0.6);
-  transition: 0.2s ease;
-}
-
-.live-dot.active {
-  display: inline-block;
-}
-
-.live-dot.active::after {
-  content: "";
-  position: absolute;
+/* Fixed background layers for visual depth */
+.bg-layer-main {
+  position: fixed;
   inset: 0;
-  border-radius: 50%;
-  background: #4ade80;
-  animation: pulse 1.5s infinite;
-  opacity: 0.6;
+  z-index: -10;
+  background-color: var(--bg);
+  pointer-events: none; /* Prevents the background from blocking clicks */
+  transition: background-color 0.3s ease;
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  70% {
-    transform: scale(2.2);
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
+.bg-layer-radial {
+  position: fixed;
+  inset: 0;
+  z-index: -9;
+  pointer-events: none;
+  background: radial-gradient(circle at 80% 20%, var(--radial-overlay), transparent 50%);
+  transition: background 0.3s ease;
 }
 
-span.highlight {
-  color: var(--accent-strong);
-  font-weight: 600;
+h1, h2, h3, h4 {
+  color: var(--heading-color); /* Updated to use the variable for dark mode support */
 }
+
+/* ============================================
+   🧭 Navigation Bar
+   ============================================ */
 .navbar {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 1rem 2rem;
-  margin: 0 1.5rem;
+  padding: 1.1rem 2rem;
+  margin: 0 1rem;
   background: var(--nav-bg);
 }
 
 .nav-center {
   display: flex;
-  gap: 1.8rem;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
 }
 
-.nav-right {
+.nav-left, .nav-right {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
 }
+
+.nav-right { justify-content: flex-end; }
 
 .nav-link {
   position: relative;
   text-decoration: none;
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--nav-text);
-  transition:
-    color 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.nav-link:hover {
-  color: var(--nav-text-active);
-}
-
-.nav-link.active {
-  color: var(--nav-text-active);
   font-weight: 600;
+  color: var(--nav-text);
+  transition: color 0.2s ease;
 }
 
+.nav-link:hover, .nav-link.active {
+  color: var(--nav-text-active);
+}
+
+/* Underline indicator for the active page */
 .nav-link.active::after {
   content: "";
   position: absolute;
@@ -457,33 +182,389 @@ span.highlight {
   height: 2px;
   border-radius: 2px;
   background: var(--nav-accent);
-  opacity: 0.8;
-}
-html {
-  scroll-behavior: smooth;
 }
 
-body {
-  opacity: 0;
-  transition: opacity 0.125s linear;
+/* ============================================
+   🗂️ Cards & Grid Layouts
+   ============================================ */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 25px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-body.page-loaded {
+.about-grid {
+  display: grid;
+  gap: 12px;
+}
+
+/* Switch to two columns on screens wider than 540px */
+@media (min-width: 540px) {
+  .about-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.about-card {
+  display: block;
+  padding: 17px 20px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.about-card h3 {
+  margin: 0 0 5px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.about-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* Tinted Card Variants */
+.about-card.rose {
+  background: var(--rose-card-bg);
+  border-color: var(--rose-card-border);
+}
+.about-card.rose h3 { color: var(--rose-card-title); }
+
+.about-card.teal {
+  background: var(--teal-card-bg);
+  border-color: var(--teal-card-border);
+}
+.about-card.teal h3 { color: var(--teal-card-title); }
+
+/* Card Hover Animations */
+a.about-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+}
+a.about-card:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   🌐 Social Links (Fox icons)
+   ============================================ */
+.fox-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.55rem;
+}
+
+.fox-links a {
+  position: relative;
+  padding: 0 14px;
+  color: var(--accent);
+  transition: color 0.2s ease;
+}
+
+.fox-links a i {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.fox-links a:hover { color: var(--accent-strong); }
+.fox-links a:hover i { transform: scale(1.25); }
+
+/* Add vertical dividers between links, except for the last one */
+.fox-links a:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 16px;
+  background: var(--divider);
+}
+
+/* ============================================
+   🎵 Last.fm Widget
+   ============================================ */
+.lastfm-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.lastfm-card:hover  { transform: translateY(-2px); }
+.lastfm-card:active { transform: scale(0.98); }
+
+/* Used by JS to animate track changes */
+.lastfm-card.fade-out { opacity: 0; transform: translateY(5px); }
+
+#album-art {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
+}
+
+#album-art.fade-img { opacity: 0; }
+
+.lastfm-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.lastfm-label.live   { color: #4ade80; }
+.lastfm-label.recent { color: var(--muted); }
+
+.lastfm-track {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+/* Pulsing green dot for 'Now Playing' */
+.live-dot {
+  display: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.live-dot.active { display: inline-block; }
+
+.live-dot.active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: pulse-dot 1.5s infinite;
+  opacity: 0.6;
+}
+
+@keyframes pulse-dot {
+  0%   { transform: scale(1); opacity: 0.6; }
+  70%  { transform: scale(2.4); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* ============================================
+   🎮 Discord Widget
+   ============================================ */
+#discord-widget {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 14px;
+  row-gap: 4px;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#discord-widget:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+}
+
+#discord-widget:active { transform: scale(0.98); }
+
+.emoji {
+  font-size: 1.9rem;
+  line-height: 1;
+  grid-row: 1;
+}
+
+.server-name {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+span.highlight {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+/* ============================================
+   🐾 Pat Counter Animation
+   ============================================ */
+.avatar-wrap {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none; /* Prevents accidentally highlighting the image while clicking fast */
+}
+
+.avatar-wrap img {
+  transition: transform 0.1s ease;
+}
+
+/* The wiggling animation triggered by JS on click */
+@keyframes pat {
+  0%   { transform: scale(1)    rotate(0deg);   }
+  25%  { transform: scale(1.12) rotate(-6deg);  }
+  50%  { transform: scale(1.08) rotate(4deg);   }
+  75%  { transform: scale(1.1)  rotate(-3deg);  }
+  100% { transform: scale(1)    rotate(0deg);   }
+}
+
+.avatar-wrap img.pat-anim {
+  animation: pat 0.35s ease;
+}
+
+.pat-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.pat-label:hover { color: var(--rose); }
+
+#pat-count {
+  font-weight: 600;
+  color: var(--rose);
+}
+
+/* ============================================
+   🦶 Footer
+   ============================================ */
+.site-footer {
+  padding: 40px 20px 36px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.footer-copy { margin: 0; }
+
+.footer-note {
+  margin: 6px 0 0;
+  opacity: 0.65;
+  font-size: 0.8rem;
+}
+
+/* Language Switcher */
+.lang-switch {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  opacity: 0.65;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.lang-switch a {
+  text-decoration: none;
+  color: var(--text);
+  transition: opacity 0.2s ease;
+}
+
+.lang-switch a:hover, .lang-switch a.active {
   opacity: 1;
 }
 
-body.page-exit {
-  opacity: 0;
+.lang-switch a.active { font-weight: 600; }
+.lang-switch .divider { margin: 0 4px; opacity: 0.4; }
+
+/* ============================================
+   🌙 Dark Mode Overrides (Strict CSS Targeting)
+   Placed here to guarantee they beat framework styles
+   ============================================ */
+[data-theme="dark"] .about-card {
+  background: #1a2522;
+  border-color: rgba(255, 255, 255, 0.1);
 }
+[data-theme="dark"] .about-card h3 { color: #e8f4f1; }
+[data-theme="dark"] .about-card p { color: #88a8a3; }
 
+[data-theme="dark"] .about-card.rose {
+  background: #221a1d;
+  border-color: rgba(244, 122, 148, 0.28);
+}
+[data-theme="dark"] .about-card.rose h3 { color: #f47a94; }
 
+[data-theme="dark"] .about-card.teal {
+  background: #182422;
+  border-color: rgba(92, 230, 214, 0.25);
+}
+[data-theme="dark"] .about-card.teal h3 { color: #5ce6d6; }
 
-video{
+/* ============================================
+   📼 Video Background (Hardcoded high z-index)
+   ============================================ */
+video {
   background: white;
-  z-index: 2137;
+  z-index: 2137; /* "Papieska godzina" - stays above almost everything */
   position: fixed;
   width: 100%;
   height: 100%;
-  top:0;
+  top: 0;
   display: flex;
 }

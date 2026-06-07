@@ -1,155 +1,141 @@
+/* ============================================
+   nivereq.gay — fursona.css
+   Styles specific to the fursona showcase page
+   ============================================ */
+
+/* ── Fursona Main Image ────────────────────── */
 .fursona-img {
-  width: clamp(350px, 40vw, 620px);
-  border-radius: 20px;
-
-  /* miękki arktyczny glow */
+  /* clamp() perfectly scales the image between 300px and 580px depending on the screen size! */
+  width: clamp(300px, 40vw, 580px); 
+  border-radius: 18px;
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.25),
-    0 0 25px rgba(142, 197, 255, 0.25);
-
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    0 12px 36px rgba(0, 0, 0, 0.18),
+    0 0 0 1px var(--border);
+  animation: soft-float 7s ease-in-out infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .fursona-image-wrapper {
   padding: 8px;
   border-radius: 22px;
   display: flex;
   justify-content: center;
 }
-@keyframes softFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
+
+/* Gentle hovering animation */
+@keyframes soft-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
 }
 
-.fursona-img {
-  animation: softFloat 6s ease-in-out infinite;
+/* ── Character Tags ────────────────────────── */
+.tags {
+  display: flex;
+  flex-wrap: wrap; /* Allows tags to flow to the next line on small screens */
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .tag {
-  padding: 9px 18px;
-  border-radius: 999px;
-  background: rgba(142, 197, 255, 0.15);
-  border: 1px solid rgba(142, 197, 255, 0.3);
-
-  font-size: 0.9rem;
-  letter-spacing: 0.5px;
+  padding: 7px 16px;
+  border-radius: 999px; /* Pill shape */
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
   font-weight: 500;
   display: inline-flex;
-  transition: all 0.2s ease;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.tags {
-  justify-content: center;
-  align-items: center;
+.tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.07);
 }
 
 .tag span.emoji {
-  margin-right: 6px;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
+
+/* ── Color Palette Boxes ───────────────────── */
 .color-box {
-  height: 48px;
+  height: 44px;
   border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  align-items: center;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-
   cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
-
-  /* subtelny shadow dla czytelności */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35); /* Helps white text stand out on light colors */
+  transition: transform 0.18s ease, opacity 0.18s ease;
+  border: 1px solid rgba(0,0,0,0.08);
 }
 
 .color-box:hover {
   transform: translateY(-3px);
-  opacity: 0.95;
+  opacity: 0.92;
 }
 
-/* Pulse animation */
-@keyframes pulsePop {
-  0% {
-    transform: scale(1);
-  }
-  40% {
-    transform: scale(1.08);
-  }
-  100% {
-    transform: scale(1);
-  }
+/* Quick pop animation for when a color is copied to clipboard */
+@keyframes pulse-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.07); }
+  100% { transform: scale(1); }
 }
 
 .color-box.pulse {
-  animation: pulsePop 0.35s ease;
+  animation: pulse-pop 0.32s ease;
 }
 
-
-/* Modal container */
+/* ── Fullscreen Image Modal (Lightbox) ─────── */
 .image-modal {
   position: fixed;
-  inset: 0;
+  inset: 0; /* Shorthand for top:0, right:0, bottom:0, left:0 */
   z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Ukryty stan */
 .image-modal.hidden {
   display: none;
 }
 
-/* Tło */
 .image-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(6px);
-  animation: fadeIn 0.2s ease;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px); /* Blurs the website behind the modal */
+  animation: fade-bg 0.2s ease;
 }
 
-/* Powiększony obraz */
 #modal-img {
   position: relative;
   max-width: 90%;
   max-height: 90%;
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-  animation: zoomIn 0.25s ease;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+  animation: zoom-in 0.22s ease;
 }
 
-/* Animacje */
-@keyframes fadeIn {
+@keyframes fade-bg {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
-@keyframes zoomIn {
-  from {
-    transform: scale(0.85);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-@keyframes fadeIn {
-  from { opacity: 1; }
-  to { opacity: 0; }
+@keyframes zoom-in {
+  from { transform: scale(0.86); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
 }
 
-
+/* ── Age Token Fix ─────────────────────────── */
+/* Injects a blank Braille pattern space character to prevent layout shifts */
 #age::after {
-  content: "⠀";
+  content: "\2800";
+}

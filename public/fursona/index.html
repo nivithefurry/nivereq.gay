@@ -5,83 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nivereq.gay • fursona</title>
 
-    <!-- Favicons -->
-    <link
-      rel="icon"
-      type="image/png"
-      href="/assets/favicons/favicon-96x96.png"
-      sizes="96x96"
-    />
+    <link rel="icon" type="image/png" href="/assets/favicons/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/assets/favicons/favicon.svg" />
     <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/favicons/apple-touch-icon.png"
-    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png" />
     <link rel="manifest" href="/assets/favicons/site.webmanifest" />
 
-    <!-- Theme init -->
     <script>
       (function () {
         const saved = localStorage.getItem("theme");
         if (saved) {
           document.documentElement.setAttribute("data-theme", saved);
         } else {
-          const systemDark = window.matchMedia(
-            "(prefers-color-scheme: dark)",
-          ).matches;
-          document.documentElement.setAttribute(
-            "data-theme",
-            systemDark ? "dark" : "light",
-          );
+          const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.setAttribute("data-theme", systemDark ? "dark" : "light");
         }
       })();
     </script>
+
     <meta name="author" content="nivereq" />
     <meta name="robots" content="index, follow" />
-
     <link rel="canonical" href="https://nivereq.gay/fursona/" />
-
     <link rel="alternate" hreflang="pl" href="https://nivereq.gay/fursona/" />
-    <link
-      rel="alternate"
-      hreflang="en"
-      href="https://nivereq.gay/en/fursona/"
-    />
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href="https://nivereq.gay/fursona/"
-    />
+    <link rel="alternate" hreflang="en" href="https://nivereq.gay/en/fursona/" />
+    <link rel="alternate" hreflang="x-default" href="https://nivereq.gay/fursona/" />
 
     <meta property="og:title" content="🦊 nivereq • fursona ❄️" />
-    <meta
-      property="og:description"
-      content="Poznaj fursonę nivereq'a, czyli arktycznego lisa. Ref sheet, paleta kolorów i podstawowe informacje."
-    />
-    <meta
-      property="og:image"
-      content="https://nivereq.gay/assets/img/nivereq_current_ref.jpg"
-    />
+    <meta property="og:description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa. Ref sheet, paleta kolorów i podstawowe informacje." />
+    <meta property="og:image" content="https://nivereq.gay/assets/img/nivereq_current_ref.jpg" />
     <meta property="og:url" content="https://nivereq.gay/fursona/" />
     <meta property="og:type" content="profile" />
     <meta property="og:locale" content="pl_PL" />
-    <!-- Twitter Card -->
+    
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="🦊 nivereq • fursona ❄️" />
-    <meta
-      name="twitter:description"
-      content="Poznaj fursonę nivereq'a, czyli arktycznego lisa. Ref sheet, paleta kolorów i podstawowe informacje."
-    />
-    <meta
-      name="twitter:image"
-      content="https://nivereq.gay/assets/img/nivereq_current_ref.jpg"
-    />
+    <meta name="twitter:description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa. Ref sheet, paleta kolorów i podstawowe informacje." />
+    <meta name="twitter:image" content="https://nivereq.gay/assets/img/nivereq_current_ref.jpg" />
     <meta name="twitter:site" content="@nivithefurry" />
     <meta name="twitter:creator" content="@nivithefurry" />
 
-    <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
@@ -95,7 +57,6 @@
       })(window, document, "script", "dataLayer", "GTM-59MTXR29");
     </script>
 
-    <!-- CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime"></script>
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/themes/dark.css" />
@@ -144,191 +105,97 @@
     </script>
   </head>
 
-  <body
-    class="bg-[var(--bg)] text-[var(--text)] transition-colors duration-300"
-  >
-    <!-- GTM noscript -->
+  <body class="text-[var(--text)] transition-colors duration-300">
     <noscript>
-      <iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-59MTXR29"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-59MTXR29" height="0" width="0" style="display: none; visibility: hidden"></iframe>
     </noscript>
+
     <header class="navbar">
       <div class="nav-left"></div>
-
       <nav class="nav-center">
         <a href="/" class="nav-link">Strona Główna</a>
         <a class="nav-link active">Fursona</a>
       </nav>
     </header>
 
-    <!-- Background -->
-    <div class="fixed inset-0 -z-10 bg-[var(--bg-gradient)]"></div>
-    <div
-      class="fixed inset-0 -z-10 pointer-events-none bg-[radial-gradient(circle_at_80%_20%,rgba(124,58,237,0.15),transparent_50%)]"
-    ></div>
+    <div class="bg-layer-main"></div>
+    <div class="bg-layer-radial"></div>
 
-    <!-- Theme Toggle -->
-    <button
-      id="theme-toggle"
-      class="fixed top-6 right-6 p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)] hover:opacity-80 transition"
-    >
+    <button id="theme-toggle" class="fixed top-6 right-6 p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)] hover:opacity-80 transition">
       <span id="theme-emoji">☀️</span>
     </button>
 
     <main class="max-w-2xl mx-auto px-6 py-24 space-y-12">
-      <!-- TITLE -->
       <section class="space-y-6">
         <h1 class="text-3xl font-bold tracking-tight">🦊 Fursona</h1>
       </section>
 
-      <!-- FURSONA CARD -->
-      <section
-        class="p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-6"
-      >
-        <img
-          src="/assets/img/nivereq_current_ref.jpg"
-          alt="Nivereq – arktyczny lis"
-          class="mx-auto rounded-xl max-w-full border border-[var(--border)]"
-          id="fursona-img"
-        />
+      <section class="p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-6">
+        <img src="/assets/img/nivereq_current_ref.jpg" alt="Nivereq – arktyczny lis" class="mx-auto rounded-xl max-w-full border border-[var(--border)]" id="fursona-img" />
 
         <div class="space-y-4 text-[var(--muted)]">
           <p>
-            To jest <span class="highlight">Nivereq</span>, choć znajomi często
-            mówią na niego po prostu <span class="highlight">Nivi</span> lub
-            <span class="highlight">Niver</span>.
+            To jest <span class="highlight">Nivereq</span>, choć znajomi często mówią na niego po prostu <span class="highlight">Nivi</span> lub <span class="highlight">Niver</span>.
           </p>
-
           <p>
-            To niezwykle puszysty, arktyczny lis, którego futro jest tak
-            miękkie, że wydaje się zapraszać do przytulania.
+            To niezwykle puszysty, arktyczny lis, którego futro jest tak miękkie, że wydaje się zapraszać do przytulania.
           </p>
-
           <p>
-            Nie ma nic, co Nivereq kocha bardziej niż mocne uściski. Jest
-            wyjątkowo łagodny i przyjazny, a jego ciepła aura sprawia, że każdy
-            w jego towarzystwie czuje się swobodnie.
+            Nie ma nic, co Nivereq kocha bardziej niż mocne uściski. Jest wyjątkowo łagodny i przyjazny, a jego ciepła aura sprawia, że każdy w jego towarzystwie czuje się swobodnie.
           </p>
         </div>
       </section>
-      <!-- COLOR PALETTE -->
-      <section
-        class="p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4"
-      >
-        <h2 class="text-xs uppercase tracking-widest text-[var(--muted)]">
-          🎨 Paleta kolorów
-        </h2>
 
+      <section class="p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4">
+        <h2 class="text-xs uppercase tracking-widest text-[var(--muted)]">🎨 Paleta kolorów</h2>
+        
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-          <div
-            class="color-box"
-            data-color="#fa557a"
-            style="background: #fa557a"
-          >
-            #fa557a
-          </div>
-          <div
-            class="color-box"
-            data-color="#da2f55"
-            style="background: #da2f55"
-          >
-            #da2f55
-          </div>
-          <div
-            class="color-box"
-            data-color="#b8fff1"
-            style="background: #b8fff1"
-          >
-            #b8fff1
-          </div>
-          <div
-            class="color-box"
-            data-color="#bdfff2"
-            style="background: #bdfff2"
-          >
-            #bdfff2
-          </div>
-          <div
-            class="color-box"
-            data-color="#f3fafa"
-            style="background: #f3fafa"
-          >
-            #f3fafa
-          </div>
+          <div class="color-box" data-color="#fa557a" style="background: #fa557a">#fa557a</div>
+          <div class="color-box" data-color="#da2f55" style="background: #da2f55">#da2f55</div>
+          <div class="color-box" data-color="#b8fff1" style="background: #b8fff1">#b8fff1</div>
+          <div class="color-box" data-color="#bdfff2" style="background: #bdfff2">#bdfff2</div>
+          <div class="color-box" data-color="#f3fafa" style="background: #f3fafa">#f3fafa</div>
         </div>
       </section>
-      <!-- TAGS CARD -->
-      <section
-        class="p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4"
-      >
-        <h2 class="text-xs uppercase tracking-widest text-[var(--muted)]">
-          ℹ️ Podstawowe informacje
-        </h2>
 
+      <section class="p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4">
+        <h2 class="text-xs uppercase tracking-widest text-[var(--muted)]">ℹ️ Podstawowe informacje</h2>
         <div class="flex tags flex-wrap gap-3">
-          <span
-            class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm"
-          >
+          <span class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm">
             <span class="emoji">🧓</span> <span id="age"></span> lat
           </span>
-          <span
-            class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm"
-          >
+          <span class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm">
             <span class="emoji">💖</span> Zajęty
           </span>
-          <span
-            class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm"
-          >
+          <span class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm">
             <span class="emoji">📏</span> 177 cm
           </span>
-          <span
-            class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm"
-          >
+          <span class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm">
             <span class="emoji">❄️</span> Arktyczny lis
           </span>
         </div>
       </section>
-      <!-- ARTS CARD -->
-      <section
-        class="arts p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4"
-      >
-        <h2 class="text-xs uppercase tracking-widest text-[var(--muted)]">
-          🎨 Arty
-        </h2>
 
+      <section class="arts p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4">
+        <h2 class="text-xs uppercase tracking-widest text-[var(--muted)]">🎨 Arty</h2>
         <div class="art-carousel">
-
-    <button class="carousel-btn prev">‹</button>
-
-    <div class="carousel-track">
-
-      <img src="/assets/arts/1.png" data-author="wiqusia" alt="art">
-      <img src="/assets/arts/2.png" data-author="Sentis" alt="art">
-      <img src="/assets/arts/3.png" data-author="wiqusia" alt="art">
-      <img src="/assets/arts/4.png" data-author="Soraks" alt="art">
-      <img src="/assets/arts/5.png" data-author="wiqusia" alt="art">
-      <img src="/assets/arts/6.png" data-author="wiqusia" alt="art">
-      <img src="/assets/arts/7.png" data-author="HaxoTF" alt="art">
-      <img src="/assets/arts/8.png" data-author="Fubbier" alt="art">
-      <img src="/assets/arts/9.png" data-author="Fubbier" alt="art">
-      <img src="/assets/arts/10.png" data-author="Duszek" alt="art">
-      <img src="/assets/arts/11.png" data-author="Umi" alt="art">
-      <img src="/assets/arts/12.png" data-author="x/@hwrmny" alt="art">
-
-
-    </div>
-
-    <button class="carousel-btn next">›</button>
-
-  </div>
-
-</section>
-
-
+          <button class="carousel-btn prev">‹</button>
+          <div class="carousel-track">
+            <img src="/assets/arts/1.png" data-author="wiqusia" alt="art">
+            <img src="/assets/arts/2.png" data-author="Sentis" alt="art">
+            <img src="/assets/arts/3.png" data-author="wiqusia" alt="art">
+            <img src="/assets/arts/4.png" data-author="Soraks" alt="art">
+            <img src="/assets/arts/5.png" data-author="wiqusia" alt="art">
+            <img src="/assets/arts/6.png" data-author="wiqusia" alt="art">
+            <img src="/assets/arts/7.png" data-author="HaxoTF" alt="art">
+            <img src="/assets/arts/8.png" data-author="Fubbier" alt="art">
+            <img src="/assets/arts/9.png" data-author="Fubbier" alt="art">
+            <img src="/assets/arts/10.png" data-author="Duszek" alt="art">
+            <img src="/assets/arts/11.png" data-author="Umi" alt="art">
+            <img src="/assets/arts/12.png" data-author="x/@hwrmny" alt="art">
+          </div>
+          <button class="carousel-btn next">›</button>
+        </div>
       </section>
     </main>
 
@@ -343,58 +210,57 @@
         <a href="/en/fursona" data-lang="en">EN</a>
       </div>
     </footer>
-    <!-- IMAGE MODAL -->
+
     <div id="image-modal" class="image-modal hidden">
       <div class="image-modal-backdrop"></div>
       <img id="modal-img" src="" alt="Powiększona fursona" />
     </div>
-<div id="art-viewer">
+    
+    <div id="art-viewer">
+      <div class="viewer-content">
+        <img id="viewer-img">
+        <p id="viewer-author"></p>
+      </div>
+    </div>
 
-  <div class="viewer-content">
-    <img id="viewer-img">
-    <p id="viewer-author"></p>
-  </div>
-
-</div>
     <script src="/js/main.js"></script>
     <script src="/js/Utility/themeSwitcher.js"></script>
     <script src="/js/Utility/Age.js"></script>
     <script src="/js/Utility/artGallery.js"></script>
 
     <script>
+      // Determines whether black or white text looks best against the hex color
       function getContrastColor(hex) {
         hex = hex.replace("#", "");
-
         const r = parseInt(hex.substr(0, 2), 16);
         const g = parseInt(hex.substr(2, 2), 16);
         const b = parseInt(hex.substr(4, 2), 16);
-
         const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
         return luminance > 160 ? "#000000" : "#ffffff";
       }
 
       document.querySelectorAll(".color-box").forEach((box) => {
         const color = box.getAttribute("data-color");
-
-        box.style.color = getContrastColor(color);
+        box.style.color = getContrastColor(color); // Apply contrast text color
 
         box.addEventListener("click", () => {
           navigator.clipboard.writeText(color);
 
-          // pulse efekt
+          // Trigger CSS Pulse animation
           box.classList.remove("pulse");
-          void box.offsetWidth; // reset animacji
+          void box.offsetWidth; 
           box.classList.add("pulse");
 
+          // Temporarily show success text
           const original = box.textContent;
           box.textContent = "Skopiowano!";
-
           setTimeout(() => {
             box.textContent = original;
           }, 800);
         });
       });
     </script>
+
     <script>
       const fursonaImg = document.getElementById("fursona-img");
       const modal = document.getElementById("image-modal");
@@ -403,53 +269,40 @@
 
       fursonaImg.style.cursor = "zoom-in";
 
+      // Open Modal
       fursonaImg.addEventListener("click", () => {
         modalImg.src = fursonaImg.src;
         modal.classList.remove("hidden");
         modal.classList.add("cursor-zoom-out");
       });
 
-      // kliknięcie w tło zamyka
+      // Close via background click
       document.addEventListener("click", (e) => {
         if (e.target === backdrop || e.target.closest(".image-modal")) {
           modal.classList.add("hidden");
         }
       });
 
-      // ESC zamyka
+      // Close via ESC key
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           modal.classList.add("hidden");
         }
       });
     </script>
-    <script>
-      // Fade in when page loads
-      window.addEventListener("load", () => {
-        document.body.classList.add("page-loaded");
-      });
 
-      // Fade out on navigation
+    <script>
+      window.addEventListener("load", () => { document.body.classList.add("page-loaded"); });
+
       document.querySelectorAll("a[href]").forEach((link) => {
         const url = link.getAttribute("href");
-
-        // Ignoruj anchor, zewnętrzne linki i nowe karty
-        if (
-          url.startsWith("#") ||
-          link.target === "_blank" ||
-          link.hasAttribute("download") ||
-          (url.startsWith("http") && !url.includes(window.location.hostname))
-        )
-          return;
+        if (url.startsWith("#") || link.target === "_blank" || link.hasAttribute("download") || (url.startsWith("http") && !url.includes(window.location.hostname))) return;
 
         link.addEventListener("click", function (e) {
           e.preventDefault();
           document.body.classList.remove("page-loaded");
           document.body.classList.add("page-exit");
-
-          setTimeout(() => {
-            window.location.href = url;
-          }, 125);
+          setTimeout(() => { window.location.href = url; }, 125);
         });
       });
     </script>

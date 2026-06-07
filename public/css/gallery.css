@@ -1,108 +1,121 @@
-.art-section {
-  margin-top: 80px;
-}
+/* ============================================
+   nivereq.gay — gallery.css
+   Styles for the horizontally scrolling art gallery
+   ============================================ */
 
 .art-carousel {
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 .carousel-track {
   display: flex;
-  gap: 16px;
-  transition: transform 0.35s ease;
+  gap: 14px;
+  /* Smooth sliding animation when JS updates the transform */
+  transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .carousel-track img {
-  width: 260px;
-  height: 260px;
-  object-fit: cover;
+  width: 250px;
+  height: 250px;
+  object-fit: cover; /* Ensures images are cropped to perfect squares without stretching */
   border-radius: 12px;
-  cursor: pointer;
-  flex-shrink: 0;
+  flex-shrink: 0; /* Prevents the flexbox from squeezing the images */
+  cursor: zoom-in;
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.carousel-track img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Navigation Arrows ─────────────────────── */
 .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-
-  width: 42px;
-  height: 42px;
-
+  width: 38px;
+  height: 38px;
   display: flex;
-  overflow: hidden;
   align-items: center;
   justify-content: center;
-
-  font-size: 28px;
-
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(6px);
-
-  border: none;
+  font-size: 24px;
+  line-height: 1;
+  
+  /* Glassmorphism effect */
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
-
   color: white;
   cursor: pointer;
-
   z-index: 5;
+  transition: background 0.15s ease, transform 0.15s ease;
+  overflow: hidden;
+  padding: 0;
 }
 
-.prev {
-  left: 12px;
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(1.05);
 }
 
-.next {
-  right: 12px;
+.carousel-btn:active {
+  transform: translateY(-50%) scale(0.96);
 }
 
-.art-carousel::after,
-.art-carousel::before {
+/* Pushing arrows to the edges */
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* ── Edge Fade Gradients ───────────────────── */
+/* These create the shadow effect on the left/right sides of the carousel */
+.art-carousel::before,
+.art-carousel::after {
   content: "";
   position: absolute;
   top: 0;
-  width: 80px;
+  width: 70px;
   height: 100%;
-  pointer-events: none;
-  z-index: 2; /* DODANO: żeby cienie były zawsze nad obrazkami, ale pod przyciskami */
+  pointer-events: none; /* Crucial: lets you click the images *through* the shadow */
+  z-index: 2;
 }
 
 .art-carousel::before {
   left: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent);
+  background: linear-gradient(to right, rgba(0,0,0,0.45), transparent);
 }
 
 .art-carousel::after {
   right: 0;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.5), transparent);
+  background: linear-gradient(to left, rgba(0,0,0,0.45), transparent);
 }
 
-/* --- VIEWER (bez zmian) --- */
+/* ── Art Viewer Overlay (Lightbox) ─────────── */
 #art-viewer {
   position: fixed;
   inset: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  background: rgba(0, 0, 0, 0.35);
-
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px); /* Safari support */
+  background: rgba(0, 0, 0, 0.4);
   z-index: 9999;
-
+  
+  /* Hidden by default */
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
+  pointer-events: none; 
+  transition: opacity 0.22s ease;
 }
 
+/* Class toggled by JS */
 #art-viewer.active {
   opacity: 1;
-  pointer-events: all;
+  pointer-events: all; /* Restores clickability */
   cursor: zoom-out;
 }
 
@@ -113,18 +126,17 @@
 
 #viewer-img {
   max-width: 90vw;
-  max-height: 85vh;
+  max-height: 84vh; /* Prevents the image from overflowing vertically */
   object-fit: contain;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
 
 #viewer-author {
   margin-top: 14px;
-  color: white;
-  font-size: 14px;
-}
-
-.carousel-track img {
-  cursor: zoom-in;
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  letter-spacing: 0.04em;
 }
