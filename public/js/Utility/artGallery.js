@@ -104,5 +104,7 @@ function initGallery() {
   });
 }
 
-// Odpalenie całego procesu po załadowaniu skryptu
-loadGallery();
+// Load the gallery when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  loadGallery();
+});
