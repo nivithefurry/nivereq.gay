@@ -51,7 +51,7 @@
   --radial-overlay: rgba(124, 58, 237, 0.12);
 }
 
-/* ============================================
+/* /* ============================================
    🌈 Animated Pride Bar
    Sits fixed at the very top of the screen
    ============================================ */
@@ -79,7 +79,7 @@ body::before {
 @keyframes pride-shimmer {
   0%   { background-position: 0% 0; }
   100% { background-position: 200% 0; }
-}
+} */
 
 /* ============================================
    🏗️ Base HTML & Body Settings
