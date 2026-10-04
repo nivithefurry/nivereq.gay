@@ -25,16 +25,16 @@ Built from scratch with paws, lots of love, and:
 The website is actively deployed using **Cloudflare Pages**, making it blazing fast wherever you are! 
 
 You can check out the live version right here:  
-👉 [https://nivereq.gay](https://nivereq.gay)
+👉 [https://nivereq.com](https://nivereq.com)
 
 ## 📬 Let's Connect!
 
 If you want to reach out, send some headpats, or just say hi, you can track me down on my socials:
 
-* 🎥 **YouTube**: [yt.nivereq.gay](https://yt.nivereq.gay)
-* 💜 **Twitch**: [ttv.nivereq.gay](https://ttv.nivereq.gay)
-* 💬 **Discord**: [dc.nivereq.gay](https://dc.nivereq.gay)
-* 📸 **Instagram**: [ig.nivereq.gay](https://ig.nivereq.gay)
+* 🎥 **YouTube**: [yt.nivereq.com](https://yt.nivereq.com)
+* 💜 **Twitch**: [ttv.nivereq.com](https://ttv.nivereq.com)
+* 💬 **Discord**: [dc.nivereq.com](https://dc.nivereq.com)
+* 📸 **Instagram**: [ig.nivereq.com](https://ig.nivereq.com)
 * 📧 **Mail**: [nivereq@aethers.pl](mailto:nivereq@aethers.pl)
 
 ## 📜 License
