@@ -20,3 +20,10 @@ Thumbs.db
 /art-manager/data/
 /art-manager/backups/
 /art-manager/trash/
+
+# Local artwork source files used by the manager
+/art-manager/**/*.[pP][nN][gG]
+/art-manager/**/*.[jJ][pP][gG]
+/art-manager/**/*.[jJ][pP][eE][gG]
+/art-manager/**/*.[gG][iI][fF]
+/art-manager/**/*.[wW][eE][bB][pP]

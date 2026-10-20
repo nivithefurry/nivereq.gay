@@ -10,6 +10,7 @@
   --accent-strong: #9ad7ca;
   --accent-soft: #263b35;
   --rose: #e19baa;
+  --relationship-accent: #f1a9b7;
   --border: rgba(230, 243, 236, 0.1);
   --border-strong: rgba(230, 243, 236, 0.18);
   --shadow-soft: 0 18px 56px rgba(0, 0, 0, 0.23);
@@ -22,4 +23,3 @@
 [data-theme="dark"] .button-primary { background: #dce9e3; color: #1b2924; }
 [data-theme="dark"] .button-primary:hover { background: #fff; }
 [data-theme="dark"] .community-icon { background: rgba(88, 101, 242, 0.18); color: #aab0ff; }
-[data-theme="dark"] .about-card-rose .card-symbol { color: #f1a9b7; }

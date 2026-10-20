@@ -14,6 +14,8 @@
 .character-facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 25px; }
 .fact-pill { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 11px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-raised); color: var(--muted); font-size: 0.75rem; }
 .fact-pill i { color: var(--accent); }
+.fact-pill-relationship { border-color: color-mix(in srgb, var(--rose) 38%, var(--border)); background: color-mix(in srgb, var(--rose) 10%, var(--surface-raised)); color: var(--relationship-accent); }
+.fact-pill-relationship i { color: inherit; }
 .fursona-section { margin-top: clamp(68px, 10vw, 112px); }
 .palette-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
 .color-swatch { display: flex; min-height: 78px; align-items: end; padding: 10px; border: 1px solid var(--border); border-radius: 18px; background: var(--swatch); cursor: pointer; transition: transform 170ms ease, box-shadow 170ms ease; }

@@ -10,6 +10,7 @@
   --accent-strong: #246d65;
   --accent-soft: #e3f1ee;
   --rose: #d98192;
+  --relationship-accent: #ad596b;
   --border: rgba(37, 55, 50, 0.1);
   --border-strong: rgba(37, 55, 50, 0.16);
   --shadow-soft: 0 18px 56px rgba(28, 45, 41, 0.065);
@@ -216,7 +217,7 @@ img { display: block; max-width: 100%; }
 .card-symbol i { font-size: 0.95rem; }
 .about-card h3 { margin: 0; font-size: 0.93rem; font-weight: 650; letter-spacing: -0.015em; }
 .about-card p { max-width: 34ch; margin: 8px 0 0; color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
-.about-card-rose .card-symbol { background: color-mix(in srgb, var(--rose) 15%, var(--surface-solid)); color: #ad596b; }
+.about-card-rose .card-symbol { background: color-mix(in srgb, var(--rose) 15%, var(--surface-solid)); color: var(--relationship-accent); }
 .card-arrow { position: absolute; top: 23px; right: 22px; color: var(--muted); font-size: 0.88rem; opacity: 0.65; transition: transform 180ms ease, opacity 180ms ease; }
 .about-card-link:hover .card-arrow { opacity: 1; transform: translate(2px, -2px); }
 
