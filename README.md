@@ -13,7 +13,7 @@ The static website has no build step; its deployable files are in `public/`, and
 
 ## Local development
 
-Open `public/index.html` with Live Server, or serve `public/` as the web root. The included `.vscode/settings.json` configures Live Server to use `public/`. The page also supports Live Server configurations that serve the repository root and expose the site at `/public/`.
+Open `public/index.html` with Live Server. The included `.vscode/settings.json` sets `public/` as Live Server's root, so the site is served from `http://127.0.0.1:5500/` with the HTML, styles, scripts, and translations all under the same web root.
 
 The home page and fursona page each use one HTML file. Their translations are in `public/i18n/pl.json` and `public/i18n/en.json`; `?lang=pl` and `?lang=en` select a language. The live widgets use Cloudflare Pages Functions and need a Pages-compatible local runtime to work locally.
 
