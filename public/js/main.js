@@ -99,8 +99,61 @@ window.translationsReady = loadTranslations().catch((error) => {
 const year = document.getElementById("year");
 if (year) year.textContent = new Date().getFullYear();
 
-const consoleMessage = currentLang === "pl" ? "Nie ładnie tak grzebać w kodzie" : "No snooping in the code";
-console.log(`%c ${consoleMessage} :3 ~ nivereq`, "background:#2f8177;color:#f4fbf8;font-weight:700;padding:6px 12px;border-radius:8px");
+function logConsoleBanner(dictionary) {
+  const consoleMessage = readTranslation(dictionary, "console.message");
+  const consoleRows = [" /\\_/\\", `( o.o )  ${consoleMessage}`, "stay fluffy · nivereq"];
+  const consoleFontSize = window.innerWidth < 480 ? 11 : 13;
+  const consoleHeight = 82;
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  if (!context) {
+    console.log(`${consoleRows[0]}\n${consoleRows[1]}\n${consoleRows[2]}`);
+    return;
+  }
+
+  const fontFamily = "ui-monospace, SFMono-Regular, Consolas, monospace";
+  context.font = `600 ${consoleFontSize}px ${fontFamily}`;
+  const firstRowWidth = context.measureText(consoleRows[0]).width;
+  context.font = `700 ${consoleFontSize}px ${fontFamily}`;
+  const secondRowWidth = context.measureText(consoleRows[1]).width;
+  context.font = `500 ${consoleFontSize - 2}px ${fontFamily}`;
+  const footerWidth = context.measureText(consoleRows[2]).width;
+  const consoleWidth = Math.ceil(Math.max(firstRowWidth, secondRowWidth, footerWidth) + 36);
+  const scale = 2;
+  canvas.width = consoleWidth * scale;
+  canvas.height = consoleHeight * scale;
+  context.scale(scale, scale);
+
+  const surface = context.createLinearGradient(0, 0, consoleWidth, consoleHeight);
+  surface.addColorStop(0, "#1f2825");
+  surface.addColorStop(1, "#263b35");
+  context.beginPath();
+  context.roundRect(0.5, 0.5, consoleWidth - 1, consoleHeight - 1, 11);
+  context.fillStyle = surface;
+  context.fill();
+  context.strokeStyle = "rgba(128,198,185,.3)";
+  context.stroke();
+
+  context.textBaseline = "alphabetic";
+  context.fillStyle = "#9ad7ca";
+  context.font = `600 ${consoleFontSize}px ${fontFamily}`;
+  context.fillText(consoleRows[0], 18, 25);
+  context.fillStyle = "#eef3f0";
+  context.font = `700 ${consoleFontSize}px ${fontFamily}`;
+  context.fillText(consoleRows[1], 18, 46);
+  context.fillStyle = "#a1ada7";
+  context.font = `500 ${consoleFontSize - 2}px ${fontFamily}`;
+  context.fillText(consoleRows[2], 18, 67);
+
+  const consoleBannerImage = canvas.toDataURL("image/png");
+  const horizontalPadding = Math.ceil(consoleWidth / 2);
+  const verticalPadding = Math.ceil(consoleHeight / 2);
+  console.log("%c.", `color:transparent;font-size:1px;line-height:0;padding:${verticalPadding}px ${horizontalPadding}px;background:url("${consoleBannerImage}") center / 100% 100% no-repeat;`);
+}
+
+window.translationsReady.then((dictionary) => {
+  if (dictionary) logConsoleBanner(dictionary);
+});
 
 requestAnimationFrame(() => document.body.classList.add("page-loaded"));
 

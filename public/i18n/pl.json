@@ -31,6 +31,7 @@
     "numbers": { "title": "Liczby", "text": "Moje ulubione liczby to 7, 18 i 760." }
   },
   "footer": { "note": "zrobione z ❤️ i ☕" },
+  "console": { "message": "Nie podglądaj kodu, futrzaku!" },
   "widgets": {
     "lastfm": { "now": "Aktualnie słucha", "last": "🎶 Ostatnio słuchał" },
     "discordOnline": "{count} osób online",
