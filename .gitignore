@@ -1,5 +1,9 @@
 *.env*
 /node_modules
+/art-manager/node_modules/
+/art-manager/data/
+/art-manager/backups/
+/art-manager/trash/
 /dist
 package-lock.json
 package.json
