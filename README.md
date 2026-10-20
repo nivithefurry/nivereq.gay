@@ -1,46 +1,57 @@
-# 🌐🐾 nivereq's Personal Website
+# nivereq's website
 
-Welcome to my cozy little corner of the internet! :3 🚀
+A bilingual personal website for nivereq, a creator, streamer, developer, photographer, and furry from Krakow. It includes a profile, fursona information and artwork gallery, plus live Last.fm, Discord, and pat-counter widgets.
 
-This project is a fluffy, minimalistic showcase of everything you need to know about me — a creator, streamer, coder, and an extremely huggable arctic fox! ❄️🦊 I built this space to keep things clean, fast, and super easy to navigate. 
+## Technology
 
-## ✨ Fluffy Features
+- Static HTML and CSS
+- Vanilla JavaScript with shared Polish and English JSON dictionaries
+- Cloudflare Pages Functions for the Last.fm status and pat counter
+- Cloudflare Pages for hosting
 
-* 🖥️ **Fully static & snappy** (HTML + CSS magic)
-* 🎨 **Clean and modern layout** (easy on the eyes!)
-* 🌍 **Bilingual structure** (Polish & English support)
-* ⚡ **Lightweight and super fast** (zoom zoom!)
-* ☁️ **Hosted in the clouds** (via Cloudflare Pages)
+The static website has no build step; its deployable files are in `public/`, and `functions/` contains Pages Functions. The separate local art manager uses Node.js, documented below.
 
-## 🛠️ Technologies Used
+## Local development
 
-Built from scratch with paws, lots of love, and:
-* **HTML5**
-* **CSS3**
-* **Vanilla JavaScript** (for those interactive little details!)
-* **Cloudflare Pages** (for deployment)
+Open `public/index.html` with Live Server, or serve `public/` as the web root. The included `.vscode/settings.json` configures Live Server to use `public/`. The page also supports Live Server configurations that serve the repository root and expose the site at `/public/`.
 
-## 🚀 Deployment
+The home page and fursona page each use one HTML file. Their translations are in `public/i18n/pl.json` and `public/i18n/en.json`; `?lang=pl` and `?lang=en` select a language. The live widgets use Cloudflare Pages Functions and need a Pages-compatible local runtime to work locally.
 
-The website is actively deployed using **Cloudflare Pages**, making it blazing fast wherever you are! 
+## Project layout
 
-You can check out the live version right here:  
-👉 [https://nivereq.com](https://nivereq.com)
+```text
+functions/api/       Cloudflare Pages API functions
+public/              Static site output
+public/data/         Artwork gallery data
+public/fursona/      Fursona page
+public/i18n/         Polish and English translations
+public/js/           Site scripts and widgets
+art-manager/         Private Node.js utility for managing gallery artwork
+```
 
-## 📬 Let's Connect!
+The gallery manager uses SQLite outside `public/`. See [art-manager/README.md](art-manager/README.md) for setup, repeatable import, local management, backups, and the explicit export step that updates `public/data/arts.json`.
 
-If you want to reach out, send some headpats, or just say hi, you can track me down on my socials:
+## Configuration
 
-* 🎥 **YouTube**: [yt.nivereq.com](https://yt.nivereq.com)
-* 💜 **Twitch**: [ttv.nivereq.com](https://ttv.nivereq.com)
-* 💬 **Discord**: [dc.nivereq.com](https://dc.nivereq.com)
-* 📸 **Instagram**: [ig.nivereq.com](https://ig.nivereq.com)
-* 📧 **Mail**: [nivereq@aethers.pl](mailto:nivereq@aethers.pl)
+The Pages Functions read these Cloudflare environment bindings:
 
-## 📜 License
+- `LASTFM_USER` and `LASTFM_KEY` for the Last.fm widget
+- `PAT_COUNTER` as the counter storage binding
 
-Copyright (C) 2025–2026 @nivereq  
-All Rights Reserved.
+Set these in the Cloudflare Pages project settings. Do not commit credentials.
 
----
-Thanks for visiting and sniffing around the code! *pat pat* ✨
+## Deployment
+
+Connect the repository to Cloudflare Pages and set the build output directory to `public` (with the repository root as the project root). Pages deploys files from that output directory; `art-manager/` is outside it and is not part of the published site. Do not set the repository root as the output directory. No build command is required. The production site is [nivereq.com](https://nivereq.com).
+
+## Public profiles and contact
+
+- YouTube: [nivithefurry](https://youtube.com/@nivithefurry)
+- Twitch: [nivithefurry](https://twitch.tv/nivithefurry)
+- Instagram: [nivithefurry](https://instagram.com/nivithefurry)
+- TikTok: [nivithefurry](https://tiktok.com/@nivithefurry)
+- Email: [nivereq@aethers.pl](mailto:nivereq@aethers.pl)
+
+## Rights
+
+Copyright © 2025–2026 @nivereq. All rights reserved. Artwork in the gallery is credited to its respective artists.

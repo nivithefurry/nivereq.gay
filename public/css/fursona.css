@@ -1,141 +1,48 @@
-/* ============================================
-   nivereq.gay — fursona.css
-   Styles specific to the fursona showcase page
-   ============================================ */
+.fursona-content { padding-top: clamp(52px, 8vw, 100px); padding-bottom: 110px; }
+.fursona-heading { max-width: 740px; margin-bottom: 38px; }
+.fursona-heading h1 { margin: 14px 0 0; font-size: clamp(2.65rem, 7vw, 5rem); font-weight: 690; letter-spacing: -0.075em; line-height: 1.02; }
+.fursona-lede { max-width: 610px; margin: 18px 0 0; color: var(--muted); font-size: 1.02rem; line-height: 1.7; }
+.character-feature { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(270px, 0.92fr); align-items: center; gap: clamp(32px, 7vw, 82px); padding: clamp(22px, 4vw, 44px); border: 1px solid var(--border); border-radius: 30px; background: var(--surface); box-shadow: var(--shadow-soft); }
+.character-image-button { position: relative; padding: 10px; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: var(--surface-raised); cursor: zoom-in; }
+.character-image-button img { width: 100%; max-height: 650px; border-radius: 16px; object-fit: contain; transition: transform 280ms ease; }
+.character-image-button:hover img { transform: scale(1.015); }
+.image-expand { position: absolute; right: 19px; bottom: 19px; display: flex; align-items: center; gap: 8px; padding: 9px 12px; border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; background: rgba(24, 31, 28, 0.66); backdrop-filter: blur(12px); color: white; font-size: 0.74rem; font-weight: 600; opacity: 0; transform: translateY(4px); transition: opacity 180ms ease, transform 180ms ease; }
+.character-image-button:hover .image-expand, .character-image-button:focus-visible .image-expand { opacity: 1; transform: translateY(0); }
+.character-copy .eyebrow { margin-bottom: 9px; }
+.character-copy p { margin: 13px 0 0; color: var(--muted); font-size: 0.94rem; line-height: 1.8; }
+.character-copy p:first-of-type { color: var(--text); font-size: 1.04rem; line-height: 1.65; }
+.character-facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 25px; }
+.fact-pill { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 11px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-raised); color: var(--muted); font-size: 0.75rem; }
+.fact-pill i { color: var(--accent); }
+.fursona-section { margin-top: clamp(68px, 10vw, 112px); }
+.palette-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.color-swatch { display: flex; min-height: 78px; align-items: end; padding: 10px; border: 1px solid var(--border); border-radius: 18px; background: var(--swatch); cursor: pointer; transition: transform 170ms ease, box-shadow 170ms ease; }
+.color-swatch:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+.color-swatch span { padding: 5px 8px; border: 1px solid rgba(255,255,255,0.28); border-radius: 999px; background: rgba(20, 26, 24, 0.53); color: white; font-size: 0.7rem; font-weight: 650; font-variant-numeric: tabular-nums; backdrop-filter: blur(9px); }
+.color-swatch.copied { animation: copied-pop 260ms ease; }
+@keyframes copied-pop { 50% { transform: scale(0.97); } }
+.image-modal, .art-viewer { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 40px; background: rgba(6, 11, 9, 0.78); backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); opacity: 0; pointer-events: none; visibility: hidden; transform: scale(0.99); transition: opacity 220ms ease, transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1), backdrop-filter 320ms ease, -webkit-backdrop-filter 320ms ease, visibility 0s linear 320ms; }
+.image-modal.active, .art-viewer.active { opacity: 1; pointer-events: auto; visibility: visible; transform: scale(1); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: opacity 220ms ease, transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1), backdrop-filter 320ms ease, -webkit-backdrop-filter 320ms ease, visibility 0s; }
+.image-modal img { max-width: min(92vw, 1200px); max-height: 88vh; border-radius: 18px; box-shadow: 0 28px 90px rgba(0,0,0,0.45); }
+.modal-close { position: absolute; top: 24px; right: 26px; display: grid; width: 43px; height: 43px; place-items: center; border: 1px solid rgba(255,255,255,0.24); border-radius: 50%; background: rgba(255,255,255,0.13); color: white; cursor: pointer; transition: background 160ms ease, transform 160ms ease; }
+.modal-close:hover { transform: scale(1.04); background: rgba(255,255,255,0.23); }
+.viewer-content { display: grid; justify-items: center; gap: 13px; max-width: 95vw; text-align: center; }
+#viewer-img { max-width: min(90vw, 1300px); max-height: 82vh; border-radius: 16px; object-fit: contain; box-shadow: 0 24px 75px rgba(0,0,0,0.42); }
+#viewer-author { margin: 0; color: rgba(255,255,255,0.84); font-size: 0.8rem; }
 
-/* ── Fursona Main Image ────────────────────── */
-.fursona-img {
-  /* clamp() perfectly scales the image between 300px and 580px depending on the screen size! */
-  width: clamp(300px, 40vw, 580px); 
-  border-radius: 18px;
-  box-shadow:
-    0 12px 36px rgba(0, 0, 0, 0.18),
-    0 0 0 1px var(--border);
-  animation: soft-float 7s ease-in-out infinite;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+@media (max-width: 760px) {
+  .character-feature { grid-template-columns: 1fr; gap: 28px; }
+  .character-image-button { max-width: 580px; margin-inline: auto; }
+  .character-image-button img { max-height: 560px; }
 }
-
-.fursona-image-wrapper {
-  padding: 8px;
-  border-radius: 22px;
-  display: flex;
-  justify-content: center;
-}
-
-/* Gentle hovering animation */
-@keyframes soft-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-5px); }
-}
-
-/* ── Character Tags ────────────────────────── */
-.tags {
-  display: flex;
-  flex-wrap: wrap; /* Allows tags to flow to the next line on small screens */
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
-.tag {
-  padding: 7px 16px;
-  border-radius: 999px; /* Pill shape */
-  background: var(--surface);
-  border: 1px solid var(--border);
-  font-size: 0.85rem;
-  letter-spacing: 0.03em;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--text);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.tag:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.07);
-}
-
-.tag span.emoji {
-  font-size: 1rem;
-}
-
-/* ── Color Palette Boxes ───────────────────── */
-.color-box {
-  height: 44px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  letter-spacing: 0.02em;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35); /* Helps white text stand out on light colors */
-  transition: transform 0.18s ease, opacity 0.18s ease;
-  border: 1px solid rgba(0,0,0,0.08);
-}
-
-.color-box:hover {
-  transform: translateY(-3px);
-  opacity: 0.92;
-}
-
-/* Quick pop animation for when a color is copied to clipboard */
-@keyframes pulse-pop {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.07); }
-  100% { transform: scale(1); }
-}
-
-.color-box.pulse {
-  animation: pulse-pop 0.32s ease;
-}
-
-/* ── Fullscreen Image Modal (Lightbox) ─────── */
-.image-modal {
-  position: fixed;
-  inset: 0; /* Shorthand for top:0, right:0, bottom:0, left:0 */
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.image-modal.hidden {
-  display: none;
-}
-
-.image-modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(8px); /* Blurs the website behind the modal */
-  animation: fade-bg 0.2s ease;
-}
-
-#modal-img {
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 16px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
-  animation: zoom-in 0.22s ease;
-}
-
-@keyframes fade-bg {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes zoom-in {
-  from { transform: scale(0.86); opacity: 0; }
-  to   { transform: scale(1);    opacity: 1; }
-}
-
-/* ── Age Token Fix ─────────────────────────── */
-/* Injects a blank Braille pattern space character to prevent layout shifts */
-#age::after {
-  content: "\2800";
+@media (max-width: 520px) {
+  .fursona-content { padding-top: 36px; padding-bottom: 75px; }
+  .fursona-heading { margin-bottom: 26px; }
+  .fursona-heading h1 { font-size: 2.8rem; }
+  .character-feature { gap: 22px; padding: 14px; border-radius: 23px; }
+  .character-copy { padding: 4px 5px 8px; }
+  .palette-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .color-swatch:last-child { grid-column: span 2; }
+  .image-modal, .art-viewer { padding: 20px; }
+  .modal-close { top: 15px; right: 15px; }
 }

@@ -1,51 +1,31 @@
-// ==========================================
-// 🌗 Theme Switcher
-// Toggles between light and dark modes, syncing with local storage and system preferences.
-// ==========================================
+const themeButton = document.getElementById("theme-toggle");
+const themeIcon = document.getElementById("theme-icon");
+const rootElement = document.documentElement;
+const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+let themeTransitionTimeout;
 
-const toggle = document.getElementById("theme-toggle");
-const emoji = document.getElementById("theme-emoji");
-const html = document.documentElement;
-
-// Helper function to update the button icon based on the active theme
-function updateEmoji(theme) {
-  emoji.textContent = theme === "dark" ? "🌙" : "☀️";
-}
-
-// 1. Handle user clicks on the theme toggle button
-toggle.addEventListener("click", () => {
-  const current = html.getAttribute("data-theme");
-  const newTheme = current === "dark" ? "light" : "dark";
-
-  // Apply the theme to the HTML tag and save it so it remembers for next time
-  html.setAttribute("data-theme", newTheme);
-  localStorage.setItem("theme", newTheme);
-
-  updateEmoji(newTheme);
-});
-
-// 2. Listen for changes to the user's operating system theme (e.g., if their Mac switches to dark mode at night)
-const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-mediaQuery.addEventListener("change", (e) => {
-  // Only override if the user hasn't manually set a preference yet
-  if (!localStorage.getItem("theme")) {
-    const newTheme = e.matches ? "dark" : "light";
-    html.setAttribute("data-theme", newTheme);
-    updateEmoji(newTheme);
+function applyTheme(theme, animate = false) {
+  if (animate) {
+    rootElement.classList.add("theme-transitioning");
+    window.clearTimeout(themeTransitionTimeout);
+    themeTransitionTimeout = window.setTimeout(() => {
+      rootElement.classList.remove("theme-transitioning");
+    }, 450);
   }
+
+  rootElement.dataset.theme = theme;
+  themeIcon?.classList.toggle("bi-moon-stars-fill", theme === "dark");
+  themeIcon?.classList.toggle("bi-sun-fill", theme !== "dark");
+}
+
+applyTheme(localStorage.getItem("theme") || (systemTheme.matches ? "dark" : "light"));
+
+themeButton?.addEventListener("click", () => {
+  const nextTheme = rootElement.dataset.theme === "dark" ? "light" : "dark";
+  localStorage.setItem("theme", nextTheme);
+  applyTheme(nextTheme, true);
 });
 
-// 3. Apply the correct theme on initial page load
-const savedTheme = localStorage.getItem("theme");
-
-if (savedTheme) {
-  // Use the user's saved preference if it exists
-  html.setAttribute("data-theme", savedTheme);
-  updateEmoji(savedTheme);
-} else {
-  // Otherwise, default to whatever their operating system uses
-  const systemTheme = mediaQuery.matches ? "dark" : "light";
-  html.setAttribute("data-theme", systemTheme);
-  updateEmoji(systemTheme);
-}
+systemTheme.addEventListener("change", (event) => {
+  if (!localStorage.getItem("theme")) applyTheme(event.matches ? "dark" : "light", true);
+});

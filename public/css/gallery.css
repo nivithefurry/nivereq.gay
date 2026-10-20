@@ -1,142 +1,20 @@
-/* ============================================
-   nivereq.gay — gallery.css
-   Styles for the horizontally scrolling art gallery
-   ============================================ */
+.art-carousel { position: relative; }
+.carousel-viewport { overflow: hidden; padding: 3px; border-radius: 22px; }
+.carousel-track { display: flex; gap: 13px; transition: transform 360ms cubic-bezier(0.22, 0.7, 0.2, 1); }
+.carousel-track img { width: clamp(190px, 26vw, 250px); height: clamp(190px, 26vw, 250px); flex: 0 0 auto; border: 1px solid var(--border); border-radius: 18px; background: var(--surface-raised); object-fit: cover; cursor: zoom-in; transition: transform 180ms ease, box-shadow 180ms ease; }
+.carousel-track img:hover { transform: scale(1.015); box-shadow: var(--shadow-soft); }
+.gallery-error { width: 100%; padding: 24px; border: 1px dashed var(--border-strong); border-radius: 16px; color: var(--muted); font-size: 0.88rem; text-align: center; }
+.carousel-btn { position: absolute; z-index: 2; top: 50%; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid var(--border); border-radius: 50%; background: var(--surface-solid); box-shadow: var(--shadow-card); color: var(--text); cursor: pointer; transform: translateY(-50%); transition: color 150ms ease, background 150ms ease, transform 150ms ease; }
+.carousel-btn:hover { transform: translateY(-50%) scale(1.05); background: var(--text); color: var(--bg); }
+.carousel-btn:disabled { opacity: 0.35; cursor: default; }
+.carousel-btn:disabled:hover { transform: translateY(-50%); background: var(--surface-solid); color: var(--text); }
+.carousel-btn.prev { left: -17px; }
+.carousel-btn.next { right: -17px; }
 
-.art-carousel {
-  position: relative;
-  overflow: hidden;
-  border-radius: 14px;
-}
-
-.carousel-track {
-  display: flex;
-  gap: 14px;
-  /* Smooth sliding animation when JS updates the transform */
-  transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.carousel-track img {
-  width: 250px;
-  height: 250px;
-  object-fit: cover; /* Ensures images are cropped to perfect squares without stretching */
-  border-radius: 12px;
-  flex-shrink: 0; /* Prevents the flexbox from squeezing the images */
-  cursor: zoom-in;
-  border: 1px solid var(--border);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.carousel-track img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
-}
-
-/* ── Navigation Arrows ─────────────────────── */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  line-height: 1;
-  
-  /* Glassmorphism effect */
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  z-index: 5;
-  transition: background 0.15s ease, transform 0.15s ease;
-  overflow: hidden;
-  padding: 0;
-}
-
-.carousel-btn:hover {
-  background: rgba(0, 0, 0, 0.7);
-  transform: translateY(-50%) scale(1.05);
-}
-
-.carousel-btn:active {
-  transform: translateY(-50%) scale(0.96);
-}
-
-/* Pushing arrows to the edges */
-.prev { left: 10px; }
-.next { right: 10px; }
-
-/* ── Edge Fade Gradients ───────────────────── */
-/* These create the shadow effect on the left/right sides of the carousel */
-.art-carousel::before,
-.art-carousel::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 70px;
-  height: 100%;
-  pointer-events: none; /* Crucial: lets you click the images *through* the shadow */
-  z-index: 2;
-}
-
-.art-carousel::before {
-  left: 0;
-  background: linear-gradient(to right, rgba(0,0,0,0.45), transparent);
-}
-
-.art-carousel::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(0,0,0,0.45), transparent);
-}
-
-/* ── Art Viewer Overlay (Lightbox) ─────────── */
-#art-viewer {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px); /* Safari support */
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 9999;
-  
-  /* Hidden by default */
-  opacity: 0;
-  pointer-events: none; 
-  transition: opacity 0.22s ease;
-}
-
-/* Class toggled by JS */
-#art-viewer.active {
-  opacity: 1;
-  pointer-events: all; /* Restores clickability */
-  cursor: zoom-out;
-}
-
-.viewer-content {
-  text-align: center;
-  max-width: 95vw;
-}
-
-#viewer-img {
-  max-width: 90vw;
-  max-height: 84vh; /* Prevents the image from overflowing vertically */
-  object-fit: contain;
-  border-radius: 14px;
-  cursor: auto;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-}
-
-#viewer-author {
-  margin-top: 14px;
-  color: rgba(255,255,255,0.85);
-  font-size: 13px;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  letter-spacing: 0.04em;
+@media (max-width: 560px) {
+  .carousel-btn { width: 36px; height: 36px; }
+  .carousel-btn.prev { left: -9px; }
+  .carousel-btn.next { right: -9px; }
+  .carousel-track { gap: 9px; }
+  .carousel-track img { width: min(65vw, 230px); height: min(65vw, 230px); border-radius: 14px; }
 }

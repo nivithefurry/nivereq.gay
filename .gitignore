@@ -1,12 +1,22 @@
-*.env*
-/node_modules
+# Local environment files and secrets
+.env
+.env.*
+!.env.example
+.dev.vars
+
+# Generated local files
+*.log
+.DS_Store
+Thumbs.db
+._*
+
+# Local development outputs
+/dist/
+/node_modules/
 /art-manager/node_modules/
+.wrangler/
+
+# Private art manager state (never publish or commit)
 /art-manager/data/
 /art-manager/backups/
 /art-manager/trash/
-/dist
-package-lock.json
-package.json
-server.js
-.DS_Store
-_*_old*

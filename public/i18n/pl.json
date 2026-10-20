@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "nivereq — streamer, twórca i futrzak",
+    "description": "Poznaj nivereq — streamera, twórcę, programistę i futrzaka z Krakowa."
+  },
+  "nav": { "home": "Start", "fursona": "Fursona", "fursonaHref": "/fursona/?lang=pl", "homeHref": "/?lang=pl" },
+  "controls": { "themeToggle": "Zmień motyw kolorystyczny" },
+  "hero": {
+    "affiliation": "Część Aethers Media Group",
+    "avatarAlt": "Animowany avatar nivereq",
+    "tagline": "streamer · twórca · developer · futrzak",
+    "description": "Tworzę internetowe rzeczy, fotografuję świat i dzielę się małymi fragmentami codzienności.",
+    "explore": "Poznaj moją fursonę",
+    "aboutLink": "Kilka słów o mnie",
+    "patLabel": "pat pat",
+    "patAvatarLabel": "Pogłaszcz avatar"
+  },
+  "about": {
+    "eyebrow": "Poza ekranem",
+    "title": "Trochę o mnie",
+    "intro": "Kilka rzeczy, które składają się na moje małe, futrzaste uniwersum.",
+    "basics": { "title": "Podstawy", "text": "Mam {age} lat i mieszkam w Krakowie." },
+    "identity": { "title": "Tożsamość", "text": "Jestem biseksualny." },
+    "fursona": { "title": "Fursona", "text": "Jestem futrzakiem, a moją fursoną jest arktyczny lis." },
+    "style": { "title": "Styl", "text": "Jestem femboyem." },
+    "relationship": { "title": "Relacja", "text": "Zajęty przez mojego najsłodszego 🐈." },
+    "music": { "title": "Muzyka", "text": "Mój gust muzyczny to chaos — sprawdź playlistę." },
+    "photography": { "title": "Fotografia", "text": "Lubię fotografować wszystko: od natury po martwą naturę." },
+    "dreams": { "title": "Marzenia", "text": "Marzę o podróżach po Europie i odwiedzeniu USA." },
+    "coding": { "title": "Programowanie", "text": "Programowanie to jedna z moich największych pasji." },
+    "numbers": { "title": "Liczby", "text": "Moje ulubione liczby to 7, 18 i 760." }
+  },
+  "footer": { "note": "zrobione z ❤️ i ☕" },
+  "widgets": {
+    "lastfm": { "now": "Aktualnie słucha", "last": "🎶 Ostatnio słuchał" },
+    "discordOnline": "{count} osób online",
+    "discordUnavailable": "Status Discorda jest chwilowo niedostępny."
+  },
+  "fursona": {
+    "metaTitle": "nivereq — fursona",
+    "metaDescription": "Poznaj fursonę nivereq'a, czyli arktycznego lisa. Ref sheet, paleta kolorów i podstawowe informacje.",
+    "eyebrow": "Moja postać",
+    "heading": "nivereq, arktyczny lis.",
+    "expand": "Powiększ",
+    "aboutLabel": "O postaci",
+    "paletteEyebrow": "Kolory postaci",
+    "galleryEyebrow": "Prace społeczności",
+    "previousArt": "Poprzednie prace",
+    "nextArt": "Następne prace",
+    "openImage": "Otwórz obraz referencyjny",
+    "closeImage": "Zamknij podgląd",
+    "copyColor": "Kopiuj kolor",
+    "intro1": "To jest <span class=\"highlight\">nivereq</span>, choć znajomi często mówią na niego po prostu <span class=\"highlight\">Nivi</span> lub <span class=\"highlight\">Niver</span>.",
+    "intro2": "To niezwykle puszysty, arktyczny lis, którego futro jest tak miękkie, że wydaje się zapraszać do przytulania.",
+    "intro3": "Nie ma nic, co nivereq kocha bardziej niż mocne uściski. Jest wyjątkowo łagodny i przyjazny, a jego ciepła aura sprawia, że każdy w jego towarzystwie czuje się swobodnie.",
+    "palette": "🎨 Paleta kolorów",
+    "basics": "ℹ️ Podstawowe informacje",
+    "ageSuffix": "lat",
+    "taken": "Zajęty",
+    "species": "Arktyczny lis",
+    "arts": "Art",
+    "imageAlt": "nivereq – arktyczny lis",
+    "modalAlt": "Powiększona fursona",
+    "copied": "Skopiowano!",
+    "artBy": "Art",
+    "unknownArtist": "Nieznany artysta",
+    "galleryError": "Nie udało się załadować galerii sztuki."
+  },
+  "community": { "eyebrow": "Społeczność" },
+  "listening": { "eyebrow": "Na żywo" },
+  "navigation": { "main": "Nawigacja główna", "language": "Język" }
+}

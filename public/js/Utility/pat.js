@@ -1,70 +1,70 @@
-// ==========================================
-// 🐾 Pat Counter
-// Handles interactive avatar clicking and optimized syncing with Supabase.
-// ==========================================
+const patAvatar = document.querySelector(".hero-avatar");
+const patButton = document.querySelector(".pat-chip");
+const patCount = document.getElementById("pat-count");
+let confirmedPats = 0;
+let queuedPats = 0;
+let syncTimer;
 
-const avatar = document.querySelector(".avatar-wrap img");
-const counter = document.getElementById("pat-count");
-
-// Keep track of the exact, accurate count in JavaScript memory
-let accurateCount = 0;
-let pendingPats = 0; // Tracks how many clicks happened during a rapid spam session
-let debounceTimer = null;
-
-if (avatar && counter) {
-  // 1. Fetch initial count from Supabase database when page loads
-  fetch("/api/pat")
-    .then(r => r.json())
-    .then(d => { 
-      accurateCount = d.count; 
-      counter.textContent = formatCount(accurateCount); 
-    })
-    .catch(() => console.warn("Failed to load pat count"));
-
-  // 2. Handle the user clicking the avatar
-  avatar.addEventListener("click", () => {
-    // Retrigger the CSS jump/pat animation
-    avatar.classList.remove("pat-anim");
-    void avatar.offsetWidth; // Force a browser repaint
-    avatar.classList.add("pat-anim");
-
-    // Optimistic Update: Immediately bump numbers locally so it feels fast
-    accurateCount += 1; 
-    pendingPats += 1; 
-    counter.textContent = formatCount(accurateCount);
-
-    // Rate-limit/Debounce protection: Clear the countdown timer on every click
-    clearTimeout(debounceTimer);
-
-    // Only fire the network request when the user STOPS clicking for 1 entire second
-    debounceTimer = setTimeout(() => {
-      syncPatsToServer(pendingPats);
-      pendingPats = 0; // Reset our local bundle queue
-    }, 1000);
-  });
+function formatPatCount(value) {
+  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`;
+  if (value >= 1_000) return `${(value / 1_000).toFixed(1)}k`;
+  return String(value);
 }
 
-// 3. Send bundled clicks together to the backend API
-function syncPatsToServer(amountToSend) {
-  if (amountToSend <= 0) return;
-
-  fetch("/api/pat", { 
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount: amountToSend }) 
-  })
-    .then(r => r.json())
-    .then(d => { 
-      // Sync the final confirmed count from the database just in case
-      accurateCount = d.count;
-      counter.textContent = formatCount(accurateCount); 
-    })
-    .catch(() => console.warn("Failed to sync pat count"));
+function renderPatCount() {
+  if (patCount) patCount.textContent = formatPatCount(confirmedPats + queuedPats);
 }
 
-// Converts large numbers into readable shortened string formats (e.g., 2080 -> 2.1k)
-function formatCount(n) {
-  if (n >= 1000000) return (n / 1000000).toFixed(1) + "M";
-  if (n >= 1000)    return (n / 1000).toFixed(1)    + "k";
-  return String(n);
+async function loadPatCount() {
+  try {
+    const response = await fetch("api/pat");
+    if (!response.ok) throw new Error(`Pat count request failed (${response.status}).`);
+    const result = await response.json();
+    confirmedPats = Number(result.count) || 0;
+    renderPatCount();
+  } catch (error) {
+    console.info("Pat counter is unavailable in this environment.", error);
+  }
 }
+
+async function syncPats(amount) {
+  if (!amount) return;
+  try {
+    const response = await fetch("api/pat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount }),
+    });
+    if (!response.ok) throw new Error(`Pat sync failed (${response.status}).`);
+    const result = await response.json();
+    confirmedPats = Number(result.count) || confirmedPats + amount;
+    renderPatCount();
+  } catch (error) {
+    console.info("Pat counter could not be synced in this environment.", error);
+  }
+}
+
+function pat() {
+  if (!patAvatar || !patCount) return;
+  patAvatar.classList.remove("pat-anim");
+  void patAvatar.offsetWidth;
+  patAvatar.classList.add("pat-anim");
+  queuedPats += 1;
+  renderPatCount();
+  window.clearTimeout(syncTimer);
+  syncTimer = window.setTimeout(() => {
+    const amount = queuedPats;
+    queuedPats = 0;
+    syncPats(amount);
+  }, 900);
+}
+
+patAvatar?.addEventListener("click", pat);
+patAvatar?.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    pat();
+  }
+});
+patButton?.addEventListener("click", pat);
+if (patAvatar && patCount) loadPatCount();

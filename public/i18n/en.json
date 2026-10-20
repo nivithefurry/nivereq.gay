@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "nivereq — streamer, creator and furry",
+    "description": "Meet nivereq — a streamer, creator, developer and furry from Krakow."
+  },
+  "nav": { "home": "Home", "fursona": "Fursona", "fursonaHref": "/fursona/?lang=en", "homeHref": "/?lang=en" },
+  "controls": { "themeToggle": "Change color theme" },
+  "hero": {
+    "affiliation": "Part of Aethers Media Group",
+    "avatarAlt": "Animated nivereq avatar",
+    "tagline": "streamer · creator · developer · furry",
+    "description": "I make things for the internet, photograph the world, and share little moments from everyday life.",
+    "explore": "Meet my fursona",
+    "aboutLink": "A little about me",
+    "patLabel": "pat pat",
+    "patAvatarLabel": "Pat the avatar"
+  },
+  "about": {
+    "eyebrow": "Away from the screen",
+    "title": "A little about me",
+    "intro": "A few things that make up my little furry universe.",
+    "basics": { "title": "The basics", "text": "I'm {age} and I live in Krakow." },
+    "identity": { "title": "Identity", "text": "I'm bisexual." },
+    "fursona": { "title": "Fursona", "text": "I'm a furry, and my fursona is an Arctic fox." },
+    "style": { "title": "Style", "text": "I'm a femboy." },
+    "relationship": { "title": "Relationship", "text": "Taken by my cutest kitty 🐈." },
+    "music": { "title": "Music", "text": "My music taste is pure chaos — here's my playlist." },
+    "photography": { "title": "Photography", "text": "I love photographing everything from wildlife to still life." },
+    "dreams": { "title": "Dreams", "text": "I dream of traveling across Europe and visiting the USA." },
+    "coding": { "title": "Coding", "text": "Coding is one of my biggest passions." },
+    "numbers": { "title": "Numbers", "text": "My favorite numbers are 7, 18, and 760." }
+  },
+  "footer": { "note": "made with ❤️ & ☕" },
+  "widgets": {
+    "lastfm": { "now": "Currently listening", "last": "🎶 Last listened" },
+    "discordOnline": "{count} members online",
+    "discordUnavailable": "Discord status is temporarily unavailable."
+  },
+  "fursona": {
+    "metaTitle": "nivereq — fursona",
+    "metaDescription": "Meet nivereq's fursona, an arctic fox. Ref sheet, color palette, and basic information.",
+    "eyebrow": "My character",
+    "heading": "nivereq, the arctic fox.",
+    "expand": "Expand",
+    "aboutLabel": "About the character",
+    "paletteEyebrow": "Character colors",
+    "galleryEyebrow": "Community artwork",
+    "previousArt": "Previous artwork",
+    "nextArt": "Next artwork",
+    "openImage": "Open reference image",
+    "closeImage": "Close preview",
+    "copyColor": "Copy color",
+    "intro1": "This is <span class=\"highlight\">nivereq</span>, though friends often call him <span class=\"highlight\">Nivi</span> or <span class=\"highlight\">Niver</span>.",
+    "intro2": "He is an incredibly fluffy arctic fox whose fur looks so soft it practically invites hugs.",
+    "intro3": "There is nothing nivereq loves more than tight hugs. He is exceptionally gentle and friendly, and his warm aura makes everyone feel comfortable around him.",
+    "palette": "🎨 Color Palette",
+    "basics": "ℹ️ Basic Information",
+    "ageSuffix": "years old",
+    "taken": "Taken",
+    "species": "Arctic fox",
+    "arts": "Art",
+    "imageAlt": "nivereq – arctic fox",
+    "modalAlt": "Enlarged fursona image",
+    "copied": "Copied!",
+    "artBy": "Art",
+    "unknownArtist": "Unknown artist",
+    "galleryError": "Could not load the art gallery."
+  },
+  "community": { "eyebrow": "Community" },
+  "listening": { "eyebrow": "Listening now" },
+  "navigation": { "main": "Main navigation", "language": "Language" }
+}

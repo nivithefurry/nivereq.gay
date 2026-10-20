@@ -2,87 +2,61 @@
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nivereq.com • fursona</title>
-
-    <link rel="icon" type="image/png" href="/assets/favicons/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicons/favicon.svg" />
-    <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png" />
-    <link rel="manifest" href="/assets/favicons/site.webmanifest" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script>
-      (function () {
-        const saved = localStorage.getItem("theme");
-        if (saved) {
-          document.documentElement.setAttribute("data-theme", saved);
-        } else {
-          const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-          document.documentElement.setAttribute("data-theme", systemDark ? "dark" : "light");
-        }
-      })();
+      const siteRoot = window.location.pathname.startsWith("/public/") ? "/public/" : "/";
+      window.siteRoot = siteRoot;
+      document.head.prepend(Object.assign(document.createElement("base"), { href: siteRoot }));
+      const savedTheme = localStorage.getItem("theme");
+      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = savedTheme || (systemDark ? "dark" : "light");
     </script>
-
+    <title>nivereq.com • fursona</title>
+    <meta name="description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa. Ref sheet, paleta kolorów i podstawowe informacje." data-i18n-content="fursona.metaDescription" />
     <meta name="author" content="nivereq" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://nivereq.com/fursona/" />
     <link rel="alternate" hreflang="pl" href="https://nivereq.com/fursona/" />
-    <link rel="alternate" hreflang="en" href="https://nivereq.com/en/fursona/" />
+    <link rel="alternate" hreflang="en" href="https://nivereq.com/fursona/?lang=en" />
     <link rel="alternate" hreflang="x-default" href="https://nivereq.com/fursona/" />
-
-    <meta property="og:title" content="🦊 nivereq • fursona ❄️" />
-    <meta property="og:description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa. Ref sheet, paleta kolorów i podstawowe informacje." />
+    <meta property="og:title" content="nivereq — fursona" data-i18n-content="fursona.metaTitle" />
+    <meta property="og:description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa." data-i18n-content="fursona.metaDescription" />
     <meta property="og:image" content="https://nivereq.com/assets/img/nivereq_current_ref.jpg" />
     <meta property="og:url" content="https://nivereq.com/fursona/" />
     <meta property="og:type" content="profile" />
     <meta property="og:locale" content="pl_PL" />
-    
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="🦊 nivereq • fursona ❄️" />
-    <meta name="twitter:description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa. Ref sheet, paleta kolorów i podstawowe informacje." />
+    <meta name="twitter:title" content="nivereq — fursona" data-i18n-content="fursona.metaTitle" />
+    <meta name="twitter:description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa." data-i18n-content="fursona.metaDescription" />
     <meta name="twitter:image" content="https://nivereq.com/assets/img/nivereq_current_ref.jpg" />
     <meta name="twitter:site" content="@nivithefurry" />
     <meta name="twitter:creator" content="@nivithefurry" />
-
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-59MTXR29");
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime"></script>
-    <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/themes/dark.css" />
-    <link rel="stylesheet" href="/css/fursona.css" />
-    <link rel="stylesheet" href="/css/gallery.css" />
-
-    <script type="application/ld+json">
+    <link rel="icon" type="image/png" href="assets/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicons/favicon.svg" />
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png" />
+    <link rel="manifest" href="assets/favicons/site.webmanifest" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/themes/dark.css" />
+    <link rel="stylesheet" href="css/fursona.css" />
+    <link rel="stylesheet" href="css/gallery.css" />
+    <script type="application/ld+json" id="page-structured-data">
       {
         "@context": "https://schema.org",
         "@type": "ProfilePage",
         "inLanguage": "pl",
         "url": "https://nivereq.com/fursona/",
-        "name": "Fursona – Nivereq",
-        "description": "Profil fursony Nivereq – arktycznego lisa. Ref sheet, paleta kolorów oraz podstawowe informacje.",
+        "name": "Fursona – nivereq",
+        "description": "Profil fursony nivereq – arktycznego lisa. Ref sheet, paleta kolorów oraz podstawowe informacje.",
         "mainEntity": {
           "@type": "Person",
-          "name": "Nivereq",
+          "name": "nivereq",
           "alternateName": ["nivi", "nivithefurry"],
           "description": "Arktyczny lis – fursona twórcy znanego jako nivereq.",
           "nationality": "Polish",
           "knowsLanguage": ["Polish", "English"],
-          "image": {
-            "@type": "ImageObject",
-            "url": "https://nivereq.com/assets/img/nivereq_current_ref.jpg",
-            "contentUrl": "https://nivereq.com/assets/img/nivereq_current_ref.jpg"
-          },
+          "image": "https://nivereq.com/assets/img/nivereq_current_ref.jpg",
           "url": "https://nivereq.com/fursona/"
         },
         "primaryImageOfPage": {
@@ -91,209 +65,124 @@
         },
         "hasPart": {
           "@type": "CreativeWork",
-          "name": "Ref Sheet - nivereq",
-          "description": "Oficjalny design fursony nivereq'a w formie ilustracji referencyjnej.",
+          "name": "Ref Sheet – nivereq",
+          "description": "Official reference illustration of nivereq's fursona.",
           "image": "https://nivereq.com/assets/img/nivereq_current_ref.jpg",
           "creator": {
             "@type": "Person",
             "name": "Pandza",
-            "url": "https://discord.com/users/996397191570673734",
-            "gender": "Female"
+            "url": "https://discord.com/users/996397191570673734"
           }
         }
       }
     </script>
+    <script>
+      (function (window, document, script, layer, id) {
+        window[layer] = window[layer] || [];
+        window[layer].push({ "gtm.start": Date.now(), event: "gtm.js" });
+        const firstScript = document.getElementsByTagName(script)[0];
+        const tag = document.createElement(script);
+        const layerQuery = layer === "dataLayer" ? "" : `&l=${layer}`;
+        tag.async = true;
+        tag.src = `https://www.googletagmanager.com/gtm.js?id=${id}${layerQuery}`;
+        firstScript.parentNode.insertBefore(tag, firstScript);
+      })(window, document, "script", "dataLayer", "GTM-59MTXR29");
+    </script>
   </head>
-
-  <body class="text-[var(--text)] transition-colors duration-300">
+  <body class="site-page" data-i18n-title="fursona.metaTitle">
     <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-59MTXR29" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-59MTXR29" title="Google Tag Manager" height="0" width="0" hidden></iframe>
     </noscript>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
 
-    <header class="navbar">
-      <div class="nav-left"></div>
-      <nav class="nav-center">
-        <a href="/" class="nav-link">Strona Główna</a>
-        <a class="nav-link active">Fursona</a>
+    <header class="site-header shell">
+      <a class="wordmark" href="../?lang=pl" data-i18n-href="nav.homeHref" aria-label="nivereq — home">nivereq</a>
+      <nav class="primary-nav" aria-label="Primary navigation" data-i18n-aria-label="navigation.main">
+        <a class="nav-link" href="../?lang=pl" data-i18n="nav.home" data-i18n-href="nav.homeHref">Start</a>
+        <a class="nav-link active" href="?lang=pl" data-i18n="nav.fursona">Fursona</a>
       </nav>
+      <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme" data-i18n-aria-label="controls.themeToggle" data-i18n-title="controls.themeToggle">
+        <i class="bi bi-sun-fill" id="theme-icon" aria-hidden="true"></i>
+      </button>
     </header>
 
-    <div class="bg-layer-main"></div>
-    <div class="bg-layer-radial"></div>
-
-    <button id="theme-toggle" class="fixed top-6 right-6 p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)] hover:opacity-80 transition">
-      <span id="theme-emoji">☀️</span>
-    </button>
-
-    <main class="max-w-2xl mx-auto px-6 py-24 space-y-12">
-      <section class="space-y-6">
-        <h1 class="text-3xl font-bold tracking-tight">🦊 Fursona</h1>
+    <main class="shell fursona-content">
+      <section class="fursona-heading">
+        <span class="eyebrow" data-i18n="fursona.eyebrow">Moja postać</span>
+        <h1 data-i18n="fursona.heading">nivereq, arktyczny lis.</h1>
+        <p class="fursona-lede" data-i18n="fursona.intro1">To jest nivereq, choć znajomi często mówią na niego Nivi lub Niver.</p>
       </section>
 
-      <section class="p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-6">
-        <img src="/assets/img/nivereq_current_ref.jpg" alt="Nivereq – arktyczny lis" class="mx-auto rounded-xl max-w-full border border-[var(--border)]" id="fursona-img" />
-
-        <div class="space-y-4 text-[var(--muted)]">
-          <p>
-            To jest <span class="highlight">Nivereq</span>, choć znajomi często mówią na niego po prostu <span class="highlight">Nivi</span> lub <span class="highlight">Niver</span>.
-          </p>
-          <p>
-            To niezwykle puszysty, arktyczny lis, którego futro jest tak miękkie, że wydaje się zapraszać do przytulania.
-          </p>
-          <p>
-            Nie ma nic, co Nivereq kocha bardziej niż mocne uściski. Jest wyjątkowo łagodny i przyjazny, a jego ciepła aura sprawia, że każdy w jego towarzystwie czuje się swobodnie.
-          </p>
-        </div>
-      </section>
-
-      <section class="p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4">
-        <h2 class="text-xs uppercase tracking-widest text-[var(--muted)]">🎨 Paleta kolorów</h2>
-        
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-          <div class="color-box" data-color="#fa557a" style="background: #fa557a">#fa557a</div>
-          <div class="color-box" data-color="#da2f55" style="background: #da2f55">#da2f55</div>
-          <div class="color-box" data-color="#b8fff1" style="background: #b8fff1">#b8fff1</div>
-          <div class="color-box" data-color="#bdfff2" style="background: #bdfff2">#bdfff2</div>
-          <div class="color-box" data-color="#f3fafa" style="background: #f3fafa">#f3fafa</div>
-        </div>
-      </section>
-
-      <section class="p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4">
-        <h2 class="text-xs uppercase tracking-widest text-[var(--muted)]">ℹ️ Podstawowe informacje</h2>
-        <div class="flex tags flex-wrap gap-3">
-          <span class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm">
-            <span class="emoji">🧓</span> <span id="age"></span> lat
-          </span>
-          <span class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm">
-            <span class="emoji">💖</span> Zajęty
-          </span>
-          <span class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm">
-            <span class="emoji">📏</span> 177 cm
-          </span>
-          <span class="px-4 py-1 tag rounded-full border border-[var(--border)] bg-[var(--bg)] text-sm">
-            <span class="emoji">❄️</span> Arktyczny lis
-          </span>
-        </div>
-      </section>
-
-      <section class="arts p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4">
-        <h2 class="text-xs uppercase tracking-widest text-[var(--muted)]">🎨 Arty</h2>
-        <div class="art-carousel">
-          <button class="carousel-btn prev">‹</button>
-          <div class="carousel-track">
-            
+      <section class="character-feature" aria-label="Fursona reference image">
+        <button class="character-image-button" id="fursona-image-button" type="button" aria-label="Open fursona image" data-i18n-aria-label="fursona.openImage">
+          <img src="assets/img/nivereq_current_ref.jpg" alt="nivereq – arktyczny lis" data-i18n-alt="fursona.imageAlt" id="fursona-img" />
+          <span class="image-expand"><i class="bi bi-arrows-fullscreen" aria-hidden="true"></i><span data-i18n="fursona.expand">Powiększ</span></span>
+        </button>
+        <div class="character-copy">
+          <span class="eyebrow" data-i18n="fursona.aboutLabel">O postaci</span>
+          <p data-i18n="fursona.intro2">To niezwykle puszysty, arktyczny lis, którego futro jest tak miękkie, że wydaje się zapraszać do przytulania.</p>
+          <p data-i18n="fursona.intro3">Nie ma nic, co nivereq kocha bardziej niż mocne uściski. Jest wyjątkowo łagodny i przyjazny, a jego ciepła aura sprawia, że każdy w jego towarzystwie czuje się swobodnie.</p>
+          <div class="character-facts">
+            <span class="fact-pill"><i class="bi bi-calendar-heart" aria-hidden="true"></i><span id="age"></span> <span data-i18n="fursona.ageSuffix">lat</span></span>
+            <span class="fact-pill"><i class="bi bi-heart" aria-hidden="true"></i><span data-i18n="fursona.taken">Zajęty</span></span>
+            <span class="fact-pill"><i class="bi bi-rulers" aria-hidden="true"></i>177 cm</span>
+            <span class="fact-pill"><i class="bi bi-snow" aria-hidden="true"></i><span data-i18n="fursona.species">Arktyczny lis</span></span>
           </div>
-          <button class="carousel-btn next">›</button>
+        </div>
+      </section>
+
+      <section class="fursona-section" aria-labelledby="palette-heading">
+        <div class="section-intro section-intro-compact">
+          <span class="eyebrow" data-i18n="fursona.paletteEyebrow">Kolory postaci</span>
+          <h2 id="palette-heading" data-i18n="fursona.palette">Paleta kolorów</h2>
+        </div>
+        <div class="palette-grid">
+          <button class="color-swatch" data-color="#fa557a" style="--swatch: #fa557a" type="button" aria-label="Copy color #fa557a"><span>#fa557a</span></button>
+          <button class="color-swatch" data-color="#da2f55" style="--swatch: #da2f55" type="button" aria-label="Copy color #da2f55"><span>#da2f55</span></button>
+          <button class="color-swatch" data-color="#b8fff1" style="--swatch: #b8fff1" type="button" aria-label="Copy color #b8fff1"><span>#b8fff1</span></button>
+          <button class="color-swatch" data-color="#bdfff2" style="--swatch: #bdfff2" type="button" aria-label="Copy color #bdfff2"><span>#bdfff2</span></button>
+          <button class="color-swatch" data-color="#f3fafa" style="--swatch: #f3fafa" type="button" aria-label="Copy color #f3fafa"><span>#f3fafa</span></button>
+        </div>
+      </section>
+
+      <section class="fursona-section gallery-section" aria-labelledby="gallery-heading">
+        <div class="section-intro section-intro-compact">
+          <span class="eyebrow" data-i18n="fursona.galleryEyebrow">Prace społeczności</span>
+          <h2 id="gallery-heading" data-i18n="fursona.arts">Art</h2>
+        </div>
+        <div class="art-carousel">
+          <button class="carousel-btn prev" type="button" data-i18n-aria-label="fursona.previousArt" aria-label="Previous artworks"><i class="bi bi-arrow-left" aria-hidden="true"></i></button>
+          <div class="carousel-viewport"><div class="carousel-track"></div></div>
+          <button class="carousel-btn next" type="button" data-i18n-aria-label="fursona.nextArt" aria-label="Next artworks"><i class="bi bi-arrow-right" aria-hidden="true"></i></button>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <p class="footer-copy">© <span id="year"></span> nivereq.com</p>
-        <p class="footer-note">made with ❤️ & ☕</p>
-      </div>
-      <div class="lang-switch">
-        <a href="/fursona" data-lang="pl">PL</a>
-        <span class="divider">~</span>
-        <a href="/en/fursona" data-lang="en">EN</a>
+    <footer class="site-footer shell">
+      <a class="wordmark footer-wordmark" href="../?lang=pl" data-i18n-href="nav.homeHref">nivereq</a>
+      <p class="footer-copy">© <span id="year"></span> nivereq.com</p>
+      <div class="footer-tools">
+        <p class="footer-note" data-i18n="footer.note">zrobione z ❤️ i ☕</p>
+        <nav class="lang-switch" aria-label="Language" data-i18n-aria-label="navigation.language">
+          <a href="?lang=pl" data-lang="pl">PL</a><span aria-hidden="true">/</span><a href="?lang=en" data-lang="en">EN</a>
+        </nav>
       </div>
     </footer>
 
-    <div id="image-modal" class="image-modal hidden">
-      <div class="image-modal-backdrop"></div>
-      <img id="modal-img" src="" alt="Powiększona fursona" />
+    <div class="image-modal" id="image-modal" aria-hidden="true">
+      <button class="modal-close" id="modal-close" type="button" aria-label="Close image" data-i18n-aria-label="fursona.closeImage"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      <img id="modal-img" src="assets/img/nivereq_current_ref.jpg" alt="Powiększona fursona" data-i18n-alt="fursona.modalAlt" />
     </div>
-    
-    <div id="art-viewer">
-      <div class="viewer-content">
-        <img id="viewer-img">
-        <p id="viewer-author"></p>
-      </div>
+    <div id="art-viewer" class="art-viewer" aria-hidden="true">
+      <button class="modal-close" id="art-viewer-close" type="button" aria-label="Close artwork" data-i18n-aria-label="fursona.closeImage"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      <div class="viewer-content"><img id="viewer-img" alt="Artwork by community" /><p id="viewer-author"></p></div>
     </div>
 
-    <script src="/js/main.js"></script>
-    <script src="/js/Utility/themeSwitcher.js"></script>
-    <script src="/js/Utility/Age.js"></script>
-    <script src="/js/Utility/artGallery.js"></script>
-
-    <script>
-      // Determines whether black or white text looks best against the hex color
-      function getContrastColor(hex) {
-        hex = hex.replace("#", "");
-        const r = parseInt(hex.substr(0, 2), 16);
-        const g = parseInt(hex.substr(2, 2), 16);
-        const b = parseInt(hex.substr(4, 2), 16);
-        const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
-        return luminance > 160 ? "#000000" : "#ffffff";
-      }
-
-      document.querySelectorAll(".color-box").forEach((box) => {
-        const color = box.getAttribute("data-color");
-        box.style.color = getContrastColor(color); // Apply contrast text color
-
-        box.addEventListener("click", () => {
-          navigator.clipboard.writeText(color);
-
-          // Trigger CSS Pulse animation
-          box.classList.remove("pulse");
-          void box.offsetWidth; 
-          box.classList.add("pulse");
-
-          // Temporarily show success text
-          const original = box.textContent;
-          box.textContent = "Skopiowano!";
-          setTimeout(() => {
-            box.textContent = original;
-          }, 800);
-        });
-      });
-    </script>
-
-    <script>
-      const fursonaImg = document.getElementById("fursona-img");
-      const modal = document.getElementById("image-modal");
-      const modalImg = document.getElementById("modal-img");
-      const backdrop = document.querySelector(".image-modal-backdrop");
-
-      fursonaImg.style.cursor = "zoom-in";
-
-      // Open Modal
-      fursonaImg.addEventListener("click", () => {
-        modalImg.src = fursonaImg.src;
-        modal.classList.remove("hidden");
-        modal.classList.add("cursor-zoom-out");
-      });
-
-      // Close via background click
-      document.addEventListener("click", (e) => {
-        if (e.target === backdrop || e.target.closest(".image-modal")) {
-          modal.classList.add("hidden");
-        }
-      });
-
-      // Close via ESC key
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          modal.classList.add("hidden");
-        }
-      });
-    </script>
-
-    <script>
-      window.addEventListener("load", () => { document.body.classList.add("page-loaded"); });
-
-      document.querySelectorAll("a[href]").forEach((link) => {
-        const url = link.getAttribute("href");
-        if (url.startsWith("#") || link.target === "_blank" || link.hasAttribute("download") || (url.startsWith("http") && !url.includes(window.location.hostname))) return;
-
-        link.addEventListener("click", function (e) {
-          e.preventDefault();
-          document.body.classList.remove("page-loaded");
-          document.body.classList.add("page-exit");
-          setTimeout(() => { window.location.href = url; }, 125);
-        });
-      });
-    </script>
+    <script src="js/main.js"></script>
+    <script src="js/Utility/themeSwitcher.js"></script>
+    <script src="js/Utility/Age.js"></script>
+    <script src="js/Utility/artGallery.js"></script>
+    <script src="js/Utility/fursona.js"></script>
   </body>
 </html>

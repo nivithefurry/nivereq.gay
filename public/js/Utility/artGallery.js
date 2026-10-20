@@ -1,110 +1,101 @@
-// ==========================================
-// 🖼️ Dynamic Art Gallery
-// Fetches arts from JSON, renders them, and handles carousel/lightbox.
-// ==========================================
+const galleryTrack = document.querySelector(".carousel-track");
+const galleryViewport = document.querySelector(".carousel-viewport");
+const previousArtwork = document.querySelector(".carousel-btn.prev");
+const nextArtwork = document.querySelector(".carousel-btn.next");
+const artViewer = document.getElementById("art-viewer");
+let galleryOffset = 0;
+let artworkReturnFocus = null;
 
-const track = document.querySelector(".carousel-track");
-const next = document.querySelector(".next");
-const prev = document.querySelector(".prev");
+function updateGalleryControls() {
+  if (!galleryTrack || !galleryViewport) return;
+  const maxOffset = Math.max(0, galleryTrack.scrollWidth - galleryViewport.clientWidth);
+  galleryOffset = Math.min(galleryOffset, maxOffset);
+  galleryTrack.style.transform = `translateX(-${galleryOffset}px)`;
+  if (previousArtwork) previousArtwork.disabled = galleryOffset <= 0;
+  if (nextArtwork) nextArtwork.disabled = galleryOffset >= maxOffset;
+}
 
-let scrollPosition = 0;
-const step = 280; // Pixels to slide per click
+function openArtwork(image) {
+  artworkReturnFocus = image;
+  const viewerImage = document.getElementById("viewer-img");
+  const authorLabel = document.getElementById("viewer-author");
+  const translations = window.siteTranslations?.fursona;
+  viewerImage.src = image.src;
+  viewerImage.alt = image.alt;
+  authorLabel.textContent = `${translations?.artBy || "Art"}: ${image.dataset.author || translations?.unknownArtist || "Unknown artist"}`;
+  artViewer.classList.add("active");
+  artViewer.setAttribute("aria-hidden", "false");
+  document.getElementById("art-viewer-close")?.focus();
+}
 
-// 1. Fetch Data and Render HTML
 async function loadGallery() {
+  if (!galleryTrack) return;
+
   try {
-    // Ścieżka relatywna do lokalizacji arts.json w Twojej strukturze projektowej
-    const response = await fetch("/data/arts.json");
-    if (!response.ok) throw new Error("Problem z ładowaniem pliku JSON");
-    
-    const arts = await response.json();
+    await window.translationsReady;
+    const response = await fetch("data/arts.json");
+    if (!response.ok) throw new Error(`Gallery data request failed (${response.status}).`);
+    const artworks = await response.json();
+    artworks.sort((first, second) => second.timestamp_added - first.timestamp_added);
 
-    // Sortowanie (opcjonalne): najnowsze arty jako pierwsze (od najwyższego timestampu)
-    arts.sort((a, b) => b.timestamp_added - a.timestamp_added);
-
-    // Generowanie tagów HTML dla obrazków
-    track.innerHTML = arts.map(art => `
-      <img src="${art.src}" data-author="${art.author}" alt="Art by ${art.author}">
-    `).join("");
-
-    // Gdy elementy są już w DOM, odpalamy obsługę karuzeli i powiększenia
-    initGallery();
-
-  } catch (error) {
-    console.error("Błąd galerii:", error);
-    track.innerHTML = `<p class="text-xs text-[var(--muted)] p-4">Nie udało się załadować galerii sztuki.</p>`;
-  }
-}
-
-// 2. Initialize Carousel & Lightbox Logic (runs AFTER HTML rendering)
-function initGallery() {
-  const images = document.querySelectorAll(".carousel-track img");
-  const viewer = document.getElementById("art-viewer");
-  const viewerImg = document.getElementById("viewer-img");
-  const viewerAuthor = document.getElementById("viewer-author");
-
-  // --- Carousel Logic ---
-  function getMaxScroll() {
-    return track.scrollWidth - track.parentElement.clientWidth;
-  }
-
-  function updateCarousel() {
-    track.style.transform = `translateX(-${scrollPosition}px)`;
-  }
-
-  next.addEventListener("click", () => {
-    const maxScroll = getMaxScroll();
-    scrollPosition += step;
-
-    if (scrollPosition > maxScroll) {
-      scrollPosition = maxScroll;
-    }
-    updateCarousel();
-  });
-
-  prev.addEventListener("click", () => {
-    scrollPosition -= step;
-
-    if (scrollPosition < 0) {
-      scrollPosition = 0;
-    }
-    updateCarousel();
-  });
-
-  // Reset scroll position on window resize (just in case)
-  window.addEventListener("resize", () => {
-    if (scrollPosition > getMaxScroll()) {
-      scrollPosition = Math.max(0, getMaxScroll());
-      updateCarousel();
-    }
-  });
-
-
-  // --- Fullscreen Viewer Logic ---
-  images.forEach(img => {
-    img.addEventListener("click", () => {
-      viewer.classList.add("active");
-      viewerImg.src = img.src;
-
-      const author = img.dataset.author || "Unknown artist";
-      viewerAuthor.textContent = "Art by " + author;
+    const rootPath = window.siteRoot || "/";
+    const translations = window.siteTranslations.fursona;
+    const artworkElements = artworks.map((artwork) => {
+      const image = document.createElement("img");
+      image.src = artwork.src.startsWith("/") && rootPath !== "/"
+        ? `${rootPath.slice(0, -1)}${artwork.src}`
+        : artwork.src;
+      image.dataset.author = artwork.author || translations.unknownArtist;
+      image.alt = `${translations.artBy}: ${image.dataset.author}`;
+      image.loading = "lazy";
+      image.addEventListener("click", () => openArtwork(image));
+      image.tabIndex = 0;
+      image.setAttribute("role", "button");
+      image.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openArtwork(image);
+        }
+      });
+      return image;
     });
-  });
 
-  viewer.addEventListener("click", (e) => {
-    if (e.target === viewer) {
-      viewer.classList.remove("active");
-    }
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      viewer.classList.remove("active");
-    }
-  });
+    galleryTrack.replaceChildren(...artworkElements);
+    updateGalleryControls();
+  } catch (error) {
+    console.warn("Art gallery could not be loaded.", error);
+    const translations = window.siteTranslations?.fursona;
+    const useEnglish = currentLang === "en";
+    const message = translations?.galleryError || (useEnglish ? "Could not load the art gallery." : "Nie udało się załadować galerii sztuki.");
+    const errorMessage = document.createElement("p");
+    errorMessage.className = "gallery-error";
+    errorMessage.textContent = message;
+    galleryTrack.replaceChildren(errorMessage);
+  }
 }
 
-// Load the gallery when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", () => {
-  loadGallery();
+previousArtwork?.addEventListener("click", () => {
+  galleryOffset = Math.max(0, galleryOffset - galleryViewport.clientWidth * 0.8);
+  updateGalleryControls();
 });
+nextArtwork?.addEventListener("click", () => {
+  galleryOffset += galleryViewport.clientWidth * 0.8;
+  updateGalleryControls();
+});
+window.addEventListener("resize", updateGalleryControls);
+
+function closeArtViewer() {
+  if (!artViewer?.classList.contains("active")) return;
+  artViewer.classList.remove("active");
+  artViewer.setAttribute("aria-hidden", "true");
+  artworkReturnFocus?.focus();
+}
+
+artViewer?.addEventListener("click", (event) => {
+  if (event.target === artViewer || event.target.closest("#art-viewer-close")) closeArtViewer();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeArtViewer();
+});
+
+loadGallery();
