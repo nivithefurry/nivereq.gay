@@ -87,7 +87,12 @@ async function loadTranslations() {
     if (link.dataset.lang === currentLang) link.setAttribute("aria-current", "page");
     else link.removeAttribute("aria-current");
   });
-  if (query.has("lang")) localStorage.setItem("language", currentLang);
+  if (query.has("lang")) {
+    localStorage.setItem("language", currentLang);
+    const cleanUrl = new URL(window.location.href);
+    cleanUrl.searchParams.delete("lang");
+    window.history.replaceState(window.history.state, "", `${cleanUrl.pathname}${cleanUrl.search}${cleanUrl.hash}`);
+  }
   return dictionary;
 }
 

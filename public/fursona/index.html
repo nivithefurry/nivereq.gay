@@ -107,10 +107,11 @@
 
         const cleanCampaignParameters = function () {
           if (!hasUtmParameters) return;
-          for (const key of [...landingUrl.searchParams.keys()]) {
-            if (key.toLowerCase().startsWith("utm_")) landingUrl.searchParams.delete(key);
+          const currentUrl = new URL(window.location.href);
+          for (const key of [...currentUrl.searchParams.keys()]) {
+            if (key.toLowerCase().startsWith("utm_")) currentUrl.searchParams.delete(key);
           }
-          window.history.replaceState(window.history.state, "", `${landingUrl.pathname}${landingUrl.search}${landingUrl.hash}`);
+          window.history.replaceState(window.history.state, "", `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`);
         };
 
         if (document.querySelector('script[src*="googletagmanager.com/gtm.js"]')) return;
