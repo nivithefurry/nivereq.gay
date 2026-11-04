@@ -11,24 +11,24 @@
       const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       document.documentElement.dataset.theme = savedTheme || (systemDark ? "dark" : "light");
     </script>
-    <title>nivereq.com • fursona</title>
+    <title>nivereq.cafe • fursona</title>
     <meta name="description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa. Ref sheet, paleta kolorów i podstawowe informacje." data-i18n-content="fursona.metaDescription" />
     <meta name="author" content="nivereq" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://nivereq.com/fursona/" />
-    <link rel="alternate" hreflang="pl" href="https://nivereq.com/fursona/" />
-    <link rel="alternate" hreflang="en" href="https://nivereq.com/fursona/?lang=en" />
-    <link rel="alternate" hreflang="x-default" href="https://nivereq.com/fursona/" />
+    <link rel="canonical" href="https://nivereq.cafe/fursona/" />
+    <link rel="alternate" hreflang="pl" href="https://nivereq.cafe/fursona/" />
+    <link rel="alternate" hreflang="en" href="https://nivereq.cafe/fursona/?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://nivereq.cafe/fursona/" />
     <meta property="og:title" content="nivereq — fursona" data-i18n-content="fursona.metaTitle" />
     <meta property="og:description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa." data-i18n-content="fursona.metaDescription" />
-    <meta property="og:image" content="https://nivereq.com/assets/img/nivereq_current_ref.jpg" />
-    <meta property="og:url" content="https://nivereq.com/fursona/" />
+    <meta property="og:image" content="https://nivereq.cafe/assets/img/nivereq_current_ref.jpg" />
+    <meta property="og:url" content="https://nivereq.cafe/fursona/" />
     <meta property="og:type" content="profile" />
     <meta property="og:locale" content="pl_PL" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="nivereq — fursona" data-i18n-content="fursona.metaTitle" />
     <meta name="twitter:description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa." data-i18n-content="fursona.metaDescription" />
-    <meta name="twitter:image" content="https://nivereq.com/assets/img/nivereq_current_ref.jpg" />
+    <meta name="twitter:image" content="https://nivereq.cafe/assets/img/nivereq_current_ref.jpg" />
     <meta name="twitter:site" content="@nivithefurry" />
     <meta name="twitter:creator" content="@nivithefurry" />
     <link rel="icon" type="image/png" href="assets/favicons/favicon-96x96.png" sizes="96x96" />
@@ -46,7 +46,7 @@
         "@context": "https://schema.org",
         "@type": "ProfilePage",
         "inLanguage": "pl",
-        "url": "https://nivereq.com/fursona/",
+        "url": "https://nivereq.cafe/fursona/",
         "name": "Fursona – nivereq",
         "description": "Profil fursony nivereq – arktycznego lisa. Ref sheet, paleta kolorów oraz podstawowe informacje.",
         "mainEntity": {
@@ -56,18 +56,18 @@
           "description": "Arktyczny lis – fursona twórcy znanego jako nivereq.",
           "nationality": "Polish",
           "knowsLanguage": ["Polish", "English"],
-          "image": "https://nivereq.com/assets/img/nivereq_current_ref.jpg",
-          "url": "https://nivereq.com/fursona/"
+          "image": "https://nivereq.cafe/assets/img/nivereq_current_ref.jpg",
+          "url": "https://nivereq.cafe/fursona/"
         },
         "primaryImageOfPage": {
           "@type": "ImageObject",
-          "url": "https://nivereq.com/assets/img/nivereq_current_ref.jpg"
+          "url": "https://nivereq.cafe/assets/img/nivereq_current_ref.jpg"
         },
         "hasPart": {
           "@type": "CreativeWork",
           "name": "Ref Sheet – nivereq",
           "description": "Official reference illustration of nivereq's fursona.",
-          "image": "https://nivereq.com/assets/img/nivereq_current_ref.jpg",
+          "image": "https://nivereq.cafe/assets/img/nivereq_current_ref.jpg",
           "creator": {
             "@type": "Person",
             "name": "Pandza",
@@ -77,21 +77,58 @@
       }
     </script>
     <script>
-      (function (window, document, script, layer, id) {
-        window[layer] = window[layer] || [];
-        window[layer].push({ "gtm.start": Date.now(), event: "gtm.js" });
-        const firstScript = document.getElementsByTagName(script)[0];
-        const tag = document.createElement(script);
-        const layerQuery = layer === "dataLayer" ? "" : `&l=${layer}`;
+      (function (window, document) {
+        if (window.__nivereqGtmInitialized) return;
+        window.__nivereqGtmInitialized = true;
+
+        const layer = window.dataLayer = window.dataLayer || [];
+        const landingUrl = new URL(window.location.href);
+        const utmParameters = {};
+        for (const [key, value] of landingUrl.searchParams) {
+          if (!key.toLowerCase().startsWith("utm_")) continue;
+          if (Object.hasOwn(utmParameters, key)) {
+            utmParameters[key] = Array.isArray(utmParameters[key]) ? [...utmParameters[key], value] : [utmParameters[key], value];
+          } else {
+            utmParameters[key] = value;
+          }
+        }
+
+        const hasUtmParameters = Object.keys(utmParameters).length > 0;
+        if (hasUtmParameters) {
+          layer.push({
+            event: "campaign_parameters",
+            campaignParameters: utmParameters,
+            campaignPageLocation: landingUrl.href
+          });
+        }
+
+        window.gtag = window.gtag || function () { layer.push(arguments); };
+        window.gtag("js", new Date());
+
+        const cleanCampaignParameters = function () {
+          if (!hasUtmParameters) return;
+          for (const key of [...landingUrl.searchParams.keys()]) {
+            if (key.toLowerCase().startsWith("utm_")) landingUrl.searchParams.delete(key);
+          }
+          window.history.replaceState(window.history.state, "", `${landingUrl.pathname}${landingUrl.search}${landingUrl.hash}`);
+        };
+
+        if (document.querySelector('script[src*="googletagmanager.com/gtm.js"]')) return;
+        layer.push({
+          "gtm.start": Date.now(),
+          event: "gtm.js",
+          eventCallback: cleanCampaignParameters
+        });
+        const tag = document.createElement("script");
         tag.async = true;
-        tag.src = `https://www.googletagmanager.com/gtm.js?id=${id}${layerQuery}`;
-        firstScript.parentNode.insertBefore(tag, firstScript);
-      })(window, document, "script", "dataLayer", "GTM-59MTXR29");
+        tag.src = "https://www.googletagmanager.com/gtm.js?id=GTM-MM7RB9ML";
+        document.head.appendChild(tag);
+      })(window, document);
     </script>
   </head>
   <body class="site-page" data-i18n-title="fursona.metaTitle">
     <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-59MTXR29" title="Google Tag Manager" height="0" width="0" hidden></iframe>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MM7RB9ML" title="Google Tag Manager" height="0" width="0" hidden></iframe>
     </noscript>
     <div class="ambient ambient-one" aria-hidden="true"></div>
     <div class="ambient ambient-two" aria-hidden="true"></div>
@@ -161,7 +198,7 @@
 
     <footer class="site-footer shell">
       <a class="wordmark footer-wordmark" href="../?lang=pl" data-i18n-href="nav.homeHref">nivereq</a>
-      <p class="footer-copy">© <span id="year"></span> nivereq.com</p>
+      <p class="footer-copy">© <span id="year"></span> nivereq.cafe</p>
       <div class="footer-tools">
         <p class="footer-note" data-i18n="footer.note">zrobione z ❤️ i ☕</p>
         <nav class="lang-switch" aria-label="Language" data-i18n-aria-label="navigation.language">

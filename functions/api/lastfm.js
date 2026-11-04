@@ -3,7 +3,7 @@ export async function onRequest({ env, request }) {
   const apiKey = env.LASTFM_KEY;
   const origin = request.headers.get("origin");
   const hasInternalMarker = request.headers.get("x-internal-request") === "yes";
-  const isAllowedOrigin = origin === "https://nivereq.com";
+  const isAllowedOrigin = origin === "https://nivereq.cafe";
 
   if (!hasInternalMarker || (origin && !isAllowedOrigin)) {
     return Response.json({ error: "Unauthorized: Origin Check Failed" }, { status: 401 });

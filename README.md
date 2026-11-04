@@ -42,7 +42,7 @@ Set these in the Cloudflare Pages project settings. Do not commit credentials.
 
 ## Deployment
 
-Connect the repository to Cloudflare Pages and set the build output directory to `public` (with the repository root as the project root). Pages deploys files from that output directory; `art-manager/` is outside it and is not part of the published site. Do not set the repository root as the output directory. No build command is required. The production site is [nivereq.com](https://nivereq.com).
+Connect the repository to Cloudflare Pages and set the build output directory to `public` (with the repository root as the project root). Pages deploys files from that output directory; `art-manager/` is outside it and is not part of the published site. Do not set the repository root as the output directory. No build command is required. The production site is [nivereq.cafe](https://nivereq.cafe).
 
 ## Public profiles and contact
 

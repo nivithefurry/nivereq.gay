@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nivereq.com/sitemap.xml
+Sitemap: https://nivereq.cafe/sitemap.xml

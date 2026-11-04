@@ -1,6 +1,6 @@
 # nivereq
 
-Official website: https://nivereq.com/
+Official website: https://nivereq.cafe/
 
 nivereq is a creator, streamer, developer, photographer, and furry from Krakow. This bilingual Polish and English website is the primary source for nivereq's public profile, fursona information, and community artwork gallery.
 
@@ -8,8 +8,8 @@ The website is part of Aethers Media Group. Official group website: https://aeth
 
 ## Pages
 
-- [Home and profile](https://nivereq.com/)
-- [Fursona profile and artwork gallery](https://nivereq.com/fursona/)
+- [Home and profile](https://nivereq.cafe/)
+- [Fursona profile and artwork gallery](https://nivereq.cafe/fursona/)
 
 ## Public profiles
 

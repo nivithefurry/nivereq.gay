@@ -16,14 +16,14 @@
     <meta name="keywords" content="nivereq, YouTube, Twitch, furry, arctic fox, programowanie, fotografia" />
     <meta name="author" content="nivereq" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://nivereq.com/" />
-    <link rel="alternate" hreflang="pl" href="https://nivereq.com/" />
-    <link rel="alternate" hreflang="en" href="https://nivereq.com/?lang=en" />
-    <link rel="alternate" hreflang="x-default" href="https://nivereq.com/" />
+    <link rel="canonical" href="https://nivereq.cafe/" />
+    <link rel="alternate" hreflang="pl" href="https://nivereq.cafe/" />
+    <link rel="alternate" hreflang="en" href="https://nivereq.cafe/?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://nivereq.cafe/" />
     <meta property="og:title" content="nivereq — streamer, twórca i futrzak" data-i18n-content="meta.title" />
     <meta property="og:description" content="Poznaj nivereq — streamera, twórcę, programistę i futrzaka z Krakowa." data-i18n-content="meta.description" />
-    <meta property="og:image" content="https://nivereq.com/assets/img/avatar.gif" />
-    <meta property="og:url" content="https://nivereq.com/" />
+    <meta property="og:image" content="https://nivereq.cafe/assets/img/avatar.gif" />
+    <meta property="og:url" content="https://nivereq.cafe/" />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="assets/favicons/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="assets/favicons/favicon.svg" />
@@ -38,7 +38,7 @@
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "nivereq",
-        "url": "https://nivereq.com",
+        "url": "https://nivereq.cafe",
         "alternateName": ["nivithefurry", "nivi"],
         "memberOf": {
           "@type": "Organization",
@@ -54,27 +54,64 @@
           "https://github.com/nivithefurry"
         ],
         "description": "nivereq — streamer, creator, photographer and developer.",
-        "image": "https://nivereq.com/assets/img/avatar.gif",
+        "image": "https://nivereq.cafe/assets/img/avatar.gif",
         "jobTitle": ["YouTuber", "Streamer", "Photographer", "Developer"],
         "knowsLanguage": ["Polish", "English"]
       }
     </script>
     <script>
-      (function (window, document, script, layer, id) {
-        window[layer] = window[layer] || [];
-        window[layer].push({ "gtm.start": Date.now(), event: "gtm.js" });
-        const firstScript = document.getElementsByTagName(script)[0];
-        const tag = document.createElement(script);
-        const layerQuery = layer === "dataLayer" ? "" : `&l=${layer}`;
+      (function (window, document) {
+        if (window.__nivereqGtmInitialized) return;
+        window.__nivereqGtmInitialized = true;
+
+        const layer = window.dataLayer = window.dataLayer || [];
+        const landingUrl = new URL(window.location.href);
+        const utmParameters = {};
+        for (const [key, value] of landingUrl.searchParams) {
+          if (!key.toLowerCase().startsWith("utm_")) continue;
+          if (Object.hasOwn(utmParameters, key)) {
+            utmParameters[key] = Array.isArray(utmParameters[key]) ? [...utmParameters[key], value] : [utmParameters[key], value];
+          } else {
+            utmParameters[key] = value;
+          }
+        }
+
+        const hasUtmParameters = Object.keys(utmParameters).length > 0;
+        if (hasUtmParameters) {
+          layer.push({
+            event: "campaign_parameters",
+            campaignParameters: utmParameters,
+            campaignPageLocation: landingUrl.href
+          });
+        }
+
+        window.gtag = window.gtag || function () { layer.push(arguments); };
+        window.gtag("js", new Date());
+
+        const cleanCampaignParameters = function () {
+          if (!hasUtmParameters) return;
+          for (const key of [...landingUrl.searchParams.keys()]) {
+            if (key.toLowerCase().startsWith("utm_")) landingUrl.searchParams.delete(key);
+          }
+          window.history.replaceState(window.history.state, "", `${landingUrl.pathname}${landingUrl.search}${landingUrl.hash}`);
+        };
+
+        if (document.querySelector('script[src*="googletagmanager.com/gtm.js"]')) return;
+        layer.push({
+          "gtm.start": Date.now(),
+          event: "gtm.js",
+          eventCallback: cleanCampaignParameters
+        });
+        const tag = document.createElement("script");
         tag.async = true;
-        tag.src = `https://www.googletagmanager.com/gtm.js?id=${id}${layerQuery}`;
-        firstScript.parentNode.insertBefore(tag, firstScript);
-      })(window, document, "script", "dataLayer", "GTM-59MTXR29");
+        tag.src = "https://www.googletagmanager.com/gtm.js?id=GTM-MM7RB9ML";
+        document.head.appendChild(tag);
+      })(window, document);
     </script>
   </head>
   <body class="site-page" data-i18n-title="meta.title">
     <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-59MTXR29" title="Google Tag Manager" height="0" width="0" hidden></iframe>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MM7RB9ML" title="Google Tag Manager" height="0" width="0" hidden></iframe>
     </noscript>
 
     <div class="ambient ambient-one" aria-hidden="true"></div>
@@ -212,7 +249,7 @@
 
     <footer class="site-footer shell">
       <a class="wordmark footer-wordmark" href="?lang=pl" data-i18n-href="nav.homeHref">nivereq</a>
-      <p class="footer-copy">© <span id="year"></span> nivereq.com</p>
+      <p class="footer-copy">© <span id="year"></span> nivereq.cafe</p>
       <div class="footer-tools">
         <p class="footer-note" data-i18n="footer.note">zrobione z ❤️ i ☕</p>
         <nav class="lang-switch" aria-label="Language" data-i18n-aria-label="navigation.language">
