@@ -101,7 +101,8 @@
         layer.push({
           "gtm.start": Date.now(),
           event: "gtm.js",
-          eventCallback: cleanCampaignParameters
+          eventCallback: cleanCampaignParameters,
+          eventTimeout: 5000
         });
         const tag = document.createElement("script");
         tag.async = true;
