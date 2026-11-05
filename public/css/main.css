@@ -197,6 +197,7 @@ img { display: block; max-width: 100%; }
 .hero-avatar { width: 100%; height: 100%; border-radius: inherit; object-fit: cover; cursor: pointer; }
 .pat-chip { position: absolute; right: -5px; bottom: 0; display: flex; align-items: center; gap: 8px; min-height: 43px; padding: 0 15px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-solid); box-shadow: 0 8px 25px rgba(30, 49, 44, 0.1); color: var(--muted); font-size: 0.78rem; cursor: pointer; transition: transform 160ms ease, box-shadow 160ms ease; }
 .pat-chip:hover { transform: translateY(-2px); box-shadow: 0 11px 28px rgba(30, 49, 44, 0.15); }
+.pat-message { position: absolute; right: 0; bottom: -1.8rem; margin: 0; color: var(--muted); font-size: 0.72rem; text-align: right; }
 .pat-paw { font-size: 0.9rem; }
 .pat-separator { opacity: 0.5; }
 .pat-total { color: var(--rose); font-variant-numeric: tabular-nums; font-weight: 700; }
@@ -240,6 +241,7 @@ img { display: block; max-width: 100%; }
 .community-card.is-clickable { cursor: pointer; transition: transform 170ms ease, border-color 170ms ease; }
 .community-card.is-clickable:hover { transform: translateY(-2px); border-color: var(--border-strong); }
 .community-icon { display: grid; width: 48px; height: 48px; flex: 0 0 48px; place-items: center; border-radius: 15px; background: #edf0ff; color: #5865f2; font-size: 1.4rem; }
+.community-icon img { width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
 .community-copy { min-width: 0; }
 .server-name { margin: 0; font-size: 0.92rem; font-weight: 650; }
 .community-status { display: flex; align-items: center; gap: 8px; margin-top: 5px; color: var(--muted); font-size: 0.79rem; }

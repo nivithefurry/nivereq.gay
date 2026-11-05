@@ -1,6 +1,7 @@
 const patAvatar = document.querySelector(".hero-avatar");
 const patButton = document.querySelector(".pat-chip");
 const patCount = document.getElementById("pat-count");
+const patMessage = document.getElementById("pat-message");
 let confirmedPats = 0;
 let queuedPats = 0;
 let syncTimer;
@@ -35,7 +36,18 @@ async function syncPats(amount) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ amount }),
     });
-    if (!response.ok) throw new Error(`Pat sync failed (${response.status}).`);
+    if (!response.ok) {
+      if (response.status === 429) {
+        const language = new URLSearchParams(window.location.search).get("lang")
+          || (window.location.pathname.split("/").includes("en") ? "en" : "pl");
+        patMessage.textContent = language === "en"
+          ? "👀 Isn't that a little too much love?"
+          : "👀 Nie za dużo tej miłości?";
+        window.setTimeout(() => { if (patMessage) patMessage.textContent = ""; }, 6000);
+        throw new Error("Pat limit reached.");
+      }
+      throw new Error(`Pat sync failed (${response.status}).`);
+    }
     const result = await response.json();
     confirmedPats = Number(result.count) || confirmedPats + amount;
     renderPatCount();

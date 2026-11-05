@@ -1,4 +1,5 @@
 const discordWidgetUrl = "https://discord.com/api/guilds/1325743148432887818/widget.json";
+const discordGuildId = "1325743148432887818";
 
 class DiscordWidget {
   constructor(container, endpoint, refreshInterval = 60_000) {
@@ -6,6 +7,7 @@ class DiscordWidget {
     this.endpoint = endpoint;
     this.refreshInterval = refreshInterval;
     this.inviteUrl = null;
+    this.guildIconUrl = null;
     this.renderPlaceholder();
     this.refresh();
     window.setInterval(() => this.refresh(), this.refreshInterval);
@@ -50,11 +52,26 @@ class DiscordWidget {
       const data = await response.json();
       const serverName = String(data.name || "").trim();
       this.inviteUrl = data.instant_invite || null;
-      const emoji = serverName.match(/^\p{Extended_Pictographic}/u)?.[0] || "";
       const name = document.querySelector("#discord-widget .server-name");
-      if (name) name.textContent = emoji ? serverName.slice(emoji.length).trim() || serverName : serverName;
+      if (name) name.textContent = serverName || "Discord";
       const icon = document.querySelector("#discord-widget .community-icon");
-      if (icon && emoji) icon.textContent = emoji;
+      if (icon) {
+        if (!this.guildIconUrl && data.icon) {
+          this.guildIconUrl = `https://cdn.discordapp.com/icons/${discordGuildId}/${data.icon}.png?size=128`;
+        }
+        if (!this.guildIconUrl && this.inviteUrl) {
+          this.guildIconUrl = await this.fetchGuildIcon(this.inviteUrl);
+        }
+        if (this.guildIconUrl) {
+          const image = document.createElement("img");
+          image.src = this.guildIconUrl;
+          image.alt = "";
+          image.width = 48;
+          image.height = 48;
+          image.onerror = () => { image.remove(); };
+          icon.replaceChildren(image);
+        }
+      }
       this.setOnlineCount(Number(data.presence_count) || 0);
       if (this.inviteUrl) {
         this.container.classList.add("is-clickable");
@@ -71,6 +88,20 @@ class DiscordWidget {
     } catch (error) {
       console.info("Discord live status is unavailable.", error);
       if (!this.container.querySelector(".status-dot")) this.renderPlaceholder();
+    }
+  }
+
+  async fetchGuildIcon(inviteUrl) {
+    try {
+      const inviteCode = new URL(inviteUrl).pathname.split("/").filter(Boolean).at(-1);
+      if (!inviteCode) return null;
+      const response = await fetch(`https://discord.com/api/v10/invites/${encodeURIComponent(inviteCode)}`);
+      if (!response.ok) return null;
+      const invite = await response.json();
+      if (invite.guild?.id !== discordGuildId || !invite.guild.icon) return null;
+      return `https://cdn.discordapp.com/icons/${discordGuildId}/${invite.guild.icon}.png?size=128`;
+    } catch {
+      return null;
     }
   }
 }
