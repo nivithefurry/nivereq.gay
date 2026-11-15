@@ -107,7 +107,7 @@ export async function renderHomePage(context, locale) {
     .on('meta[name="twitter:image:alt"]', { element: (element) => element.setAttribute("content", "nivereq Discord avatar") })
     .on('link[rel="canonical"]', { element: (element) => element.setAttribute("href", canonical) })
     .on('link[rel="alternate"][hreflang="pl"]', { element: (element) => element.setAttribute("href", `${url.origin}/pl`) })
-    .on('link[rel="alternate"][hreflang="en"]', { element: (element) => element.setAttribute("href", `${url.origin}/en`) })
+    .on('link[rel="alternate"][hreflang="en"]', { element: (element) => element.setAttribute("href", `${url.origin}/`) })
     .on('link[rel="alternate"][hreflang="x-default"]', { element: (element) => element.setAttribute("href", `${url.origin}/`) })
     .on("head", { element: (element) => element.append(
       `<script id="discord:component-embed" type="application/json">${payloadText}</script>`,

@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://nivereq.cafe/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nivereq.cafe/" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://nivereq.cafe/pl" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nivereq.cafe/" />
+  </url>
+  <url>
+    <loc>https://nivereq.cafe/pl</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nivereq.cafe/" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://nivereq.cafe/pl" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nivereq.cafe/" />
   </url>
   <url>
     <loc>https://nivereq.cafe/fursona/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nivereq.cafe/fursona/" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://nivereq.cafe/fursona/?lang=pl" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nivereq.cafe/fursona/" />
+  </url>
+  <url>
+    <loc>https://nivereq.cafe/fursona/?lang=pl</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nivereq.cafe/fursona/" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://nivereq.cafe/fursona/?lang=pl" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nivereq.cafe/fursona/" />
   </url>
   <url>
     <loc>https://nivereq.cafe/fursuit/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nivereq.cafe/fursuit/" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://nivereq.cafe/fursuit/?lang=pl" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nivereq.cafe/fursuit/" />
+  </url>
+  <url>
+    <loc>https://nivereq.cafe/fursuit/?lang=pl</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nivereq.cafe/fursuit/" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://nivereq.cafe/fursuit/?lang=pl" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nivereq.cafe/fursuit/" />
   </url>
 </urlset>
