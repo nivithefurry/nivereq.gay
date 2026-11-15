@@ -27,7 +27,7 @@ function makePayload(locale, origin, photo) {
           accessory: {
             type: 11,
             media: { url: new URL(photo.src, origin).href },
-            description: "Latest fursuit photo",
+            description: "Fursuit profile photo",
           },
         },
         { type: 14, divider: true, spacing: 1 },
@@ -49,14 +49,15 @@ async function readLatestFursuitPhoto(assets, requestUrl) {
   const response = await assets.fetch(new URL("/data/fursuit.json", requestUrl));
   if (!response.ok) throw new Error("Fursuit gallery data unavailable.");
   const gallery = await response.json();
+  if (typeof gallery?.profileImage === "string" && gallery.profileImage.startsWith("/assets/fursuit/")) {
+    return { src: gallery.profileImage };
+  }
+
   const latest = (Array.isArray(gallery?.photos) ? gallery.photos : [])
     .filter((photo) => typeof photo?.src === "string" && photo.src.startsWith("/assets/fursuit/") && Number.isFinite(Number(photo.timestamp_added)))
     .sort((first, second) => Number(second.timestamp_added) - Number(first.timestamp_added))[0];
   if (latest) return latest;
 
-  if (typeof gallery?.profileImage === "string" && gallery.profileImage.startsWith("/assets/fursuit/")) {
-    return { src: gallery.profileImage };
-  }
   throw new Error("No fursuit photo is available.");
 }
 
