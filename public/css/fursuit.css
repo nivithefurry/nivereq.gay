@@ -14,7 +14,7 @@
 .fursuit-photo-card { overflow: hidden; border: 1px solid var(--border); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow-card); transition: transform 180ms ease, box-shadow 180ms ease; }
 .fursuit-photo-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); }
 .fursuit-photo-image { display: block; width: 100%; padding: 0; overflow: hidden; border: 0; border-radius: 0; background: var(--surface-raised); cursor: zoom-in; }
-.fursuit-photo-image img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: contain; transition: transform 260ms ease; }
+.fursuit-photo-image img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform 260ms ease; }
 .fursuit-photo-image:hover img { transform: scale(1.015); }
 .fursuit-photo-copy { padding: 16px 18px 18px; }
 .fursuit-photo-copy h3 { margin: 0; font-size: 1rem; letter-spacing: -.025em; }
@@ -25,6 +25,9 @@
 .fursuit-empty { grid-column: 1/-1; padding: 36px 20px; border: 1px dashed var(--border-strong); border-radius: 20px; color: var(--muted); text-align: center; }
 .fursuit-viewer { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 40px; background: rgba(6,11,9,.78); backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); opacity: 0; pointer-events: none; visibility: hidden; transform: scale(.99); transition: opacity 220ms ease, transform 320ms cubic-bezier(.2,.7,.2,1), backdrop-filter 320ms ease, -webkit-backdrop-filter 320ms ease, visibility 0s linear 320ms; }
 .fursuit-viewer.active { opacity: 1; pointer-events: auto; visibility: visible; transform: scale(1); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: opacity 220ms ease, transform 320ms cubic-bezier(.2,.7,.2,1), backdrop-filter 320ms ease, -webkit-backdrop-filter 320ms ease, visibility 0s; }
+#fursuit-viewer-close { position: fixed; z-index: 1; top: max(18px, env(safe-area-inset-top)); right: max(18px, env(safe-area-inset-right)); display: grid; width: 46px; height: 46px; place-items: center; padding: 0; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; background: rgba(20,24,22,.78); color: #fff; font-size: 1.05rem; line-height: 1; cursor: pointer; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: background 160ms ease, border-color 160ms ease, transform 160ms ease; }
+#fursuit-viewer-close:hover { transform: scale(1.06); border-color: rgba(255,255,255,.5); background: rgba(50,56,53,.92); }
+#fursuit-viewer-close:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .fursuit-viewer-content { display: grid; justify-items: center; gap: 13px; max-width: 95vw; max-height: 88vh; color: white; text-align: center; }
 .fursuit-viewer-content img { max-width: min(90vw, 1300px); max-height: 82vh; border-radius: 16px; object-fit: contain; box-shadow: 0 24px 75px rgba(0,0,0,.42); }
 .fursuit-viewer-content h2 { margin: 0; font-size: 1.1rem; }

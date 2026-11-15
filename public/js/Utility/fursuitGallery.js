@@ -138,9 +138,10 @@ async function loadFursuitGallery() {
 
 function closeViewer() {
   if (!viewer?.classList.contains("active")) return;
+  returnFocus?.focus();
   viewer.classList.remove("active");
   viewer.setAttribute("aria-hidden", "true");
-  returnFocus?.focus();
+  returnFocus = null;
 }
 
 viewer?.addEventListener("click", (event) => {
