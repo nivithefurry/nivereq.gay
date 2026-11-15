@@ -100,6 +100,7 @@ export async function renderHomePage(context, locale) {
     .on('meta[property="og:image"]', { element: (element) => element.setAttribute("content", imageUrl) })
     .on('meta[property="og:image:alt"]', { element: (element) => element.setAttribute("content", "nivereq Discord avatar") })
     .on('meta[property="og:url"]', { element: (element) => element.setAttribute("content", pageUrl) })
+    .on('meta[property="og:locale"]', { element: (element) => element.setAttribute("content", locale === "pl" ? "pl_PL" : "en_US") })
     .on('meta[name="twitter:title"]', { element: (element) => element.setAttribute("content", pageTitle) })
     .on('meta[name="twitter:description"]', { element: (element) => element.setAttribute("content", pageDescription) })
     .on('meta[name="twitter:image"]', { element: (element) => element.setAttribute("content", imageUrl) })

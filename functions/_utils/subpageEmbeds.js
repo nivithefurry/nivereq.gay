@@ -7,7 +7,7 @@ const copy = {
     },
     fursuit: {
       title: "Fursuit gallery — nivereq",
-      description: "Photos of nivipawbs in fursuit, from convention days to silly moments.",
+      description: "Photos of nivi in fursuit, from convention days to silly moments.",
       heading: "nivi in fursuit",
     },
     buttons: ["Home", "Fursona", "Fursuit"],
@@ -20,7 +20,7 @@ const copy = {
     },
     fursuit: {
       title: "Galeria fursuit — nivereq",
-      description: "Zdjęcia nivipawbs w fursuicie — z konwentów i codziennych futrzastych chwil.",
+      description: "Zdjęcia nivi w fursuicie — z konwentów i codziennych futrzastych chwil.",
       heading: "nivi w fursuicie",
     },
     buttons: ["Strona główna", "Fursona", "Fursuit"],
