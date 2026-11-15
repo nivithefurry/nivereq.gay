@@ -2,7 +2,7 @@ function responseUnavailable() {
   return new Response("Page unavailable", { status: 503 });
 }
 
-function makePayload(locale, origin, photo) {
+function makePayload(locale, origin, avatarUrl) {
   const aboutPath = locale === "pl" ? "/pl#about" : "/en#about";
   const fursonaPath = `/fursona/?lang=${locale}`;
   const fursuitPath = `/fursuit/?lang=${locale}`;
@@ -26,8 +26,8 @@ function makePayload(locale, origin, photo) {
           ],
           accessory: {
             type: 11,
-            media: { url: new URL(photo.src, origin).href },
-            description: "Fursuit profile photo",
+            media: { url: avatarUrl },
+            description: "nivereq Discord avatar",
           },
         },
         { type: 14, divider: true, spacing: 1 },
@@ -45,20 +45,22 @@ function makePayload(locale, origin, photo) {
   };
 }
 
-async function readLatestFursuitPhoto(assets, requestUrl) {
-  const response = await assets.fetch(new URL("/data/fursuit.json", requestUrl));
-  if (!response.ok) throw new Error("Fursuit gallery data unavailable.");
-  const gallery = await response.json();
-  if (typeof gallery?.profileImage === "string" && gallery.profileImage.startsWith("/assets/fursuit/")) {
-    return { src: gallery.profileImage };
+async function readDiscordAvatar() {
+  const userId = "1305678814046588949";
+  const response = await fetch(`https://api.lanyard.rest/v1/users/${userId}`, {
+    headers: { Accept: "application/json" },
+    signal: AbortSignal.timeout(5000),
+  });
+  if (!response.ok) throw new Error("Discord avatar unavailable.");
+  const result = await response.json();
+  const user = result?.success ? result.data?.discord_user : null;
+  if (!user || user.id !== userId) throw new Error("Discord profile unavailable.");
+  if (typeof user.avatar === "string" && /^[a-zA-Z0-9_]+$/.test(user.avatar)) {
+    const format = user.avatar.startsWith("a_") ? "gif" : "webp";
+    return `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${format}?size=512`;
   }
-
-  const latest = (Array.isArray(gallery?.photos) ? gallery.photos : [])
-    .filter((photo) => typeof photo?.src === "string" && photo.src.startsWith("/assets/fursuit/") && Number.isFinite(Number(photo.timestamp_added)))
-    .sort((first, second) => Number(second.timestamp_added) - Number(first.timestamp_added))[0];
-  if (latest) return latest;
-
-  throw new Error("No fursuit photo is available.");
+  const defaultAvatar = Number((BigInt(userId) >> 22n) % 6n);
+  return `https://cdn.discordapp.com/embed/avatars/${defaultAvatar}.png`;
 }
 
 export async function renderHomePage(context, locale) {
@@ -67,11 +69,11 @@ export async function renderHomePage(context, locale) {
   const assets = env.ASSETS;
   if (!assets) return responseUnavailable();
 
-  let latestPhoto;
+  let avatarUrl;
   try {
-    latestPhoto = await readLatestFursuitPhoto(assets, request.url);
+    avatarUrl = await readDiscordAvatar();
   } catch {
-    latestPhoto = { src: "/assets/img/avatar.gif" };
+    avatarUrl = new URL("/assets/img/avatar.gif", url.origin).href;
   }
 
   const html = await assets.fetch(new URL("/", request.url));
@@ -85,8 +87,8 @@ export async function renderHomePage(context, locale) {
     : "Streamer, creator and furry. Explore my fursona and fursuit photo gallery.";
   const canonical = locale === "pl" ? `${url.origin}/pl` : `${url.origin}/`;
   const pageUrl = `${url.origin}${url.pathname}`;
-  const imageUrl = new URL(latestPhoto.src, url.origin).href;
-  const payload = makePayload(locale, url.origin, latestPhoto);
+  const imageUrl = avatarUrl;
+  const payload = makePayload(locale, url.origin, avatarUrl);
   const payloadText = JSON.stringify(payload).replace(/</g, "\\u003c");
 
   return new HTMLRewriter()
@@ -96,7 +98,12 @@ export async function renderHomePage(context, locale) {
     .on('meta[property="og:title"]', { element: (element) => element.setAttribute("content", pageTitle) })
     .on('meta[property="og:description"]', { element: (element) => element.setAttribute("content", pageDescription) })
     .on('meta[property="og:image"]', { element: (element) => element.setAttribute("content", imageUrl) })
+    .on('meta[property="og:image:alt"]', { element: (element) => element.setAttribute("content", "nivereq Discord avatar") })
     .on('meta[property="og:url"]', { element: (element) => element.setAttribute("content", pageUrl) })
+    .on('meta[name="twitter:title"]', { element: (element) => element.setAttribute("content", pageTitle) })
+    .on('meta[name="twitter:description"]', { element: (element) => element.setAttribute("content", pageDescription) })
+    .on('meta[name="twitter:image"]', { element: (element) => element.setAttribute("content", imageUrl) })
+    .on('meta[name="twitter:image:alt"]', { element: (element) => element.setAttribute("content", "nivereq Discord avatar") })
     .on('link[rel="canonical"]', { element: (element) => element.setAttribute("href", canonical) })
     .on('link[rel="alternate"][hreflang="pl"]', { element: (element) => element.setAttribute("href", `${url.origin}/pl`) })
     .on('link[rel="alternate"][hreflang="en"]', { element: (element) => element.setAttribute("href", `${url.origin}/en`) })
