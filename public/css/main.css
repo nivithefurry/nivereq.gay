@@ -221,6 +221,12 @@ img { display: block; max-width: 100%; }
 .about-card-rose .card-symbol { background: color-mix(in srgb, var(--rose) 15%, var(--surface-solid)); color: var(--relationship-accent); }
 .card-arrow { position: absolute; top: 23px; right: 22px; color: var(--muted); font-size: 0.88rem; opacity: 0.65; transition: transform 180ms ease, opacity 180ms ease; }
 .about-card-link:hover .card-arrow { opacity: 1; transform: translate(2px, -2px); }
+.fursuiter-symbol svg { width: 19px; height: 19px; fill: currentColor; }
+
+html.translations-pending body { opacity: 0; }
+body { transition: opacity 320ms ease; }
+html.translations-ready body { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { body { transition-duration: 0.01ms; } }
 
 .listening-card, .community-card { display: flex; align-items: center; gap: 18px; min-height: 104px; padding: 16px 19px; border: 1px solid var(--border); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow-card); }
 .listening-card { color: var(--text); text-decoration: none; transition: transform 170ms ease, border-color 170ms ease, background 170ms ease; }

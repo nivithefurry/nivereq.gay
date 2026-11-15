@@ -2,11 +2,24 @@ export async function onRequest({ env, request }) {
   const username = env.LASTFM_USER;
   const apiKey = env.LASTFM_KEY;
   const origin = request.headers.get("origin");
+  const fetchSite = request.headers.get("sec-fetch-site");
   const hasInternalMarker = request.headers.get("x-internal-request") === "yes";
-  const isAllowedOrigin = origin === "https://nivereq.cafe";
+  let isAllowedOrigin = false;
 
-  if (!hasInternalMarker || (origin && !isAllowedOrigin)) {
-    return Response.json({ error: "Unauthorized: Origin Check Failed" }, { status: 401 });
+  if (origin) {
+    try {
+      isAllowedOrigin = new URL(origin).origin === new URL(request.url).origin;
+    } catch {
+      isAllowedOrigin = false;
+    }
+  } else if (fetchSite) {
+    isAllowedOrigin = fetchSite === "same-origin";
+  } else {
+    isAllowedOrigin = hasInternalMarker;
+  }
+
+  if (!isAllowedOrigin || !hasInternalMarker) {
+    return Response.json({ error: "Cross-origin request rejected." }, { status: 403 });
   }
   if (!username || !apiKey) {
     return Response.json({ error: "Server configuration missing Last.fm credentials" }, { status: 500 });

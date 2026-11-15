@@ -1,17 +1,26 @@
 const query = new URLSearchParams(window.location.search);
-const savedLanguage = localStorage.getItem("language");
+let savedLanguage = null;
+try { savedLanguage = localStorage.getItem("language"); } catch {}
 const storedLanguage = savedLanguage === "en" || savedLanguage === "pl" ? savedLanguage : null;
-const routeLanguage = window.location.pathname.split("/").includes("en") ? "en" : "pl";
-const currentLang = query.get("lang") === "en"
+const pathParts = window.location.pathname.split("/").filter(Boolean);
+const isHomeRoute = pathParts.length === 0 || (pathParts.length === 1 && ["en", "pl"].includes(pathParts[0]));
+const routeLanguage = pathParts.includes("pl") ? "pl" : "en";
+const currentLang = isHomeRoute
+  ? routeLanguage
+  : query.get("lang") === "en"
   ? "en"
   : query.get("lang") === "pl"
     ? "pl"
     : storedLanguage || routeLanguage;
 
 document.querySelectorAll("[data-lang]").forEach((link) => {
-  const destination = new URL(window.location.href);
-  destination.searchParams.set("lang", link.dataset.lang);
-  link.href = destination.href;
+  if (isHomeRoute) {
+    link.href = link.dataset.lang === "pl" ? "/pl" : "/en";
+  } else {
+    const destination = new URL(window.location.href);
+    destination.searchParams.set("lang", link.dataset.lang);
+    link.href = destination.href;
+  }
 });
 
 function readTranslation(dictionary, key) {
@@ -88,17 +97,19 @@ async function loadTranslations() {
     else link.removeAttribute("aria-current");
   });
   if (query.has("lang")) {
-    localStorage.setItem("language", currentLang);
+    try { localStorage.setItem("language", currentLang); } catch {}
     const cleanUrl = new URL(window.location.href);
     cleanUrl.searchParams.delete("lang");
     window.history.replaceState(window.history.state, "", `${cleanUrl.pathname}${cleanUrl.search}${cleanUrl.hash}`);
   }
+  requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.add("translations-ready")));
   return dictionary;
 }
 
 window.translationsReady = loadTranslations().catch((error) => {
   console.warn(error);
   window.siteTranslations = null;
+  requestAnimationFrame(() => document.documentElement.classList.add("translations-ready"));
 });
 
 const year = document.getElementById("year");

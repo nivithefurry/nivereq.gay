@@ -23,7 +23,11 @@ Open `http://127.0.0.1:8765/`. `npm run dev` uses the project's local Nodemon in
 
 ## Adding and removing artwork
 
-Enter an absolute image path in the form. The manager checks the extension and PNG/JPEG/GIF/WebP signature, copies the image into `public/assets/arts/`, and generates a 10-character alphanumeric ID following the existing filename convention. “Creation date” is optional; `timestamp_added` always records when the entry was added. Deletion requires confirmation. Managed images are moved to the private `art-manager/trash/` directory. Shared files and files outside the managed asset folder are preserved.
+Enter an absolute image path in the art form. The manager checks the extension and PNG/JPEG/GIF/WebP signature, copies the image into `public/assets/arts/`, and generates a 10-character alphanumeric ID following the existing filename convention. “Creation date” is optional; `timestamp_added` always records when the entry was added. Deletion requires confirmation. Managed images are moved to the private `art-manager/trash/` directory. Shared files and files outside the managed asset folder are preserved.
+
+The fursuit section accepts direct photo uploads (including HEIC/HEIF, converted to JPEG using a bundled HEVC-capable decoder) or a public post URL. “Fetch post details” reads public Open Graph metadata; when adding a photo from a link, the manager downloads the public preview image and may fill an empty title and author. Descriptions are always yours to write and are never copied from social metadata. Some social sites hide previews behind login or block automatic fetching; upload the photo manually in that case and keep its post URL for attribution. Add captions and photographer names in the form. Select a saved photo as the greeting-card profile image and edit the TikTok, Instagram, and YouTube links there. The fursuit list has its own “Export to website” action, which writes `public/data/fursuit.json`.
+
+The fursuit social links default to `@nivipawbs`. HEIC/HEIF photos are limited to 25 MB before conversion and stored under `public/assets/fursuit/`.
 
 Click “Back up now” to save both the SQLite database and the current JSON. Export also backs up the old JSON automatically. To publish database changes, click “Export to website” or run:
 

@@ -1,28 +1,30 @@
 <!doctype html>
-<html lang="pl">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script>
+      document.documentElement.classList.add("translations-pending");
       const siteRoot = window.location.pathname.startsWith("/public/") ? "/public/" : "/";
       window.siteRoot = siteRoot;
       document.head.prepend(Object.assign(document.createElement("base"), { href: siteRoot }));
-      const savedTheme = localStorage.getItem("theme");
+      let savedTheme = null;
+      try { savedTheme = localStorage.getItem("theme"); } catch {}
       const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       document.documentElement.dataset.theme = savedTheme || (systemDark ? "dark" : "light");
     </script>
-    <title>nivereq — streamer, twórca i futrzak</title>
-    <meta name="description" content="Poznaj nivereq — streamera, twórcę, programistę i futrzaka z Krakowa." data-i18n-content="meta.description" />
+    <title>nivereq — streamer, creator and furry</title>
+    <meta name="description" content="Meet nivereq — a streamer, creator, developer and furry from Krakow." data-i18n-content="meta.description" />
     <meta name="keywords" content="nivereq, YouTube, Twitch, furry, arctic fox, programowanie, fotografia" />
     <meta name="author" content="nivereq" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://nivereq.cafe/" />
-    <link rel="alternate" hreflang="pl" href="https://nivereq.cafe/" />
-    <link rel="alternate" hreflang="en" href="https://nivereq.cafe/?lang=en" />
+    <link rel="alternate" hreflang="pl" href="https://nivereq.cafe/pl" />
+    <link rel="alternate" hreflang="en" href="https://nivereq.cafe/en" />
     <link rel="alternate" hreflang="x-default" href="https://nivereq.cafe/" />
-    <meta property="og:title" content="nivereq — streamer, twórca i futrzak" data-i18n-content="meta.title" />
-    <meta property="og:description" content="Poznaj nivereq — streamera, twórcę, programistę i futrzaka z Krakowa." data-i18n-content="meta.description" />
-    <meta property="og:image" content="https://nivereq.cafe/assets/img/avatar.gif" />
+    <meta property="og:title" content="nivereq — streamer, creator and furry" data-i18n-content="meta.title" />
+    <meta property="og:description" content="Meet nivereq — a streamer, creator, developer and furry from Krakow." data-i18n-content="meta.description" />
+    <meta property="og:image" content="https://nivereq.cafe/assets/arts/LfqhPptiDg.png" />
     <meta property="og:url" content="https://nivereq.cafe/" />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="assets/favicons/favicon-96x96.png" sizes="96x96" />
@@ -124,6 +126,7 @@
       <nav class="primary-nav" aria-label="Primary navigation" data-i18n-aria-label="navigation.main">
         <a class="nav-link active" href="?lang=pl" data-i18n="nav.home" data-i18n-href="nav.homeHref">Strona główna</a>
         <a class="nav-link" href="fursona/?lang=pl" data-i18n="nav.fursona" data-i18n-href="nav.fursonaHref">Fursona</a>
+        <a class="nav-link" href="fursuit/?lang=pl" data-i18n="nav.fursuit" data-i18n-href="nav.fursuitHref">Fursuit</a>
       </nav>
       <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme" data-i18n-aria-label="controls.themeToggle" data-i18n-title="controls.themeToggle">
         <i class="bi bi-sun-fill" id="theme-icon" aria-hidden="true"></i>
@@ -184,6 +187,14 @@
             <span class="card-symbol" aria-hidden="true"><i class="bi bi-stars"></i></span>
             <h3 data-i18n="about.fursona.title">Fursona</h3>
             <p data-i18n="about.fursona.text">Jestem futrzakiem, a moją fursoną jest arktyczny lis.</p>
+            <i class="bi bi-arrow-up-right card-arrow" aria-hidden="true"></i>
+          </a>
+          <a class="about-card about-card-link" href="fursuit/?lang=en" data-i18n-href="nav.fursuitHref">
+            <span class="card-symbol fursuiter-symbol" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><ellipse cx="5.1" cy="8.1" rx="2.25" ry="2.85" transform="rotate(-25 5.1 8.1)"/><ellipse cx="10" cy="5.1" rx="2.2" ry="2.8" transform="rotate(-8 10 5.1)"/><ellipse cx="15.5" cy="5.6" rx="2.15" ry="2.75" transform="rotate(12 15.5 5.6)"/><ellipse cx="19.3" cy="9.7" rx="2" ry="2.6" transform="rotate(28 19.3 9.7)"/><path d="M12.1 10.1c-2.2 0-3.1 2.2-4.7 3.7-1.5 1.4-2.2 2.5-2.2 4 0 1.7 1.3 2.8 3.1 2.8 1.4 0 2.3-.6 3.9-.6s2.4.6 3.9.6c1.9 0 3.1-1.1 3.1-2.8 0-1.5-.8-2.7-2.3-4.1-1.6-1.4-2.6-3.6-4.8-3.6Z"/></svg>
+            </span>
+            <h3 data-i18n="about.fursuiter.title">Fursuiter</h3>
+            <p data-i18n="about.fursuiter.text">Check out fluff gallery!</p>
             <i class="bi bi-arrow-up-right card-arrow" aria-hidden="true"></i>
           </a>
           <article class="about-card">
@@ -266,6 +277,7 @@
     <script src="js/main.js"></script>
     <script src="js/Utility/themeSwitcher.js"></script>
     <script src="js/Utility/discordWidget.js"></script>
+    <script src="js/Utility/discordAvatar.js"></script>
     <script src="js/Utility/lastFm.js"></script>
     <script src="js/Utility/Age.js"></script>
     <script src="js/Utility/pat.js"></script>

@@ -1,75 +1,64 @@
 const MAX_BATCH = 10;
-const PER_MINUTE_LIMIT = 20;
-const PER_DAY_LIMIT = 100;
 
-function json(body, status = 200, headers = {}) {
-  return Response.json(body, { status, headers: { "Cache-Control": "no-store", ...headers } });
+function json(body, status = 200) {
+  return Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
 }
 
-function missingCounterBinding() {
-  return json({ error: "KV namespace 'PAT_COUNTER' is not bound." }, 500);
+function unavailable() {
+  return json({ success: false, error: "PAT_COUNTER_UNAVAILABLE" }, 503);
 }
 
-async function clientKey(request) {
-  // Cloudflare supplies this header at the edge. Hash it so raw IPs are not stored in KV keys.
-  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(ip));
-  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
-}
-
-async function consumeLimit(kv, key, limit, ttl, amount) {
-  const used = Number.parseInt((await kv.get(key)) || "0", 10);
-  if (used + amount > limit) return false;
-  await kv.put(key, String(used + amount), { expirationTtl: ttl });
-  return true;
-}
-
-async function rateLimit(request, env, amount) {
-  const now = Date.now();
-  const minute = Math.floor(now / 60_000);
-  const day = Math.floor(now / 86_400_000);
-  const id = await clientKey(request);
-
-  // KV counters are intentionally coarse: enough to stop casual scripts, not a transactional
-  // abuse-control system. Use a Durable Object or Cloudflare Rate Limiting for strict quotas.
-  const minuteKey = `pat-limit:m:${id}:${minute}`;
-  const dayKey = `pat-limit:d:${id}:${day}`;
-  if (!(await consumeLimit(env.PAT_COUNTER, minuteKey, PER_MINUTE_LIMIT, 120, amount))) {
-    return json({ error: "Too many pats. Try again in a minute." }, 429, { "Retry-After": "60" });
-  }
-  if (!(await consumeLimit(env.PAT_COUNTER, dayKey, PER_DAY_LIMIT, 172_800, amount))) {
-    return json({ error: "Daily pat limit reached. Try again tomorrow." }, 429, { "Retry-After": "86400" });
-  }
-  return null;
+function parseCount(value) {
+  const count = Number(value ?? 0);
+  return Number.isSafeInteger(count) && count >= 0 ? count : null;
 }
 
 export async function onRequestGet({ env }) {
-  if (!env.PAT_COUNTER) return missingCounterBinding();
-  const count = await env.PAT_COUNTER.get("count");
-  return json({ count: Math.max(0, Number.parseInt(count || "0", 10) || 0) });
+  if (!env.PAT_COUNTER) return unavailable();
+  try {
+    const count = parseCount(await env.PAT_COUNTER.get("count"));
+    if (count === null) return unavailable();
+    return json({ success: true, count });
+  } catch {
+    return unavailable();
+  }
 }
 
 export async function onRequestPost({ env, request }) {
-  if (!env.PAT_COUNTER) return missingCounterBinding();
+  if (!env.PAT_COUNTER) return unavailable();
 
-  // Reject cross-site browser submissions. This does not authenticate callers; the IP quota
-  // and server-side amount cap are what constrain direct requests.
   const origin = request.headers.get("Origin");
-  if (origin && new URL(origin).host !== new URL(request.url).host) {
-    return json({ error: "Cross-origin request rejected." }, 403);
+  if (!origin) {
+    return json({ success: false, error: "ORIGIN_REQUIRED" }, 403);
+  }
+  try {
+    if (new URL(origin).origin !== new URL(request.url).origin) {
+      return json({ success: false, error: "CROSS_ORIGIN" }, 403);
+    }
+  } catch {
+    return json({ success: false, error: "INVALID_ORIGIN" }, 403);
+  }
+
+  if (!/^application\/json(?:\s*;|$)/i.test(request.headers.get("Content-Type") || "")) {
+    return json({ success: false, error: "INVALID_CONTENT_TYPE" }, 415);
   }
 
   const body = await request.json().catch(() => null);
-  const amount = body?.amount === undefined ? 1 : Number(body.amount);
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return json({ success: false, error: "INVALID_BODY" }, 400);
+  }
+  const amount = body.amount === undefined ? 1 : body.amount;
   if (!Number.isSafeInteger(amount) || amount < 1 || amount > MAX_BATCH) {
-    return json({ error: `Amount must be an integer from 1 to ${MAX_BATCH}.` }, 400);
+    return json({ success: false, error: "INVALID_AMOUNT" }, 400);
   }
 
-  const limited = await rateLimit(request, env, amount);
-  if (limited) return limited;
-
-  const current = Number.parseInt((await env.PAT_COUNTER.get("count")) || "0", 10) || 0;
-  const next = current + amount;
-  await env.PAT_COUNTER.put("count", String(next));
-  return json({ count: next });
+  try {
+    const current = parseCount(await env.PAT_COUNTER.get("count"));
+    if (current === null || current + amount > Number.MAX_SAFE_INTEGER) return unavailable();
+    const count = current + amount;
+    await env.PAT_COUNTER.put("count", String(count));
+    return json({ success: true, accepted: true, count });
+  } catch {
+    return unavailable();
+  }
 }

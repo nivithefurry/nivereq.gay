@@ -3,7 +3,7 @@
     "title": "nivereq — streamer, twórca i futrzak",
     "description": "Poznaj nivereq — streamera, twórcę, programistę i futrzaka z Krakowa."
   },
-  "nav": { "home": "Start", "fursona": "Fursona", "fursonaHref": "/fursona/?lang=pl", "homeHref": "/?lang=pl" },
+  "nav": { "home": "Start", "fursona": "Fursona", "fursuit": "Fursuit", "fursonaHref": "/fursona/?lang=pl", "fursuitHref": "/fursuit/?lang=pl", "homeHref": "/pl" },
   "controls": { "themeToggle": "Zmień motyw kolorystyczny" },
   "hero": {
     "affiliation": "Część Aethers Media Group",
@@ -23,6 +23,7 @@
     "basics": { "title": "Podstawy", "text": "Mam {age} lat i mieszkam w Krakowie." },
     "identity": { "title": "Tożsamość", "text": "Jestem biseksualny." },
     "fursona": { "title": "Fursona", "text": "Jestem futrzakiem, a moją fursoną jest arktyczny lis." },
+    "fursuiter": { "title": "Fursuiter", "text": "Sprawdź futrzastą galerię!" },
     "style": { "title": "Styl", "text": "Jestem femboyem." },
     "relationship": { "title": "Relacja", "text": "Zajęty przez mojego najsłodszego 🐈." },
     "music": { "title": "Muzyka", "text": "Mój gust muzyczny to chaos — sprawdź playlistę." },
@@ -67,6 +68,22 @@
     "artBy": "Art",
     "unknownArtist": "Nieznany artysta",
     "galleryError": "Nie udało się załadować galerii sztuki."
+  },
+  "fursuit": {
+    "title": "Mój fursuit",
+    "metaDescription": "Zdjęcia fursuita nivipawbs z konwentów i codziennych chwil.",
+    "eyebrow": "Poza postacią",
+    "greeting": "Lisek w dziczy >w<",
+    "profileAlt": "nivipawbs w fursuicie",
+    "galleryEyebrow": "Zdjęcia",
+    "galleryTitle": "Galeria fursuita",
+    "empty": "Galeria dopiero się szykuje. Wróć wkrótce po zdjęcia w fursuicie!",
+    "error": "Nie udało się teraz załadować zdjęć fursuita.",
+    "noDescription": "",
+    "openPost": "Zobacz oryginalny post",
+    "closeImage": "Zamknij zdjęcie",
+    "photoAlt": "Zdjęcie fursuita",
+    "by": "Zdjęcie:"
   },
   "community": { "eyebrow": "Społeczność" },
   "listening": { "eyebrow": "Na żywo" },

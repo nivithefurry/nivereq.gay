@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="../" />
+    <script>
+      document.documentElement.classList.add("translations-pending");
+      const siteRoot = window.location.pathname.startsWith("/public/") ? "/public/" : "/";
+      window.siteRoot = siteRoot;
+      let savedTheme = null;
+      try { savedTheme = localStorage.getItem("theme"); } catch {}
+      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = savedTheme || (systemDark ? "dark" : "light");
+    </script>
+    <title>Fursuit — nivereq</title>
+    <meta name="description" content="Photos of nivipawbs in fursuit at conventions and in everyday moments." data-i18n-content="fursuit.metaDescription" />
+    <meta name="author" content="nivereq" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://nivereq.cafe/fursuit/" />
+    <meta property="og:title" content="Fursuit — nivereq" data-i18n-content="fursuit.title" />
+    <meta property="og:description" content="Photos of nivipawbs in fursuit at conventions and in everyday moments." data-i18n-content="fursuit.metaDescription" />
+    <meta property="og:image" content="https://nivereq.cafe/assets/img/avatar.gif" />
+    <meta property="og:url" content="https://nivereq.cafe/fursuit/" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="assets/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/themes/dark.css" />
+    <link rel="stylesheet" href="css/fursuit.css" />
+    <script>
+      (function (window, document) {
+        if (window.__nivereqGtmInitialized) return;
+        window.__nivereqGtmInitialized = true;
+        const layer = window.dataLayer = window.dataLayer || [];
+        const landingUrl = new URL(window.location.href);
+        const utmParameters = {};
+        for (const [key, value] of landingUrl.searchParams) if (key.toLowerCase().startsWith("utm_")) utmParameters[key] = value;
+        const hasUtm = Object.keys(utmParameters).length > 0;
+        if (hasUtm) layer.push({ event:"campaign_parameters", campaignParameters:utmParameters, campaignPageLocation:landingUrl.href });
+        window.gtag = window.gtag || function () { layer.push(arguments); };
+        window.gtag("js", new Date());
+        const cleanUtm = () => {
+          if (!hasUtm) return;
+          const current = new URL(window.location.href);
+          for (const key of [...current.searchParams.keys()]) if (key.toLowerCase().startsWith("utm_")) current.searchParams.delete(key);
+          window.history.replaceState(window.history.state, "", `${current.pathname}${current.search}${current.hash}`);
+        };
+        if (document.querySelector('script[src*="googletagmanager.com/gtm.js"]')) return;
+        layer.push({ "gtm.start":Date.now(), event:"gtm.js", eventCallback:cleanUtm, eventTimeout:5000 });
+        const script = document.createElement("script"); script.async = true; script.src = "https://www.googletagmanager.com/gtm.js?id=GTM-MM7RB9ML"; document.head.appendChild(script);
+      })(window, document);
+    </script>
+  </head>
+  <body class="site-page" data-i18n-title="fursuit.title">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MM7RB9ML" title="Google Tag Manager" height="0" width="0" hidden></iframe></noscript>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+    <header class="site-header shell">
+      <a class="wordmark" href="../?lang=pl" data-i18n-href="nav.homeHref" aria-label="nivereq — home">nivereq</a>
+      <nav class="primary-nav" aria-label="Primary navigation" data-i18n-aria-label="navigation.main">
+        <a class="nav-link" href="../?lang=pl" data-i18n="nav.home" data-i18n-href="nav.homeHref">Start</a>
+        <a class="nav-link" href="../fursona/?lang=pl" data-i18n="nav.fursona" data-i18n-href="nav.fursonaHref">Fursona</a>
+        <a class="nav-link active" href="?lang=pl" data-i18n="nav.fursuit">Fursuit</a>
+      </nav>
+      <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme" data-i18n-aria-label="controls.themeToggle" data-i18n-title="controls.themeToggle"><i class="bi bi-sun-fill" id="theme-icon" aria-hidden="true"></i></button>
+    </header>
+    <main class="shell fursuit-content">
+      <section class="fursuit-welcome" aria-labelledby="fursuit-title">
+        <img id="fursuit-profile-image" src="assets/img/avatar.gif" alt="Fursuit nivipawbs" data-i18n-alt="fursuit.profileAlt" />
+        <div class="fursuit-welcome-copy">
+          <span class="eyebrow" data-i18n="fursuit.eyebrow">Poza internetem</span>
+          <h1 id="fursuit-title" data-i18n="fursuit.title">Mój fursuit</h1>
+          <p data-i18n="fursuit.greeting">A little fox in the wild &gt;w&lt;</p>
+          <div id="fursuit-social-links" class="fursuit-social-links" aria-label="Fursuit social profiles"></div>
+        </div>
+      </section>
+      <section class="fursuit-gallery-section" aria-labelledby="fursuit-gallery-title">
+        <div class="section-heading"><span class="eyebrow" data-i18n="fursuit.galleryEyebrow">Zdjęcia</span><h2 id="fursuit-gallery-title" data-i18n="fursuit.galleryTitle">Fursuit gallery</h2></div>
+        <div id="fursuit-gallery" class="fursuit-gallery" aria-live="polite"></div>
+      </section>
+    </main>
+    <footer class="site-footer shell">
+      <a class="wordmark footer-wordmark" href="../?lang=en" data-i18n-href="nav.homeHref">nivereq</a>
+      <p class="footer-copy">© <span id="year"></span> nivereq.cafe</p>
+      <div class="footer-tools">
+        <p class="footer-note" data-i18n="footer.note">made with ❤️ &amp; ☕</p>
+        <nav class="lang-switch" aria-label="Language" data-i18n-aria-label="navigation.language">
+          <a href="?lang=pl" data-lang="pl">PL</a><span aria-hidden="true">/</span><a href="?lang=en" data-lang="en">EN</a>
+        </nav>
+      </div>
+    </footer>
+    <div id="fursuit-viewer" class="fursuit-viewer" aria-hidden="true">
+      <button id="fursuit-viewer-close" class="modal-close" type="button" aria-label="Close image" data-i18n-aria-label="fursuit.closeImage"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      <div class="fursuit-viewer-content"><img id="fursuit-viewer-image" alt="" /><h2 id="fursuit-viewer-title"></h2><p id="fursuit-viewer-description"></p><a id="fursuit-viewer-source" target="_blank" rel="noopener noreferrer" hidden data-i18n="fursuit.openPost">Zobacz post</a></div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/Utility/themeSwitcher.js"></script>
+    <script src="js/Utility/fursuitGallery.js"></script>
+  </body>
+</html>

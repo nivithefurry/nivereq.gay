@@ -7,9 +7,12 @@ A bilingual personal website for nivereq, a creator, streamer, developer, photog
 - Static HTML and CSS
 - Vanilla JavaScript with shared Polish and English JSON dictionaries
 - Cloudflare Pages Functions for the Last.fm status and pat counter
+- Lanyard API for the home-page Discord avatar
 - Cloudflare Pages for hosting
 
 The static website has no build step; its deployable files are in `public/`, and `functions/` contains Pages Functions. The separate local art manager uses Node.js, documented below.
+
+The home-page avatar is refreshed from the Discord profile through Lanyard. The Discord account must join the [Lanyard server](https://discord.gg/lanyard) for its API to expose the profile; until then, the local `public/assets/img/avatar.gif` remains as the fallback.
 
 ## Local development
 
@@ -36,9 +39,15 @@ The gallery manager uses SQLite outside `public/`. See [art-manager/README.md](a
 The Pages Functions read these Cloudflare environment bindings:
 
 - `LASTFM_USER` and `LASTFM_KEY` for the Last.fm widget
-- `PAT_COUNTER` as the counter storage binding
+- `PAT_COUNTER` as the KV namespace for the pat counter
 
-Set these in the Cloudflare Pages project settings. Do not commit credentials.
+Set secrets and bindings in the Cloudflare Pages project settings. Do not commit credentials.
+
+Patting has no application rate limit. The Pages Function requires an `Origin` matching the site's origin and rejects missing or cross-origin requests. The global count is stored in KV under the `count` key.
+
+KV is eventually consistent and does not support atomic increment operations. If multiple pats update the same key concurrently, one update can overwrite another. KV also limits writes to the same key to one per second, so a burst may be rejected by the storage service. This setup uses only the existing Pages Function and KV binding; it does not require a separate Worker, Durable Object, or secret.
+
+Run the pat counter checks with `node tests/pat-counter.test.mjs` (Node.js 22.13+).
 
 ## Deployment
 

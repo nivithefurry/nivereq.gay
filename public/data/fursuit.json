@@ -1,0 +1,37 @@
+{
+  "profileImage": "/assets/fursuit/CbtUe9AfF5.jpg",
+  "socialLinks": [
+    {
+      "label": "TikTok",
+      "url": "https://www.tiktok.com/@nivipawbs"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/nivipawbs"
+    },
+    {
+      "label": "YouTube",
+      "url": "https://www.youtube.com/@nivipawbs"
+    }
+  ],
+  "photos": [
+    {
+      "id": "yPPysOscb2",
+      "src": "/assets/fursuit/yPPysOscb2.jpg",
+      "title": "fem fuzz >~<",
+      "description": "",
+      "author": "Kromek",
+      "post_url": "https://www.instagram.com/p/Dfmf2TvCDZx/",
+      "timestamp_added": 1794778893608
+    },
+    {
+      "id": "CbtUe9AfF5",
+      "src": "/assets/fursuit/CbtUe9AfF5.jpg",
+      "title": "silly :3",
+      "description": "",
+      "author": "Kromek",
+      "post_url": "",
+      "timestamp_added": 1794778571833
+    }
+  ]
+}

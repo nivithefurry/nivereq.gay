@@ -1,18 +1,20 @@
 <!doctype html>
-<html lang="pl">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <base href="../" />
     <script>
+      document.documentElement.classList.add("translations-pending");
       const siteRoot = window.location.pathname.startsWith("/public/") ? "/public/" : "/";
       window.siteRoot = siteRoot;
-      const savedTheme = localStorage.getItem("theme");
+      let savedTheme = null;
+      try { savedTheme = localStorage.getItem("theme"); } catch {}
       const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       document.documentElement.dataset.theme = savedTheme || (systemDark ? "dark" : "light");
     </script>
-    <title>nivereq.cafe • fursona</title>
-    <meta name="description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa. Ref sheet, paleta kolorów i podstawowe informacje." data-i18n-content="fursona.metaDescription" />
+    <title>nivereq — fursona</title>
+    <meta name="description" content="Meet nivereq's fursona, an arctic fox. Ref sheet, color palette, and basic information." data-i18n-content="fursona.metaDescription" />
     <meta name="author" content="nivereq" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://nivereq.cafe/fursona/" />
@@ -20,14 +22,14 @@
     <link rel="alternate" hreflang="en" href="https://nivereq.cafe/fursona/?lang=en" />
     <link rel="alternate" hreflang="x-default" href="https://nivereq.cafe/fursona/" />
     <meta property="og:title" content="nivereq — fursona" data-i18n-content="fursona.metaTitle" />
-    <meta property="og:description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa." data-i18n-content="fursona.metaDescription" />
+    <meta property="og:description" content="Meet nivereq's fursona, an arctic fox." data-i18n-content="fursona.metaDescription" />
     <meta property="og:image" content="https://nivereq.cafe/assets/img/nivereq_current_ref.jpg" />
     <meta property="og:url" content="https://nivereq.cafe/fursona/" />
     <meta property="og:type" content="profile" />
-    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="nivereq — fursona" data-i18n-content="fursona.metaTitle" />
-    <meta name="twitter:description" content="Poznaj fursonę nivereq'a, czyli arktycznego lisa." data-i18n-content="fursona.metaDescription" />
+    <meta name="twitter:description" content="Meet nivereq's fursona, an arctic fox." data-i18n-content="fursona.metaDescription" />
     <meta name="twitter:image" content="https://nivereq.cafe/assets/img/nivereq_current_ref.jpg" />
     <meta name="twitter:site" content="@nivithefurry" />
     <meta name="twitter:creator" content="@nivithefurry" />
@@ -140,6 +142,7 @@
       <nav class="primary-nav" aria-label="Primary navigation" data-i18n-aria-label="navigation.main">
         <a class="nav-link" href="../?lang=pl" data-i18n="nav.home" data-i18n-href="nav.homeHref">Start</a>
         <a class="nav-link active" href="?lang=pl" data-i18n="nav.fursona">Fursona</a>
+        <a class="nav-link" href="../fursuit/?lang=pl" data-i18n="nav.fursuit" data-i18n-href="nav.fursuitHref">Fursuit</a>
       </nav>
       <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme" data-i18n-aria-label="controls.themeToggle" data-i18n-title="controls.themeToggle">
         <i class="bi bi-sun-fill" id="theme-icon" aria-hidden="true"></i>

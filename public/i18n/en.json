@@ -3,7 +3,7 @@
     "title": "nivereq — streamer, creator and furry",
     "description": "Meet nivereq — a streamer, creator, developer and furry from Krakow."
   },
-  "nav": { "home": "Home", "fursona": "Fursona", "fursonaHref": "/fursona/?lang=en", "homeHref": "/?lang=en" },
+  "nav": { "home": "Home", "fursona": "Fursona", "fursuit": "Fursuit", "fursonaHref": "/fursona/?lang=en", "fursuitHref": "/fursuit/?lang=en", "homeHref": "/" },
   "controls": { "themeToggle": "Change color theme" },
   "hero": {
     "affiliation": "Part of Aethers Media Group",
@@ -23,6 +23,7 @@
     "basics": { "title": "The basics", "text": "I'm {age} and I live in Krakow." },
     "identity": { "title": "Identity", "text": "I'm bisexual." },
     "fursona": { "title": "Fursona", "text": "I'm a furry, and my fursona is an Arctic fox." },
+    "fursuiter": { "title": "Fursuiter", "text": "Check out fluff gallery!" },
     "style": { "title": "Style", "text": "I'm a femboy." },
     "relationship": { "title": "Relationship", "text": "Taken by my cutest kitty 🐈." },
     "music": { "title": "Music", "text": "My music taste is pure chaos — here's my playlist." },
@@ -67,6 +68,22 @@
     "artBy": "Art",
     "unknownArtist": "Unknown artist",
     "galleryError": "Could not load the art gallery."
+  },
+  "fursuit": {
+    "title": "My fursuit",
+    "metaDescription": "Photos of nivipawbs in fursuit at conventions and in everyday moments.",
+    "eyebrow": "Out of character",
+    "greeting": "A little fox in the wild >w<",
+    "profileAlt": "nivipawbs in fursuit",
+    "galleryEyebrow": "Photos",
+    "galleryTitle": "Fursuit gallery",
+    "empty": "The gallery is getting ready. Come back soon for fursuit photos!",
+    "error": "Could not load fursuit photos right now.",
+    "noDescription": "",
+    "openPost": "View original post",
+    "closeImage": "Close photo",
+    "photoAlt": "Fursuit photo",
+    "by": "Photo by"
   },
   "community": { "eyebrow": "Community" },
   "listening": { "eyebrow": "Listening now" },

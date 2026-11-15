@@ -1,0 +1,34 @@
+.fursuit-content { padding-top: clamp(38px, 6vw, 74px); padding-bottom: 100px; }
+.fursuit-welcome { display: flex; align-items: center; gap: clamp(18px, 4vw, 34px); max-width: 850px; margin: 0 auto clamp(56px, 8vw, 90px); padding: clamp(18px, 3vw, 28px); border: 1px solid var(--border); border-radius: 26px; background: var(--surface); box-shadow: var(--shadow-soft); }
+.fursuit-welcome > img { width: clamp(92px, 15vw, 142px); height: clamp(92px, 15vw, 142px); flex: 0 0 auto; border: 1px solid var(--border); border-radius: 22px; background: var(--surface-raised); object-fit: cover; }
+.fursuit-welcome-copy h1 { margin: 8px 0 0; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -.065em; line-height: 1.05; }
+.fursuit-welcome-copy > p { max-width: 580px; margin: 9px 0 0; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+.fursuit-social-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
+.fursuit-social-links a { display: inline-flex; min-height: 34px; align-items: center; gap: 7px; padding: 0 11px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-raised); color: var(--text); font-size: .75rem; font-weight: 600; text-decoration: none; transition: border-color 160ms ease, transform 160ms ease; }
+.fursuit-social-links a:hover { transform: translateY(-2px); border-color: var(--accent); }
+.fursuit-social-links i { color: var(--accent); }
+.fursuit-gallery-section { max-width: 1100px; margin-inline: auto; }
+.fursuit-gallery-section .section-heading { margin-bottom: 20px; }
+.fursuit-gallery-section h2 { margin: 9px 0 0; font-size: clamp(1.7rem, 3.5vw, 2.45rem); letter-spacing: -.06em; }
+.fursuit-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 18px; }
+.fursuit-photo-card { overflow: hidden; border: 1px solid var(--border); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow-card); transition: transform 180ms ease, box-shadow 180ms ease; }
+.fursuit-photo-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+.fursuit-photo-image { display: block; width: 100%; padding: 0; overflow: hidden; border: 0; border-radius: 0; background: var(--surface-raised); cursor: zoom-in; }
+.fursuit-photo-image img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: contain; transition: transform 260ms ease; }
+.fursuit-photo-image:hover img { transform: scale(1.015); }
+.fursuit-photo-copy { padding: 16px 18px 18px; }
+.fursuit-photo-copy h3 { margin: 0; font-size: 1rem; letter-spacing: -.025em; }
+.fursuit-photo-copy p { margin: 7px 0 0; color: var(--muted); font-size: .86rem; line-height: 1.55; white-space: pre-wrap; }
+.fursuit-photo-copy small { display: block; margin-top: 9px; color: var(--muted); font-size: .74rem; }
+.fursuit-photo-source { display: inline-flex; margin-top: 12px; color: var(--accent-strong); font-size: .78rem; font-weight: 650; text-decoration: none; }
+.fursuit-photo-source:hover { text-decoration: underline; }
+.fursuit-empty { grid-column: 1/-1; padding: 36px 20px; border: 1px dashed var(--border-strong); border-radius: 20px; color: var(--muted); text-align: center; }
+.fursuit-viewer { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 40px; background: rgba(6,11,9,.78); backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); opacity: 0; pointer-events: none; visibility: hidden; transform: scale(.99); transition: opacity 220ms ease, transform 320ms cubic-bezier(.2,.7,.2,1), backdrop-filter 320ms ease, -webkit-backdrop-filter 320ms ease, visibility 0s linear 320ms; }
+.fursuit-viewer.active { opacity: 1; pointer-events: auto; visibility: visible; transform: scale(1); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: opacity 220ms ease, transform 320ms cubic-bezier(.2,.7,.2,1), backdrop-filter 320ms ease, -webkit-backdrop-filter 320ms ease, visibility 0s; }
+.fursuit-viewer-content { display: grid; justify-items: center; gap: 13px; max-width: 95vw; max-height: 88vh; color: white; text-align: center; }
+.fursuit-viewer-content img { max-width: min(90vw, 1300px); max-height: 82vh; border-radius: 16px; object-fit: contain; box-shadow: 0 24px 75px rgba(0,0,0,.42); }
+.fursuit-viewer-content h2 { margin: 0; font-size: 1.1rem; }
+.fursuit-viewer-content p { max-width: 720px; margin: 0; color: rgba(255,255,255,.8); font-size: .86rem; }
+.fursuit-viewer-content a { color: #a6e4d6; font-size: .84rem; }
+@media (max-width: 600px) { .fursuit-content { padding-top: 28px; }.fursuit-welcome { align-items: flex-start; gap: 14px; margin-bottom: 55px; padding: 15px; border-radius: 21px; }.fursuit-welcome > img { width: 78px; height: 78px; border-radius: 17px; }.fursuit-welcome-copy h1 { font-size: 1.65rem; }.fursuit-welcome-copy > p { font-size: .84rem; }.fursuit-social-links { gap: 6px; }.fursuit-social-links a { min-height: 31px; padding-inline: 9px; font-size: .7rem; }.fursuit-gallery { grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 12px; }.fursuit-viewer { padding: 20px; } }
+@media (prefers-reduced-motion: reduce) { .fursuit-viewer, .fursuit-viewer.active { transition-duration: .01ms; } }

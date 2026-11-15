@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nivereq-pat-counter",
+  "main": "index.mjs",
+  "compatibility_date": "2026-11-09",
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "PAT_COUNTER",
+        "class_name": "PatCounter"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["PatCounter"]
+    }
+  ]
+}
