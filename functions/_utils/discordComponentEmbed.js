@@ -2,10 +2,13 @@ function responseUnavailable() {
   return new Response("Page unavailable", { status: 503 });
 }
 
-function makePayload(locale, origin, artwork) {
+function makePayload(locale, origin, photo) {
   const aboutPath = locale === "pl" ? "/pl#about" : "/en#about";
   const fursonaPath = `/fursona/?lang=${locale}`;
   const fursuitPath = `/fursuit/?lang=${locale}`;
+  const description = locale === "pl"
+    ? "Streamer, twórca i futrzak. Zajrzyj do mojej fursony i galerii zdjęć z fursuitem."
+    : "Streamer, creator and furry. Explore my fursona and fursuit photo gallery.";
   const buttons = locale === "pl"
     ? [{ label: "O mnie", url: aboutPath }, { label: "Fursona", url: fursonaPath }, { label: "Fursuit", url: fursuitPath }]
     : [{ label: "About me", url: aboutPath }, { label: "Fursona", url: fursonaPath }, { label: "Fursuit", url: fursuitPath }];
@@ -15,8 +18,19 @@ function makePayload(locale, origin, artwork) {
       type: 17,
       accent_color: 8895669,
       components: [
-        { type: 10, content: "# nivereq" },
-        { type: 12, items: [{ media: { url: new URL(artwork.src, origin).href } }] },
+        {
+          type: 9,
+          components: [
+            { type: 10, content: "# nivereq" },
+            { type: 10, content: description },
+          ],
+          accessory: {
+            type: 11,
+            media: { url: new URL(photo.src, origin).href },
+            description: "Latest fursuit photo",
+          },
+        },
+        { type: 14, divider: true, spacing: 1 },
         {
           type: 1,
           components: buttons.map(({ label, url }) => ({
@@ -31,18 +45,19 @@ function makePayload(locale, origin, artwork) {
   };
 }
 
-async function readLatestArtwork(assets, requestUrl) {
-  const response = await assets.fetch(new URL("/data/arts.json", requestUrl));
-  if (!response.ok) throw new Error("Artwork list unavailable.");
-  const artworks = await response.json();
-  if (!Array.isArray(artworks)) throw new Error("Artwork list is invalid.");
-
-  const latest = artworks
-    .filter((artwork) => typeof artwork?.src === "string" && Number.isFinite(Number(artwork.timestamp_added)))
+async function readLatestFursuitPhoto(assets, requestUrl) {
+  const response = await assets.fetch(new URL("/data/fursuit.json", requestUrl));
+  if (!response.ok) throw new Error("Fursuit gallery data unavailable.");
+  const gallery = await response.json();
+  const latest = (Array.isArray(gallery?.photos) ? gallery.photos : [])
+    .filter((photo) => typeof photo?.src === "string" && photo.src.startsWith("/assets/fursuit/") && Number.isFinite(Number(photo.timestamp_added)))
     .sort((first, second) => Number(second.timestamp_added) - Number(first.timestamp_added))[0];
+  if (latest) return latest;
 
-  if (!latest) throw new Error("No artwork is available.");
-  return latest;
+  if (typeof gallery?.profileImage === "string" && gallery.profileImage.startsWith("/assets/fursuit/")) {
+    return { src: gallery.profileImage };
+  }
+  throw new Error("No fursuit photo is available.");
 }
 
 export async function renderHomePage(context, locale) {
@@ -51,11 +66,11 @@ export async function renderHomePage(context, locale) {
   const assets = env.ASSETS;
   if (!assets) return responseUnavailable();
 
-  let latestArtwork;
+  let latestPhoto;
   try {
-    latestArtwork = await readLatestArtwork(assets, request.url);
+    latestPhoto = await readLatestFursuitPhoto(assets, request.url);
   } catch {
-    latestArtwork = { src: "/assets/img/avatar.gif" };
+    latestPhoto = { src: "/assets/img/avatar.gif" };
   }
 
   const html = await assets.fetch(new URL("/", request.url));
@@ -65,12 +80,12 @@ export async function renderHomePage(context, locale) {
     ? "nivereq — streamer, twórca i futrzak"
     : "nivereq — streamer, creator and furry";
   const pageDescription = locale === "pl"
-    ? "nivereq — streamer, twórca, fotograf i futrzak z Krakowa."
-    : "nivereq — streamer, creator, photographer and furry from Krakow.";
+    ? "Streamer, twórca i futrzak. Zajrzyj do mojej fursony i galerii zdjęć z fursuitem."
+    : "Streamer, creator and furry. Explore my fursona and fursuit photo gallery.";
   const canonical = locale === "pl" ? `${url.origin}/pl` : `${url.origin}/`;
   const pageUrl = `${url.origin}${url.pathname}`;
-  const imageUrl = new URL(latestArtwork.src, url.origin).href;
-  const payload = makePayload(locale, url.origin, latestArtwork);
+  const imageUrl = new URL(latestPhoto.src, url.origin).href;
+  const payload = makePayload(locale, url.origin, latestPhoto);
   const payloadText = JSON.stringify(payload).replace(/</g, "\\u003c");
 
   return new HTMLRewriter()
